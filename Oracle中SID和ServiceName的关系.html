@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	Oracle中maven pom jdbc的url的 单机写法 和 双机写法 - xuzhihua blog
+  	Oracle中 SID 与 ServiceName的渊缘 - xuzhihua blog
   	
 	</title>
 
@@ -124,76 +124,47 @@
 			<div class="mid-col-container"> <div id="content" class="inner">
 
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">Oracle中maven pom jdbc的url的 单机写法 和 双机写法</h1>
+		<h1 class="title" itemprop="name">Oracle中 SID 与 ServiceName的渊缘</h1>
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
-<p>介绍 SID ServerName的区别<br/>
-以及 RAC 方式</p>
+<p>介绍 SID ServiceName的关系</p>
 </blockquote>
 
 <span id="more"></span><!-- more -->
 
 <ul>
 <li>
-<a href="#toc_0">普通SID方式</a>
+<a href="#toc_0">起因</a>
 </li>
 <li>
-<a href="#toc_1">普通ServerName方式</a>
+<a href="#toc_1">SID</a>
 </li>
 <li>
-<a href="#toc_2">RAC方式  双击写法</a>
+<a href="#toc_2">ServiceName</a>
 </li>
 </ul>
 
 
-<h2 id="toc_0">普通SID方式</h2>
+<h2 id="toc_0">起因</h2>
 
-<p>SID是实例名，实例名指的是用于响应某个数据库操作的数据库管理系统的名称。实例名是由初始化参数文件的参数instance_name决定的。如果这个参数不被指定(即instance_name没有被指定为任何值)，那么实例的名字由该用户的环境变量ORACLE_SID（注意这里是大写）决定</p>
+<p>使用 Navicate Premium 创建新的oracle连接时，看到有 SID和Service Name 选项，不了解，故做如下搜索<br/>
+<img src="media/15009828415835/15009880607722.jpg" alt="" style="width:504px;"/></p>
 
-<pre><code>jdbc:oracle:thin:username/password@x.x.x.1:1521:SID
-</code></pre>
+<h2 id="toc_1">SID</h2>
 
-<h2 id="toc_1">普通ServerName方式</h2>
+<ol>
+<li>SID是实例名，实例名指的是用于响应某个数据库操作的数据库管理系统的名称</li>
+<li>实例名是由初始化参数文件的参数instance_name决定的。如果这个参数不被指定(即instance_name没有被指定为任何值)，那么实例的名字由该用户的环境变量ORACLE_SID（注意这里是大写）决定</li>
+<li>SID是唯一标识你数据库的实例名称，用来登录你标识的数据库</li>
+</ol>
 
-<p>SERVICE_NAME指的是listener中的全局数据库名：这个名字是由listener.ora中GLOBAL_DBNAME参数决定的。这个名字代表的是客户端连接到数据库时，tnsnames.ora中SERVICE_NAME参数所对应的值<br/>
-<code><br/>
-jdbc:Oracle:thin:username/password@//x.x.x.1:1522/ABCD<br/>
-</code></p>
+<h2 id="toc_2">ServiceName</h2>
 
-<h2 id="toc_2">RAC方式  双击写法</h2>
-
-<pre><code>jdbc:oracle:thin:@(DESCRIPTION=
-(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=x.x.x.1)(PORT=1521))
-(ADDRESS=(PROTOCOL=TCP)(HOST=x.x.x.2)(PORT=1521)))
-(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xxrac)))
-</code></pre>
-
-<blockquote>
-<p>RAC全称real application clusters，译为“实时应用集群”，即两台主机采取双机互备模式，共同采用相同的共享存储，能够实现用户在两台机器上访问的负载均衡。当一台主机出现问题（DOWN机等）时，后台应用会被透明切换至另一台主机，这种机制对于一些7*24小时的业务比较常用到。</p>
-
-<pre><code>1. 项目中的单机模式(pom.xml)
-</code></pre>
-
-<pre><code class="language-maven">&lt;jdbc.url&gt;
-jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP
-(HOST=192.168.121.189)(PORT=1521))(ADDRESS=(PROTOCOL=TCP
-(HOST=192.168.121.191)(PORT=1521))(LOAD_BALANCE=no
-(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=d4cwf
-(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))
-&lt;/jdbc.url&gt;                
-</code></pre>
-
-<pre><code>2. 项目中的双机模式(pom.xml)
-</code></pre>
-
-<pre><code class="language-maven">&lt;jdbc.url&gt;
-jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.121.189
-(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.121.191)(PORT=1521)
-(LOAD_BALANCE=no)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=d4cwf
-(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))
-&lt;/jdbc.url&gt;          
-</code></pre>
-</blockquote>
+<ol>
+<li>SERVICE_NAME指的是listener中的全局数据库名：这个名字是由listener.ora中GLOBAL_DBNAME参数决定的。这个名字代表的是客户端连接到数据库时，tnsnames.ora中SERVICE_NAME参数所对应的值</li>
+<li>ServiceName主要是客户端连接DB的，通过客户端的Tnsnames.ora文件设置的</li>
+<li>Service_name：该参数是由oracle8i引进的。在8i以前，使用SID来表示标识数据库的一个实例，但是在Oracle的并行环境中，一个数据库对应多个实例，这样就需要多个网络服务名，设置繁琐。为了方便并行环境中的设置，引进了Service_name参数，该参数对应一个数据库，而不是一个实例，而且该参数有许多其它的好处。该参数的缺省值为Db_name. Db_domain，即等于Global_name。一个数据库可以对应多个Service_name，以便实现更灵活的配置。该参数与SID没有直接关系，即不必Service name 必须与SID一样</li>
+</ol>
 
 		</div>
 	</article>
