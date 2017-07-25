@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	Archives - xuzhihua blog
+  	Oracle中maven pom jdbc的url的 单机写法 和 双机写法 - xuzhihua blog
   	
 	</title>
 
@@ -122,90 +122,88 @@
 		</div>	
 		<div class="mid-col">
 			<div class="mid-col-container"> <div id="content" class="inner">
-	<div itemscope itemtype="http://schema.org/Blog">
-		<section class="archives">
 
-		
-			 
-			  	<h1 style="top: auto;" class="year">2017</h1>
-			
-			
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">Oracle中maven pom jdbc的url的 单机写法 和 双机写法</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>介绍 SID ServerName的区别<br/>
+以及 RAC 方式</p>
+</blockquote>
 
-				<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-					<div class="meta">
-						<span class="date"><time datetime="2017-07-25T19:40:41+08:00" itemprop="datePublished">Jul 25</time></span>
-						<br>
-						 
-						<span class="tags">posted in 
-						
-						    <a class='category' href='Oracle.html'>Oracle</a>&nbsp;
-						 
-						</span>
-					    
-					</div>
-					<h1 class="title" itemprop="name"><a href="Oracle%E4%B8%ADmaven-pom-jdbc%E7%9A%84url%E7%9A%84%E5%8D%95%E6%9C%BA%E5%86%99%E6%B3%95%E5%92%8C%E5%8F%8C%E6%9C%BA%E5%86%99%E6%B3%95.html">
-					Oracle中maven pom jdbc的url的 单机写法 和 双机写法</a></h1>
-				</article>
-	 	
-			
-			
+<span id="more"></span><!-- more -->
 
-				<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-					<div class="meta">
-						<span class="date"><time datetime="2017-07-25T18:09:32+08:00" itemprop="datePublished">Jul 25</time></span>
-						<br>
-						 
-						<span class="tags">posted in 
-						
-						    <a class='category' href='Oracle.html'>Oracle</a>&nbsp;
-						 
-						</span>
-					    
-					</div>
-					<h1 class="title" itemprop="name"><a href="connect-by-prior-start-with-%E5%AE%9E%E7%8E%B0%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2.html">
-					connect by prior start with 实现递归查询</a></h1>
-				</article>
-	 	
-			
-			
+<ul>
+<li>
+<a href="#toc_0">普通SID方式</a>
+</li>
+<li>
+<a href="#toc_1">普通ServerName方式</a>
+</li>
+<li>
+<a href="#toc_2">RAC方式  双击写法</a>
+</li>
+</ul>
 
-				<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-					<div class="meta">
-						<span class="date"><time datetime="2017-07-25T11:54:24+08:00" itemprop="datePublished">Jul 25</time></span>
-						<br>
-						 
-						<span class="tags">posted in 
-						
-						    <a class='category' href='MWeb.html'>MWeb</a>&nbsp;
-						 
-						</span>
-					    
-					</div>
-					<h1 class="title" itemprop="name"><a href="Markdown-syntax-guide-and-writing-on-MWeb.html">
-					Markdown syntax guide and writing on MWeb</a></h1>
-				</article>
-	 	
-			
-			
 
-				<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-					<div class="meta">
-						<span class="date"><time datetime="2017-07-25T11:54:24+08:00" itemprop="datePublished">Jul 25</time></span>
-						<br>
-						 
-						<span class="tags">posted in 
-						
-						    <a class='category' href='MWeb.html'>MWeb</a>&nbsp;
-						 
-						</span>
-					    
-					</div>
-					<h1 class="title" itemprop="name"><a href="Welcome-to-MWeb.html">
-					Welcome to MWeb</a></h1>
-				</article>
-	 	
+<h2 id="toc_0">普通SID方式</h2>
 
-	  </section>
+<p>SID是实例名，实例名指的是用于响应某个数据库操作的数据库管理系统的名称。实例名是由初始化参数文件的参数instance_name决定的。如果这个参数不被指定(即instance_name没有被指定为任何值)，那么实例的名字由该用户的环境变量ORACLE_SID（注意这里是大写）决定</p>
+
+<pre><code>jdbc:oracle:thin:username/password@x.x.x.1:1521:SID
+</code></pre>
+
+<h2 id="toc_1">普通ServerName方式</h2>
+
+<p>SERVICE_NAME指的是listener中的全局数据库名：这个名字是由listener.ora中GLOBAL_DBNAME参数决定的。这个名字代表的是客户端连接到数据库时，tnsnames.ora中SERVICE_NAME参数所对应的值<br/>
+<code><br/>
+jdbc:Oracle:thin:username/password@//x.x.x.1:1522/ABCD<br/>
+</code></p>
+
+<h2 id="toc_2">RAC方式  双击写法</h2>
+
+<pre><code>jdbc:oracle:thin:@(DESCRIPTION=
+(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=x.x.x.1)(PORT=1521))
+(ADDRESS=(PROTOCOL=TCP)(HOST=x.x.x.2)(PORT=1521)))
+(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=xxrac)))
+</code></pre>
+
+<blockquote>
+<p>RAC全称real application clusters，译为“实时应用集群”，即两台主机采取双机互备模式，共同采用相同的共享存储，能够实现用户在两台机器上访问的负载均衡。当一台主机出现问题（DOWN机等）时，后台应用会被透明切换至另一台主机，这种机制对于一些7*24小时的业务比较常用到。</p>
+
+<pre><code>1. 项目中的单机模式(pom.xml)
+</code></pre>
+
+<pre><code class="language-maven">&lt;jdbc.url&gt;
+jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP
+(HOST=192.168.121.189)(PORT=1521))(ADDRESS=(PROTOCOL=TCP
+(HOST=192.168.121.191)(PORT=1521))(LOAD_BALANCE=no
+(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=d4cwf
+(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))
+&lt;/jdbc.url&gt;                
+</code></pre>
+
+<pre><code>2. 项目中的双机模式(pom.xml)
+</code></pre>
+
+<pre><code class="language-maven">&lt;jdbc.url&gt;
+jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.121.189
+(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.121.191)(PORT=1521)
+(LOAD_BALANCE=no)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=d4cwf
+(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))
+&lt;/jdbc.url&gt;          
+</code></pre>
+</blockquote>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
 	</div>
 </div>        </div>
 			<footer id="footer" class="inner">Copyright &copy; 2014
