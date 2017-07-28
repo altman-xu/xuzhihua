@@ -149,6 +149,9 @@
 <li>
 <a href="#toc_3">定时熄屏</a>
 </li>
+<li>
+<a href="#toc_4">设置dock自动隐藏 显示出来的延迟时间</a>
+</li>
 </ul>
 
 
@@ -212,6 +215,15 @@ png格式文件占用空间大，jpg的小</p>
 // CTRL+C 退出
 caffeinate -u -t 7200
 // 7200秒后熄屏
+</code></pre>
+
+<h2 id="toc_4">设置dock自动隐藏 显示出来的延迟时间</h2>
+
+<p>terminal:</p>
+
+<pre><code class="language-zsh">defaults write com.app.dock autohide-time-modifier -int 0
+// 设置延迟时间为 0（或其他数值）
+killall Dock
 </code></pre>
 
 		</div>
