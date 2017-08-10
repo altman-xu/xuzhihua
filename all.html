@@ -93,9 +93,11 @@
 						
 						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
 						
-						  <li id=""><a target="_self" href="Video.html">Video</a></li>
-						
 						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
 						
 						</ul>
 					</nav>
@@ -129,6 +131,165 @@
 <div itemscope itemtype="http://schema.org/Blog">
 
 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="2017-08-10T17:08:35+08:00" itemprop="datePublished">2017/8/10</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='JavaScript.html'>JavaScript</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="ie8%E5%85%BC%E5%AE%B9-%E4%BF%AE%E6%94%B9jquery%E6%BA%90%E7%A0%81.html" itemprop="url">
+		ie8兼容-修改jquery源码</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<blockquote>
+<p>做项目的时候遇到一个奇怪的ie8兼容问题，在谷歌或ie11都完全是正常的<br/>
+参考网站 <a href="https://forum.jquery.com/topic/elem-ownerdocument-defaultview-breaks-when-elem-iframe-document">elem.ownerDocument.defaultView breaks when elem == (iframe) document</a><br/>
+&lt;!-- more --&gt;</p>
+</blockquote>
+
+<ul>
+<li>
+<a href="#toc_0">背景</a>
+</li>
+<li>
+<a href="#toc_1">报错内容</a>
+</li>
+<li>
+<a href="#toc_2">解决办法</a>
+</li>
+<li>
+<a href="#toc_3">思路</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">背景</h2>
+
+<ol>
+<li>jquery 版本：jQuery v1.11.2</li>
+<li>报错浏览器 ie8 运行于win7虚拟机中</li>
+</ol>
+
+<h2 id="toc_1">报错内容</h2>
+
+<ol>
+<li><p>修改前的页面，在网页左下角看到报错，双击打开</p>
+
+<p><img src="media/15023561158711/15023572296267.jpg" alt="" style="width:1326px;"/></p></li>
+<li><p>F12，点到 <code>Script</code> 重刷页面，报错内容如下</p>
+
+<p><img src="media/15023561158711/15023564848662.jpg" alt="" style="width:1022px;"/></p></li>
+</ol>
+
+<h2 id="toc_2">解决办法</h2>
+
+<blockquote>
+<p>冥思苦想了许久</p>
+</blockquote>
+
+<ol>
+<li>打开项目的这个 jquery.mini.js(我是使用idea)</li>
+<li><code>CMD+F</code> 搜索 ownerDocument.defaultView</li>
+<li><p>原始代码:</p>
+
+<p><img src="media/15023561158711/15023567890556.jpg" alt="" style="width:1438px;"/></p></li>
+<li><p>加入如下代码:</p>
+
+<pre><code class="language-javascript">var ownerDocument = b.ownerDocument;
+if ( !ownerDocument) {
+    return null;
+}
+var defaultView = ownerDocument.defaultView;
+if ( !defaultView ) {
+    return null;
+}
+</code></pre></li>
+<li><p>修改后的代码:</p>
+
+<p><img src="media/15023561158711/15023569441212.jpg" alt="" style="width:1435px;"/></p></li>
+<li><p>修改后的界面:</p>
+
+<p><img src="media/15023561158711/15023571542023.jpg" alt="" style="width:1326px;"/></p></li>
+</ol>
+
+<h2 id="toc_3">思路</h2>
+
+<blockquote>
+<p>之前一直以为是哪里的js代码写得有问题，<br/>
+其实看报错，发现这种 空 异常，检查哪里出问题，直接抛出</p>
+</blockquote>
+
+
+			
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="2017-08-10T17:00:03+08:00" itemprop="datePublished">2017/8/10</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='JavaScript.html'>JavaScript</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="js%E9%97%AE%E9%A2%98%E5%B0%8F%E8%AE%A1.html" itemprop="url">
+		js问题小计</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<blockquote>
+<p>js问题小计</p>
+</blockquote>
+
+
+
+			 
+			<a href="js%E9%97%AE%E9%A2%98%E5%B0%8F%E8%AE%A1.html#more" class="more-link">Read on &rarr;</a>
+    		
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="2017-08-06T23:11:32+08:00" itemprop="datePublished">2017/8/6</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='Oracle.html'>Oracle</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="15020322921235.html" itemprop="url">
+		oracle的闪回技术解释</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<blockquote>
+<p><a href="http://blog.csdn.net/heng_ji/article/details/17968279">Oracle 闪回功能详解</a><br/>
+<a href="http://www.cnblogs.com/chengxiao/p/5860823.html">Oracle 闪回技术详解</a></p>
+</blockquote>
+
+
+
+			 
+			<a href="15020322921235.html#more" class="more-link">Read on &rarr;</a>
+    		
+			
+		</div>
+
+	</article>
+ 
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
@@ -270,94 +431,6 @@ Dual伪列介绍</p>
 
 			 
 			<a href="ReadHistory.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2017-07-25T21:16:37+08:00" itemprop="datePublished">2017/7/25</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Oracle.html'>Oracle</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="Oracle%E9%9B%86%E7%BE%A4%E4%BA%A7%E5%93%81RAC.html" itemprop="url">
-		Oracle集群产品RAC</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>了解 集群产品 RAC 的特点 与 劣势</p>
-</blockquote>
-
-
-
-			 
-			<a href="Oracle%E9%9B%86%E7%BE%A4%E4%BA%A7%E5%93%81RAC.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2017-07-25T19:40:41+08:00" itemprop="datePublished">2017/7/25</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Oracle.html'>Oracle</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="Oracle%E4%B8%ADSID%E5%92%8CServiceName%E7%9A%84%E5%85%B3%E7%B3%BB.html" itemprop="url">
-		Oracle中 SID 与 ServiceName的渊缘</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>介绍 SID ServiceName的关系</p>
-</blockquote>
-
-
-
-			 
-			<a href="Oracle%E4%B8%ADSID%E5%92%8CServiceName%E7%9A%84%E5%85%B3%E7%B3%BB.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2017-07-25T18:09:32+08:00" itemprop="datePublished">2017/7/25</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Oracle.html'>Oracle</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="connect-by-prior-start-with-%E5%AE%9E%E7%8E%B0%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2.html" itemprop="url">
-		connect by prior start with 实现递归查询</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>有一个组织表 org， 子组织的 parent_id = 父组织的 id<br/>
-想实现递归查找某个组织下的所有自组织</p>
-</blockquote>
-
-
-
-			 
-			<a href="connect-by-prior-start-with-%E5%AE%9E%E7%8E%B0%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
