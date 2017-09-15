@@ -134,6 +134,173 @@
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
+				<time datetime="2017-08-16T19:59:49+08:00" itemprop="datePublished">2017/8/16</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='Mac.html'>Mac</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="15028847890136.html" itemprop="url">
+		seque test</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<ul>
+<li>
+<a href="#toc_0">sequence</a>
+<ul>
+<li>
+<a href="#toc_1">1. example</a>
+</li>
+<li>
+<a href="#toc_2">2. normal|dash LINE, normal|open ARROW</a>
+</li>
+<li>
+<a href="#toc_3">3. note</a>
+</li>
+<li>
+<a href="#toc_4">4. participant</a>
+</li>
+<li>
+<a href="#toc_5">5. test xu</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_6">flow</a>
+<ul>
+<li>
+<a href="#toc_7">1. example 1</a>
+</li>
+<li>
+<a href="#toc_8">2. example 2</a>
+</li>
+<li>
+<a href="#toc_9">3. test xu</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="toc_0">sequence</h2>
+
+<p>js-sequence-diagrams<br/>
+Turns text into UML sequence diagrams</p>
+
+<h3 id="toc_1">1. example</h3>
+
+<pre><code class="language-sequence">Andrew-&gt;China: Says Hello
+Note left of Andrew: China thinks about it
+Note right of China: China thinks about it
+China--&gt;Andrew: How are you?
+Andrew-&gt;&gt;China: I am good thanks!
+</code></pre>
+
+<h3 id="toc_2">2. normal|dash LINE, normal|open ARROW</h3>
+
+<pre><code class="language-sequence">Title: Here is a title
+A-&gt;B: Normal line
+B--&gt;C: Dashed line
+C-&gt;&gt;D: Open arrow
+D--&gt;&gt;A: Dashed open arrow
+
+</code></pre>
+
+<h3 id="toc_3">3. note</h3>
+
+<pre><code class="language-sequence">Note left of A: Note to the\n left of A
+Note right of A: Note to the\n right of A
+Note over A: Note over A
+Note over A,B: Note over both A and B
+
+</code></pre>
+
+<h3 id="toc_4">4. participant</h3>
+
+<pre><code class="language-sequence">participant C
+participant B
+participant A
+Note right of A: By listing the participants\n you can change their order
+</code></pre>
+
+<h3 id="toc_5">5. test xu</h3>
+
+<pre><code class="language-sequence">A-&gt;B:hello world
+B--&gt;A:fuck you
+B--C: test you
+C--&gt;&gt;A:hello you 
+
+
+</code></pre>
+
+<h2 id="toc_6">flow</h2>
+
+<h3 id="toc_7">1. example 1</h3>
+
+<pre><code class="language-flow">st=&gt;start: Start:&gt;http://www.google.com[blank]
+e=&gt;end:&gt;http://www.google.com
+op1=&gt;operation: My Operation
+sub1=&gt;subroutine: My Subroutine
+cond=&gt;condition: Yes
+or No?:&gt;http://www.google.com
+io=&gt;inputoutput: catch something...
+    
+st-&gt;op1-&gt;cond
+cond(yes)-&gt;io-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op1
+</code></pre>
+
+<h3 id="toc_8">2. example 2</h3>
+
+<pre><code class="language-flow">st=&gt;start: Start|past:&gt;http://www.google.com[blank]
+e=&gt;end: End|future:&gt;http://www.google.com
+op1=&gt;operation: My Operation|past
+op2=&gt;operation: Stuff|current
+sub1=&gt;subroutine: My Subroutine|invalid
+cond=&gt;condition: Yes
+or No?|approved:&gt;http://www.google.com
+c2=&gt;condition: Good idea|rejected
+io=&gt;inputoutput: catch something...|future
+
+st-&gt;op1(right)-&gt;cond
+cond(yes, right)-&gt;c2
+cond(no)-&gt;sub1(left)-&gt;op1
+c2(yes)-&gt;io-&gt;e
+c2(no)-&gt;op2-&gt;e
+</code></pre>
+
+<h3 id="toc_9">3. test xu</h3>
+
+<pre><code class="language-flow">st=&gt;start: Start|past:&gt;http://www.google.com[blank]
+e=&gt;end: End|future:&gt;http://www.google.com
+op1=&gt;operation: 1
+op2=&gt;operation: 2
+sub1=&gt;subroutine: 3
+c1=&gt;condition: 4
+c2=&gt;condition: 5
+io1=&gt;inputoutput: 6
+
+st-&gt;op1(right)-&gt;c1
+c1(yes, right)-&gt;c2
+c1(no)-&gt;sub1(left)-&gt;op1
+c2(yes)-&gt;io1-&gt;e
+c2(no)-&gt;op2-&gt;e
+
+
+</code></pre>
+
+
+			
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
 				<time datetime="2017-08-10T17:08:35+08:00" itemprop="datePublished">2017/8/10</time>
 			</div>
 			<div class="tags">posted in 
@@ -332,35 +499,6 @@ Dual伪列介绍</p>
 
 			 
 			<a href="Happy-Video.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2017-07-25T21:33:39+08:00" itemprop="datePublished">2017/7/25</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Read.html'>Read</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="ReadHistory.html" itemprop="url">
-		ReadHistory</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>阅读历史，从201706开始记录</p>
-</blockquote>
-
-
-
-			 
-			<a href="ReadHistory.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
