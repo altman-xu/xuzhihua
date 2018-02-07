@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	oracle-多表关联更新 - xuzhihua blog
+  	NetWork - xuzhihua blog
   	
 	</title>
 
@@ -132,91 +132,53 @@
 		</div>	
 		<div class="mid-col">
 			<div class="mid-col-container"> <div id="content" class="inner">
-
-	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">oracle-多表关联更新</h1>
-		<div class="entry-content" itemprop="articleBody">
-			<blockquote>
-<p>将一个表a的字段aField更新到另一个表b的字段bField上，<br/>
-两个表通过 a.b_id = b.id 关联</p>
-</blockquote>
-
-<span id="more"></span><!-- more -->
-
-<ul>
-<li>
-<a href="#toc_0">单表更新</a>
-</li>
-<li>
-<a href="#toc_1">多表更新</a>
-</li>
-<li>
-<a href="#toc_2">多表更新 项目例子</a>
-</li>
-</ul>
+<div itemscope itemtype="http://schema.org/Blog">
 
 
-<h2 id="toc_0">单表更新</h2>
-
-<pre><code class="language-sql">UPDATE STUDENTS
-SET    
-       EMPLOYEE_ID_FK       = &#39;3789&#39;  ,
-       GENDER_CODE          = &#39;F&#39;  ,
-       MARITAL_STATUS_CODE  = &#39;M&#39;  
-WHERE  STUDENT_ID = 11
-</code></pre>
-
-<h2 id="toc_1">多表更新</h2>
-
-<pre><code class="language-sql">-- 方法1.
-UPDATE  表2
-SET
-    表2.C  = ( SELECT  B  FROM  表1  WHERE   表1.A = 表2.A )
-WHERE
-    EXISTS ( SELECT 1 FROM   表1  WHERE   表1.A = 表2.A )
-  
--- 方法2
-MERGE INTO 表2 
-USING 表1
-ON ( 表2.A = 表1.A )    -- 条件是 A 相同
-WHEN MATCHED THEN UPDATE SET 表2.C = 表1.B   -- 匹配的时候，更新
-</code></pre>
-
-<h2 id="toc_2">多表更新 项目例子</h2>
-
-<p>将 budet_project 表中 begin_time 的 年份 更新到 budget_project_detail 表中 的 budget_set_str</p>
-
-<blockquote>
-<p>注: oracle 多表更新时 不支持 内联操作 <code>left join</code></p>
-</blockquote>
-
-<pre><code class="language-sql">-- 20170806：将活动主单 begin_time 的年份 更新到 子单的 budget_set_str
-update BUDGET_PROJCET_DETAIL bpd
-set bpd.budget_set_str = (
-    -- 此处 begin_time 是 date 类型字段，需要 用 to_char 转出 字符
-    -- 或 substr(to_char(bp.begin_time,&#39;yyyy-mm-dd,hh24:mi:ss&#39;),0,4) --将开始时间转成字符串 再对字符串进行截取
-    select to_char(bp.begin_time,&#39;yyyy&#39;) from budget_project bp 
-    where bpd.budget_project_id = bp.id
-    )
--- 需要加上下面这个 exists 判断，否则 上部分sql执行的结果数量 大于 全部sql执行的结果数量
-where exists (
-    select 1 from  budget_project bp
-    where bpd.budget_project_id = bp.id
-)
-;
-</code></pre>
-
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="2018-02-07T17:47:14+08:00" itemprop="datePublished">2018/2/7</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='NetWork.html'>NetWork</a>&nbsp;
+			 
+			</div>
 		</div>
+		<h1 class="title" itemprop="name"><a href="OSI%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B%20%E4%B8%8E%20TCP/IP%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B.html" itemprop="url">
+		OSI七层协议模型 与 TCP/IP四层模型</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<blockquote>
+<p>转自 <a href="http://blog.csdn.net/guoguo527/article/details/52078962"> OSI七层协议模型、TCP/IP四层模型学习笔记</a><br/>
+转自<a href="http://blog.csdn.net/jesons_/article/details/51872307">TCP/IP四层协议模型与ISO七层模型（TCP/IP系统学习（2））</a></p>
+</blockquote>
+
+
+
+			 
+			<a href="OSI%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B%20%E4%B8%8E%20TCP/IP%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B.html#more" class="more-link">Read on &rarr;</a>
+    		
+			
+		</div>
+
 	</article>
-	<div class="share-comment">
+  
+
+</div>
+<nav id="pagenavi">
 	 
+	
+	<div class="center"><a href="archives.html">Blog Archives</a></div>
 
-	  
+</nav>
 
-	  
+</div>
 
-	</div>
-</div>        </div>
+
+
+        </div>
 			<footer id="footer" class="inner">Copyright &copy; 2014
 Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
 Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
