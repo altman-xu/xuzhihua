@@ -134,6 +134,57 @@
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
+				<time datetime="2018-02-07T15:54:29+08:00" itemprop="datePublished">2018/2/7</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='Java.html'>Java</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="Java%E4%B8%AD%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B.html" itemprop="url">
+		Java中生产者消费者模型</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<blockquote>
+<p>生产者消费者问题是研究多线程程序时绕不开的经典问题之一，<br/>
+它描述是有一块缓冲区作为仓库，生产者可以将产品放入仓库，消费者则可以从仓库中取走产品。<br/>
+解决生产者/消费者问题的方法可分为两类:</p>
+
+<ol>
+<li>采用某种机制保护生产者和消费者之间的同步；</li>
+<li>在生产者和消费者之间建立一个管道。</li>
+</ol>
+
+<p>第一种方式有较高的效率，并且易于实现，代码的可控制性较好，属于常用的模式。<br/>
+第二种管道缓冲区不易控制，被传输数据对象不易于封装等，实用性不强。<br/>
+同步问题核心在于：如何保证同一资源被多个线程并发访问时的完整性。<br/>
+常用的同步方法是采用信号或加锁机制，保证资源在任意时刻至多被一个线程访问。<br/>
+Java语言在多线程编程上实现了完全对象化，提供了对同步机制的良好支持。<br/>
+在Java中一共有四种方法支持同步，其中前三个是同步方法，一个是管道方法。</p>
+
+<ol>
+<li>wait() / notify()方法</li>
+<li>await() / signal()方法</li>
+<li>BlockingQueue阻塞队列方法</li>
+<li>PipedInputStream / PipedOutputStream
+本文介绍前三种方法</li>
+</ol>
+</blockquote>
+
+
+
+			 
+			<a href="Java%E4%B8%AD%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B.html#more" class="more-link">Read on &rarr;</a>
+    		
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
 				<time datetime="2017-08-16T19:59:49+08:00" itemprop="datePublished">2017/8/16</time>
 			</div>
 			<div class="tags">posted in 
@@ -146,153 +197,15 @@
 		seque test</a></h1>
 		<div class="entry-content" itemprop="articleBody">
 			
-			<ul>
-<li>
-<a href="#toc_0">sequence</a>
-<ul>
-<li>
-<a href="#toc_1">1. example</a>
-</li>
-<li>
-<a href="#toc_2">2. normal|dash LINE, normal|open ARROW</a>
-</li>
-<li>
-<a href="#toc_3">3. note</a>
-</li>
-<li>
-<a href="#toc_4">4. participant</a>
-</li>
-<li>
-<a href="#toc_5">5. test xu</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_6">flow</a>
-<ul>
-<li>
-<a href="#toc_7">1. example 1</a>
-</li>
-<li>
-<a href="#toc_8">2. example 2</a>
-</li>
-<li>
-<a href="#toc_9">3. test xu</a>
-</li>
-</ul>
-</li>
-</ul>
+			<blockquote>
+<p>seque 图测试</p>
+</blockquote>
 
 
-<h2 id="toc_0">sequence</h2>
 
-<p>js-sequence-diagrams<br/>
-Turns text into UML sequence diagrams</p>
-
-<h3 id="toc_1">1. example</h3>
-
-<pre><code class="language-sequence">Andrew-&gt;China: Says Hello
-Note left of Andrew: China thinks about it
-Note right of China: China thinks about it
-China--&gt;Andrew: How are you?
-Andrew-&gt;&gt;China: I am good thanks!
-</code></pre>
-
-<h3 id="toc_2">2. normal|dash LINE, normal|open ARROW</h3>
-
-<pre><code class="language-sequence">Title: Here is a title
-A-&gt;B: Normal line
-B--&gt;C: Dashed line
-C-&gt;&gt;D: Open arrow
-D--&gt;&gt;A: Dashed open arrow
-
-</code></pre>
-
-<h3 id="toc_3">3. note</h3>
-
-<pre><code class="language-sequence">Note left of A: Note to the\n left of A
-Note right of A: Note to the\n right of A
-Note over A: Note over A
-Note over A,B: Note over both A and B
-
-</code></pre>
-
-<h3 id="toc_4">4. participant</h3>
-
-<pre><code class="language-sequence">participant C
-participant B
-participant A
-Note right of A: By listing the participants\n you can change their order
-</code></pre>
-
-<h3 id="toc_5">5. test xu</h3>
-
-<pre><code class="language-sequence">A-&gt;B:hello world
-B--&gt;A:fuck you
-B--C: test you
-C--&gt;&gt;A:hello you 
-
-
-</code></pre>
-
-<h2 id="toc_6">flow</h2>
-
-<h3 id="toc_7">1. example 1</h3>
-
-<pre><code class="language-flow">st=&gt;start: Start:&gt;http://www.google.com[blank]
-e=&gt;end:&gt;http://www.google.com
-op1=&gt;operation: My Operation
-sub1=&gt;subroutine: My Subroutine
-cond=&gt;condition: Yes
-or No?:&gt;http://www.google.com
-io=&gt;inputoutput: catch something...
-    
-st-&gt;op1-&gt;cond
-cond(yes)-&gt;io-&gt;e
-cond(no)-&gt;sub1(right)-&gt;op1
-</code></pre>
-
-<h3 id="toc_8">2. example 2</h3>
-
-<pre><code class="language-flow">st=&gt;start: Start|past:&gt;http://www.google.com[blank]
-e=&gt;end: End|future:&gt;http://www.google.com
-op1=&gt;operation: My Operation|past
-op2=&gt;operation: Stuff|current
-sub1=&gt;subroutine: My Subroutine|invalid
-cond=&gt;condition: Yes
-or No?|approved:&gt;http://www.google.com
-c2=&gt;condition: Good idea|rejected
-io=&gt;inputoutput: catch something...|future
-
-st-&gt;op1(right)-&gt;cond
-cond(yes, right)-&gt;c2
-cond(no)-&gt;sub1(left)-&gt;op1
-c2(yes)-&gt;io-&gt;e
-c2(no)-&gt;op2-&gt;e
-</code></pre>
-
-<h3 id="toc_9">3. test xu</h3>
-
-<pre><code class="language-flow">st=&gt;start: Start|past:&gt;http://www.google.com[blank]
-e=&gt;end: End|future:&gt;http://www.google.com
-op1=&gt;operation: 1
-op2=&gt;operation: 2
-sub1=&gt;subroutine: 3
-c1=&gt;condition: 4
-c2=&gt;condition: 5
-io1=&gt;inputoutput: 6
-
-st-&gt;op1(right)-&gt;c1
-c1(yes, right)-&gt;c2
-c1(no)-&gt;sub1(left)-&gt;op1
-c2(yes)-&gt;io1-&gt;e
-c2(no)-&gt;op2-&gt;e
-
-
-</code></pre>
-
-
-			
+			 
+			<a href="15028847890136.html#more" class="more-link">Read on &rarr;</a>
+    		
 			
 		</div>
 
@@ -470,35 +383,6 @@ Dual伪列介绍</p>
 
 			 
 			<a href="mac-%E6%8A%80%E5%B7%A7.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2017-07-25T21:43:42+08:00" itemprop="datePublished">2017/7/25</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Video.html'>Video</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="Happy-Video.html" itemprop="url">
-		Video</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>介绍一下有趣好用的视频网站</p>
-</blockquote>
-
-
-
-			 
-			<a href="Happy-Video.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
