@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	Oracle中 SID 与 ServiceName的渊缘 - xuzhihua blog
+  	MAC的root密码设置与重置 - xuzhihua blog
   	
 	</title>
 
@@ -91,6 +91,8 @@
 						
 						  <li id=""><a target="_self" href="OS.html">OS</a></li>
 						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
 						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
 						
 						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
@@ -136,47 +138,44 @@
 			<div class="mid-col-container"> <div id="content" class="inner">
 
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">Oracle中 SID 与 ServiceName的渊缘</h1>
+		<h1 class="title" itemprop="name">MAC的root密码设置与重置</h1>
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
-<p>介绍 SID ServiceName的关系</p>
+<p>介绍如何使用当前用户 设置或重置 root 账号的密码</p>
 </blockquote>
 
 <span id="more"></span><!-- more -->
 
 <ul>
 <li>
-<a href="#toc_0">背景</a>
-</li>
-<li>
-<a href="#toc_1">SID</a>
-</li>
-<li>
-<a href="#toc_2">ServiceName</a>
+<a href="#toc_0">设置与重置的方式是一样的</a>
 </li>
 </ul>
 
 
-<h2 id="toc_0">背景</h2>
+<h2 id="toc_0">设置与重置的方式是一样的</h2>
 
-<p>使用 Navicate Premium 创建新的oracle连接时，看到有 SID和Service Name 选项，不了解，故做如下搜索<br/>
-<img src="media/15009828415835/15009880607722.jpg" alt="" style="width:504px;"/></p>
+<pre><code class="language-zsh">sudo su
+# 输入当前登录用户的密码 回车
+</code></pre>
 
-<h2 id="toc_1">SID</h2>
+<p><img src="media/15180615005250/15180618295193.jpg" alt=""/></p>
 
-<ol>
-<li>SID是实例名，实例名指的是用于响应某个数据库操作的数据库管理系统的名称</li>
-<li>实例名是由初始化参数文件的参数instance_name决定的。如果这个参数不被指定(即instance_name没有被指定为任何值)，那么实例的名字由该用户的环境变量ORACLE_SID（注意这里是大写）决定</li>
-<li>SID是唯一标识你数据库的实例名称，用来登录你标识的数据库</li>
-</ol>
+<pre><code class="language-zsh">#接着输入
+passwd root
+</code></pre>
 
-<h2 id="toc_2">ServiceName</h2>
+<p><img src="media/15180615005250/15180619057050.jpg" alt=""/></p>
 
-<ol>
-<li>SERVICE_NAME指的是listener中的全局数据库名：这个名字是由listener.ora中GLOBAL_DBNAME参数决定的。这个名字代表的是客户端连接到数据库时，tnsnames.ora中SERVICE_NAME参数所对应的值</li>
-<li>ServiceName主要是客户端连接DB的，通过客户端的Tnsnames.ora文件设置的</li>
-<li>Service_name：该参数是由oracle8i引进的。在8i以前，使用SID来表示标识数据库的一个实例，但是在Oracle的并行环境中，一个数据库对应多个实例，这样就需要多个网络服务名，设置繁琐。为了方便并行环境中的设置，引进了Service_name参数，该参数对应一个数据库，而不是一个实例，而且该参数有许多其它的好处。该参数的缺省值为Db_name. Db_domain，即等于Global_name。一个数据库可以对应多个Service_name，以便实现更灵活的配置。该参数与SID没有直接关系，即不必Service name 必须与SID一样</li>
-</ol>
+<p>输入两边root的密码即可<br/>
+然后exit退出</p>
+
+<p>这时候就可以直接</p>
+
+<pre><code class="language-zsh">su
+</code></pre>
+
+<p>输入 刚刚 设置 密码，进入root账号</p>
 
 		</div>
 	</article>
