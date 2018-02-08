@@ -139,6 +139,9 @@
 		<h1 class="title" itemprop="name">String 与 intern</h1>
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
+<p>介绍 字面量赋值创建字符串 与 通过new方式创建字符串<br/>
+反编译类，看字符串常量池数据与代码执行的指令</p>
+
 <p>转自<a href="http://www.cnblogs.com/paddix/p/5326863.html">通过反编译深入理解Java String及intern</a></p>
 </blockquote>
 
@@ -191,7 +194,8 @@ public class StringTest {
 <blockquote>
 <p>字符串不属于基本类型，但是可以像基本类型一样，直接通过字面量赋值，当然也可以通过new来生成一个字符串对象。不过通过字面量赋值的方式和new的方式生成字符串有本质的区别：<br/>
 <img src="media/15180181939162/15180185511101.jpg" alt=""/><br/>
-通过字面量赋值创建字符串时，会优先在常量池中查找是否已经存在相同的字符串，倘若已经存在，栈中的引用直接指向该字符串；倘若不存在，则在常量池中生成一个字符串，再将栈中的引用指向该字符串。而通过new的方式创建字符串时，就直接在堆中生成一个字符串的对象（备注，JDK 7 以后，HotSpot 已将常量池从永久代转移到了堆中。详细信息可参考<a href="http://www.cnblogs.com/paddix/p/5309550.html">《Java8内存模型—永久代(PermGen)和元空间(Metaspace)》</a>一文），栈中的引用指向该对象。对于堆中的字符串对象，可以通过 intern() 方法来将字符串添加的常量池中，并返回指向该常量的引用。</p>
+<strong><em>通过字面量赋值创建字符串时</em></strong>，会优先在常量池中查找是否已经存在相同的字符串，倘若已经存在，栈中的引用直接指向该字符串；倘若不存在，则在常量池中生成一个字符串，再将栈中的引用指向该字符串。<br/>
+<strong><em>而通过new的方式创建字符串时</em></strong>，就直接在堆中生成一个字符串的对象（备注，JDK 7 以后，HotSpot 已将常量池从永久代转移到了堆中。详细信息可参考<a href="http://www.cnblogs.com/paddix/p/5309550.html">《Java8内存模型—永久代(PermGen)和元空间(Metaspace)》</a>一文），栈中的引用指向该对象。对于堆中的字符串对象，可以通过 intern() 方法来将字符串添加的常量池中，并返回指向该常量的引用。</p>
 
 <p>现在我们应该能很清楚代码段一的结果了：</p>
 
