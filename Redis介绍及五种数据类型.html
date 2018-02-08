@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	Redis介绍及五种数据类型 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">Redis介绍及五种数据类型</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>redis介绍及五种数据类型 string hash list set zset</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">Redis 介绍</a>
+</li>
+<li>
+<a href="#toc_1">五种数据类型 string hash list set zset</a>
+<ul>
+<li>
+<a href="#toc_2">1. String</a>
+</li>
+<li>
+<a href="#toc_3">2. Hash</a>
+</li>
+<li>
+<a href="#toc_4">3. List</a>
+</li>
+<li>
+<a href="#toc_5">4. Set</a>
+</li>
+<li>
+<a href="#toc_6">5. Zset</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="toc_0">Redis 介绍</h2>
+
+<ol>
+<li><p>间接</p>
+
+<blockquote>
+<p>REmote DIctionary Server(Redis) 是一个由Salvatore Sanfilippo写的key-value存储系统。<br/>
+Redis是一个开源的、使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、高性能的Key-Value数据库，并提供多种语言的API。<br/>
+它通常被称为数据结构服务器，因为值（value）可以是 字符串(String), 哈希(Map), 列表(list), 集合(sets) 和 有序集合(sorted sets)等类型。</p>
+</blockquote></li>
+<li><p>特点</p>
+
+<blockquote>
+<p>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。<br/>
+Redis不仅仅支持简单的key-value类型的数据，同时还提供string,list,set,zset,hash等数据结构的存储。<br/>
+Redis支持数据的备份，即master-slave模式的数据备份。</p>
+</blockquote></li>
+<li><p>优势</p>
+
+<blockquote>
+<p>性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。<br/>
+丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。<br/>
+原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过MULTI和EXEC指令包起来。<br/>
+丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。</p>
+</blockquote></li>
+<li><p>与其他 key-value 的区别</p>
+
+<blockquote>
+<p>Redis有着更为复杂的数据结构并且提供对他们的原子性操作，这是一个不同于其他数据库的进化路径。Redis的数据类型都是基于基本数据结构的同时对程序员透明，无需进行额外的抽象。<br/>
+Redis运行在内存中但是可以持久化到磁盘，所以在对不同数据集进行高速读写时需要权衡内存，因为数据量不能大于硬件内存。在内存数据库方面的另一个优点是，相比在磁盘上相同的复杂的数据结构，在内存中操作起来非常简单，这样Redis可以做很多内部复杂性很强的事情。同时，在磁盘格式方面他们是紧凑的以追加的方式产生的，因为他们并不需要进行随机访问。</p>
+</blockquote></li>
+</ol>
+
+<h2 id="toc_1">五种数据类型 string hash list set zset</h2>
+
+<h3 id="toc_2">1. String</h3>
+
+<blockquote>
+<p>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。</p>
+
+<p>string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。</p>
+
+<p>string类型是Redis最基本的数据类型，一个键最大能存储512MB。</p>
+
+<p>一个键最大能存储512MB</p>
+</blockquote>
+
+<pre><code>#设值
+set testString abc
+#取值
+get testString
+</code></pre>
+
+<h3 id="toc_3">2. Hash</h3>
+
+<blockquote>
+<p>Redis hash 是一个键值(key=&gt;value)对集合。</p>
+
+<p>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。</p>
+
+<p>每个 hash 可以存储 232 -1 键值对（40多亿）</p>
+</blockquote>
+
+<pre><code>#设值
+hmset testHash field1 &quot;hello&quot; field2 &quot;world&quot;
+#取值
+hget testHash field1
+hget testHash field2
+</code></pre>
+
+<h3 id="toc_4">3. List</h3>
+
+<blockquote>
+<p>Redis 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。</p>
+
+<p>列表最多可存储 2<sup>32</sup> - 1 元素 (4294967295, 每个列表可存储40多亿)</p>
+</blockquote>
+
+<pre><code>#设值
+lpush testList redis
+lpush testList mongodb
+lpush testList rabitmq
+#取值
+lrange testList 0 10
+</code></pre>
+
+<h3 id="toc_5">4. Set</h3>
+
+<blockquote>
+<p>集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。</p>
+
+<p>集合内元素的唯一性，第二次插入的元素将被忽略。</p>
+
+<p>集合中最大的成员数为 2<sup>32</sup> - 1(4294967295, 每个集合可存储40多亿个成员)</p>
+</blockquote>
+
+<pre><code>#设值
+sadd testSet redis
+sadd testSet mongodb
+sadd testSet rabitmq
+sad testSet rabitmq
+#取值
+smembers testSet
+</code></pre>
+
+<h3 id="toc_6">5. Zset</h3>
+
+<blockquote>
+<p>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。</p>
+
+<p>不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。</p>
+
+<p>zset的成员是唯一的,但分数(score)却可以重复。</p>
+</blockquote>
+
+<pre><code>#设值
+zadd testZset 0 redis
+zadd testZset 0 mongodb
+zadd testZset 0 rabitmq
+zadd testZset 0 rabitmq
+#取值
+zrangebyscore testZset 0 1000
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>
