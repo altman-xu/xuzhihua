@@ -204,7 +204,7 @@
 <h2 id="toc_1">从 AtomicInteger.java 的 getAndIncrement 开始</h2>
 
 <p><a href="https://github.com/gcc-mirror/gcc/blob/gcc-5-branch/libjava/classpath/external/jsr166/java/util/concurrent/atomic/AtomicInteger.java">AtomicInteger.java in github</a><br/>
-<a href="">AtomicInteger.java in xuzhihuaBlog</a></p>
+<a href="https://altman-xu.github.io/xuzhihua/java.util.concurrent.atomic.AtomicInteger.html">AtomicInteger.java in xuzhihuaBlog</a></p>
 
 <pre><code class="language-java">// AtomicInteger.java
 private static final Unsafe unsafe = Unsafe.getUnsafe();
@@ -231,7 +231,7 @@ public final boolean compareAndSet(int expect, int update) {
 <h2 id="toc_2">进入 Unsafe.java 的 compareAndSwapInt 方法</h2>
 
 <p><a href="https://github.com/gcc-mirror/gcc/blob/gcc-5-branch/libjava/sun/misc/Unsafe.java">Unsafe.java in github</a><br/>
-<a href="">Unsafe.java in xuzhihuaBlog</a></p>
+<a href="https://altman-xu.github.io/xuzhihua/sun.misc.Unsafe.html">Unsafe.java in xuzhihuaBlog</a></p>
 
 <pre><code class="language-java">// Unsafe.java
 public native boolean compareAndSwapInt(Object obj, long offset,
@@ -245,7 +245,7 @@ public native boolean compareAndSwapInt(Object obj, long offset,
 </blockquote>
 
 <p><a href="https://github.com/gcc-mirror/gcc/blob/gcc-5-branch/libjava/sun/misc/natUnsafe.cc">natUnsafe.cc in github</a><br/>
-<a href="">natUnsafe.cc in xuzhihuaBlog</a></p>
+<a href="https://altman-xu.github.io/xuzhihua/sun.misc.natUnsafe.cc.html">natUnsafe.cc in xuzhihuaBlog</a></p>
 
 <pre><code class="language-c++">//natUnsafe.cc
 jboolean
