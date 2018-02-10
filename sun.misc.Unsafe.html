@@ -166,6 +166,30 @@
 
 <h2 id="toc_0">java sun.misc.Unsafe</h2>
 
+<ol>
+<li>getUnsafe()</li>
+<li>objectFieldOffset(Field field)</li>
+<li>compareAndSwapInt(Object obj, long offset, int expect, int update)</li>
+<li>compareAndSwapLong(Object obj, long offset, long expect, long update)</li>
+<li>compareAndSwapObject(Object obj, long offset, Object expect, Object update)</li>
+<li>putOrderedInt(Object obj, long offset, int value)</li>
+<li>putOrderedLong(Object obj, long offset, long value)</li>
+<li>putOrderedObject(Object obj, long offset, Object value)</li>
+<li>putIntVolatile(Object obj, long offset, int value)</li>
+<li>putLongVolatile(Object obj, long offset, long value)</li>
+<li>putObjectVolatile(Object obj, long offset, Object value)</li>
+<li>putLong(Object obj, long offset, long value)</li>
+<li>putObject(Object obj, long offset, Object value)</li>
+<li>getIntVolatile(Object obj, long offset)</li>
+<li>getLongVolatile(Object obj, long offset)</li>
+<li>getObjectVolatile(Object obj, long offset)</li>
+<li>getLong(Object obj, long offset)</li>
+<li>arrayBaseOffset(Class arrayClass)</li>
+<li>arrayIndexScale(Class arrayClass)</li>
+<li>unpark(Thread thread)</li>
+<li>park(boolean isAbsolute, long time)</li>
+</ol>
+
 <pre><code class="language-java">package sun.misc;
 
 import java.lang.reflect.Field;
@@ -224,9 +248,9 @@ public class Unsafe
    * 返回相同的值。
    *
    * @param field the field whose offset should be returned.
-   *              需要返回偏移量的field
+   *        需要返回偏移量的field
    * @return the offset of the given field.
-   *         指定field的偏移量
+   *        指定field的偏移量
    */
   public native long objectFieldOffset(Field field);
 

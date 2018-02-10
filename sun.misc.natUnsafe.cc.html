@@ -165,6 +165,34 @@
 
 <h2 id="toc_0">c++ sun.misc.natUnsafe.cc</h2>
 
+<ol>
+<li>spinlock ()</li>
+<li>static inline bool compareAndSwap (volatile jint *addr, jint old, jint new_val)</li>
+<li>static inline bool compareAndSwap (volatile jlong *addr, jlong old, jlong new_val)</li>
+<li>static inline bool compareAndSwap (volatile jobject *addr, jobject old, jobject new_val)</li>
+<li>jlong sun::misc::Unsafe::objectFieldOffset(::java::lang::reflect::Field *field)</li>
+<li>jint sun::misc::Unsafe::arrayBaseOffset (jclass arrayClass)</li>
+<li>jint sun::misc::Unsafe::arrayIndexScale (jclass arrayClass)</li>
+<li>jboolean sun::misc::Unsafe::compareAndSwapInt (jobject obj, jlong offset,jint expect, jint update)</li>
+<li>jboolean sun::misc::Unsafe::compareAndSwapLong (jobject obj, jlong offset,jlong expect, jlong update)</li>
+<li>jboolean sun::misc::Unsafe::compareAndSwapObject (jobject obj, jlong offset,jobject expect, jobject update)</li>
+<li>void sun::misc::Unsafe::putOrderedInt (jobject obj, jlong offset, jint value)</li>
+<li>void sun::misc::Unsafe::putOrderedLong (jobject obj, jlong offset, jlong value)</li>
+<li>void sun::misc::Unsafe::putOrderedObject (jobject obj, jlong offset, jobject value)</li>
+<li>void sun::misc::Unsafe::putIntVolatile (jobject obj, jlong offset, jint value)</li>
+<li>void sun::misc::Unsafe::putLongVolatile (jobject obj, jlong offset, jlong value)</li>
+<li>void sun::misc::Unsafe::putObjectVolatile (jobject obj, jlong offset, jobject value)</li>
+<li>#if0 void sun::misc::Unsafe::putInt (jobject obj, jlong offset, jint value)</li>
+<li>void sun::misc::Unsafe::putLong (jobject obj, jlong offset, jlong value)</li>
+<li>void sun::misc::Unsafe::putObject (jobject obj, jlong offset, jobject value)</li>
+<li>jint sun::misc::Unsafe::getIntVolatile (jobject obj, jlong offset)</li>
+<li>jlong sun::misc::Unsafe::getLongVolatile (jobject obj, jlong offset)</li>
+<li>jobject sun::misc::Unsafe::getObjectVolatile (jobject obj, jlong offset)</li>
+<li>jlong sun::misc::Unsafe::getLong (jobject obj, jlong offset)</li>
+<li>void sun::misc::Unsafe::unpark (::java::lang::Thread *thread)</li>
+<li>void sun::misc::Unsafe::park (jboolean isAbsolute, jlong time)</li>
+</ol>
+
 <pre><code class="language-C++">#include &lt;gcj/cni.h&gt;
 #include &lt;gcj/field.h&gt;
 #include &lt;gcj/javaprims.h&gt;
