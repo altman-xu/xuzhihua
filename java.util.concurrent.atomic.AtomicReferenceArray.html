@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	java.util.concurrent.atomic.AtomicReferenceArray - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicReferenceArray</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>jdk1.6类 java.util.concurrent.atomic.AtomicReferenceArray</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">java.util.concurrent.atomic.AtomicReferenceArray</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">java.util.concurrent.atomic.AtomicReferenceArray</h2>
+
+<ol>
+<li>private long checkedByteOffset(int i)</li>
+<li>private static long byteOffset(int i)</li>
+<li>public AtomicReferenceArray(int length)</li>
+<li>public AtomicReferenceArray(E[] array)</li>
+<li>public final int length()</li>
+<li>public final E get(int i)</li>
+<li>private E getRaw(long offset)</li>
+<li>public final void set(int i, E newValue)</li>
+<li>public final void lazySet(int i, E newValue)</li>
+<li>public final E getAndSet(int i, E newValue)</li>
+<li>public final boolean compareAndSet(int i, E expect, E update)</li>
+<li>private boolean compareAndSetRaw(long offset, E expect, E update)</li>
+<li>public final boolean weakCompareAndSet(int i, E expect, E update)</li>
+<li>public String toString()</li>
+<li>private void readObject(java.io.ObjectInputStream s)</li>
+</ol>
+
+<pre><code class="language-java">/*
+ * %W% %E%
+ *
+ * Copyright (c) 2006, 2011 Oracle and/or its affiliates. All rights reserved.
+ * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+package java.util.concurrent.atomic;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import sun.misc.Unsafe;
+
+/**
+ * An array of object references in which elements may be updated
+ * atomically.  See the {@link java.util.concurrent.atomic} package
+ * specification for description of the properties of atomic
+ * variables.
+ * @since 1.5
+ * @author Doug Lea
+ * @param &lt;E&gt; The base class of elements held in this array
+ */
+/**
+ * 可以用原子方式更新其元素的对象引用数组。有关原子变量属性的描述，
+ * 请参阅 java.util.concurrent.atomic 包规范。
+ */
+public class AtomicReferenceArray&lt;E&gt; implements java.io.Serializable {
+    private static final long serialVersionUID = -6209656149925076980L;
+
+    private static final Unsafe unsafe;
+    private static final int base;
+    private static final int shift;
+    private static final long arrayFieldOffset;
+    private final Object[] array; // must have exact type Object[]
+
+    static {
+        int scale;
+        try {
+            unsafe = Unsafe.getUnsafe();
+            arrayFieldOffset = unsafe.objectFieldOffset
+                (AtomicReferenceArray.class.getDeclaredField(&quot;array&quot;));
+            base = unsafe.arrayBaseOffset(Object[].class);
+            scale = unsafe.arrayIndexScale(Object[].class);
+        } catch (Exception e) {
+            throw new Error(e);
+        }
+        if ((scale &amp; (scale - 1)) != 0)
+            throw new Error(&quot;data type scale not a power of two&quot;);
+        shift = 31 - Integer.numberOfLeadingZeros(scale);
+    }
+
+    private long checkedByteOffset(int i) {
+        if (i &lt; 0 || i &gt;= array.length)
+            throw new IndexOutOfBoundsException(&quot;index &quot; + i);
+
+        return byteOffset(i);
+    }
+
+    private static long byteOffset(int i) {
+        return ((long) i &lt;&lt; shift) + base;
+    }
+
+    /**
+     * Creates a new AtomicReferenceArray of given length.
+     * @param length the length of the array
+     */
+    /**
+     * 创建给定长度的新 AtomicReferenceArray。
+     * @param  length 该数组的长度
+     */
+    public AtomicReferenceArray(int length) {
+        array = new Object[length];
+    }
+
+    /**
+     * Creates a new AtomicReferenceArray with the same length as, and
+     * all elements copied from, the given array.
+     *
+     * @param array the array to copy elements from
+     * @throws NullPointerException if array is null
+     */
+    /**
+     * 创建与给定数组具有相同长度的新 AtomicReferenceArray，并从给定数组复制其所有元素。
+     * @param  array 从中复制元素的数组
+     */
+    public AtomicReferenceArray(E[] array) {
+        // Visibility guaranteed by final field guarantees
+        this.array = Arrays.copyOf(array, array.length, Object[].class);
+    }
+
+    /**
+     * Returns the length of the array.
+     *
+     * @return the length of the array
+     */
+    /**
+     * 返回该数组的长度。
+     * @return 数组的长度
+     */
+    public final int length() {
+        return array.length;
+    }
+
+    /**
+     * Gets the current value at position {@code i}.
+     *
+     * @param i the index
+     * @return the current value
+     */
+    /**
+     * 获取位置 i 的当前值。
+     * @param  i 索引
+     * @return   当前值
+     */
+    public final E get(int i) {
+        return getRaw(checkedByteOffset(i));
+    }
+
+    private E getRaw(long offset) {
+        return (E) unsafe.getObjectVolatile(array, offset);
+    }
+
+    /**
+     * Sets the element at position {@code i} to the given value.
+     *
+     * @param i the index
+     * @param newValue the new value
+     */
+    /**
+     * 将位置 i 的元素设置为给定值。
+     * @param i        索引
+     * @param newValue 新值
+     */
+    public final void set(int i, E newValue) {
+        unsafe.putObjectVolatile(array, checkedByteOffset(i), newValue);
+    }
+
+    /**
+     * Eventually sets the element at position {@code i} to the given value.
+     *
+     * @param i the index
+     * @param newValue the new value
+     * @since 1.6
+     */
+    /**
+     * 最终将位置 i 的元素设置为给定值。
+     * @param i        索引
+     * @param newValue 新值
+     */
+    public final void lazySet(int i, E newValue) {
+        unsafe.putOrderedObject(array, checkedByteOffset(i), newValue);
+    }
+
+
+    /**
+     * Atomically sets the element at position {@code i} to the given
+     * value and returns the old value.
+     *
+     * @param i the index
+     * @param newValue the new value
+     * @return the previous value
+     */
+    /**
+     * 以原子方式将位置 i 的元素设置为给定值，并返回旧值。
+     * @param  i        索引
+     * @param  newValue 新值
+     * @return          以前的值
+     */
+    public final E getAndSet(int i, E newValue) {
+        long offset = checkedByteOffset(i);
+        while (true) {
+            E current = getRaw(offset);
+            if (compareAndSetRaw(offset, current, newValue))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically sets the element at position {@code i} to the given
+     * updated value if the current value {@code ==} the expected value.
+     *
+     * @param i the index
+     * @param expect the expected value
+     * @param update the new value
+     * @return true if successful. False return indicates that
+     * the actual value was not equal to the expected value.
+     */
+    /**
+     * 如果当前值 == 预期值，则以原子方式将位置 i 的元素设置为给定的更新值。
+     * @param  i      索引
+     * @param  expect 预期值
+     * @param  update 新值
+     * @return        如果成功，则返回 true。返回 false 表示实际值与预期值不相等。
+     */
+    public final boolean compareAndSet(int i, E expect, E update) {
+        return compareAndSetRaw(checkedByteOffset(i), expect, update);
+    }
+
+    private boolean compareAndSetRaw(long offset, E expect, E update) {
+        return unsafe.compareAndSwapObject(array, offset, expect, update);
+    }
+
+    /**
+     * Atomically sets the element at position {@code i} to the given
+     * updated value if the current value {@code ==} the expected value.
+     *
+     * &lt;p&gt;May &lt;a href=&quot;package-summary.html#Spurious&quot;&gt;fail spuriously&lt;/a&gt;
+     * and does not provide ordering guarantees, so is only rarely an
+     * appropriate alternative to {@code compareAndSet}.
+     *
+     * @param i the index
+     * @param expect the expected value
+     * @param update the new value
+     * @return true if successful.
+     */
+    /**
+     * 如果当前值 == 预期值，则以原子方式将位置 i 的元素设置为给定的更新值。
+     * 可能意外失败并且不提供排序保证，因此几乎只是 compareAndSet 的适当替换方法。
+     * @param  i      索引
+     * @param  expect 预期值
+     * @param  update 新值
+     * @return        如果成功，则返回 true
+     */
+    public final boolean weakCompareAndSet(int i, E expect, E update) {
+        return compareAndSet(i, expect, update);
+    }
+
+    /**
+     * Returns the String representation of the current values of array.
+     * @return the String representation of the current values of array.
+     */
+    /**
+     * 返回数组当前值的字符串表示形式。
+     * @return 数组当前值的字符串表示形式。
+     */
+    public String toString() {
+        int iMax = array.length - 1;
+        if (iMax == -1)
+            return &quot;[]&quot;;
+
+        StringBuilder b = new StringBuilder();
+        b.append(&#39;[&#39;);
+        for (int i = 0; ; i++) {
+            b.append(getRaw(byteOffset(i)));
+            if (i == iMax)
+                return b.append(&#39;]&#39;).toString();
+            b.append(&#39;,&#39;).append(&#39; &#39;);
+        }
+    }
+
+    /**
+     * Reconstitutes the instance from a stream (that is, deserializes it).
+     * @param s the stream
+     */
+    private void readObject(java.io.ObjectInputStream s)
+        throws java.io.IOException, ClassNotFoundException {
+        // Note: This must be changed if any additional fields are defined
+        Object a = s.readFields().get(&quot;array&quot;, null);
+        if (a == null || !a.getClass().isArray())
+            throw new java.io.InvalidObjectException(&quot;Not array type&quot;);
+        if (a.getClass() != Object[].class)
+            a = Arrays.copyOf((Object[])a, Array.getLength(a), Object[].class);
+        unsafe.putObjectVolatile(this, arrayFieldOffset, a);
+    }
+
+}
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

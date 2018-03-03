@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	java.util.concurrent.atomic.AtomicInteger - xuzhihua blog
+  	java.util.concurrent.atomic.AtomicReference - xuzhihua blog
   	
 	</title>
 
@@ -148,45 +148,33 @@
 			<div class="mid-col-container"> <div id="content" class="inner">
 
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicInteger</h1>
+		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicReference</h1>
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
-<p>jdk1.6类 java.util.concurrent.atomic.AtomicInteger</p>
-
-<p>转自<a href="http://www.runoob.com/manual/jdk1.6/java/util/concurrent/atomic/AtomicInteger.html">类 AtomicInteger</a></p>
+<p>jdk1.6类 java.util.concurrent.atomic.AtomicReference</p>
 </blockquote>
 
 <span id="more"></span><!-- more -->
 
 <ul>
 <li>
-<a href="#toc_0">java.util.concurrent.atomic.AtomicInteger</a>
+<a href="#toc_0">java.util.concurrent.atomic.AtomicReference</a>
 </li>
 </ul>
 
 
-<h2 id="toc_0">java.util.concurrent.atomic.AtomicInteger</h2>
+<h2 id="toc_0">java.util.concurrent.atomic.AtomicReference</h2>
 
 <ol>
-<li>public AtomicInteger(int initialValue)</li>
-<li>public AtomicInteger()</li>
-<li>public final int get()</li>
-<li>public final void set(int newValue)</li>
-<li>public final void lazySet(int newValue)</li>
-<li>public final int getAndSet(int newValue)</li>
-<li>public final boolean compareAndSet(int expect, int update)</li>
-<li>public final boolean weakCompareAndSet(int expect, int update)</li>
-<li> public final int getAndIncrement()</li>
-<li>public final int getAndDecrement()</li>
-<li>public final int getAndAdd(int delta)</li>
-<li>public final int incrementAndGet()</li>
-<li>public final int decrementAndGet()</li>
-<li>public final int addAndGet(int delta)</li>
+<li>public AtomicReference(V initialValue)</li>
+<li>public AtomicReference()</li>
+<li>public final V get()</li>
+<li>public final void set(V newValue)</li>
+<li>public final void lazySet(V newValue)</li>
+<li>public final boolean compareAndSet(V expect, V update)</li>
+<li>public final boolean weakCompareAndSet(V expect, V update)</li>
+<li>public final V getAndSet(V newValue)</li>
 <li>public String toString()</li>
-<li>public int intValue()</li>
-<li>public long longValue()</li>
-<li>public float floatValue()</li>
-<li>public double doubleValue()</li>
 </ol>
 
 <pre><code class="language-java">/*
@@ -200,61 +188,51 @@ package java.util.concurrent.atomic;
 import sun.misc.Unsafe;
 
 /**
- * An {@code int} value that may be updated atomically.  See the
- * {@link java.util.concurrent.atomic} package specification for
- * description of the properties of atomic variables. An
- * {@code AtomicInteger} is used in applications such as atomically
- * incremented counters, and cannot be used as a replacement for an
- * {@link java.lang.Integer}. However, this class does extend
- * {@code Number} to allow uniform access by tools and utilities that
- * deal with numerically-based classes.
- *
+ * An object reference that may be updated atomically. See the {@link
+ * java.util.concurrent.atomic} package specification for description
+ * of the properties of atomic variables.
  * @since 1.5
  * @author Doug Lea
-*/
-/**
- * 可以用原子方式更新的 int 值。有关原子变量属性的描述，
- * 请参阅 java.util.concurrent.atomic 包规范。
- * AtomicInteger 可用在应用程序中（如以原子方式增加的计数器），并且不能用于
- * 替换 Integer。但是，此类确实扩展了 Number，允许那些处理基于数字类的工具和
- * 实用工具进行统一访问。
+ * @param &lt;V&gt; The type of object referred to by this reference
  */
-public class AtomicInteger extends Number implements java.io.Serializable {
-    private static final long serialVersionUID = 6214790243416807050L;
+/**
+ * 可以用原子方式更新的对象引用。有关原子变量属性的描述，请参阅 java.util.concurrent.atomic 包规范。
+ */
+public class AtomicReference&lt;V&gt;  implements java.io.Serializable {
+    private static final long serialVersionUID = -1848883965231344442L;
 
-    // setup to use Unsafe.compareAndSwapInt for updates
     private static final Unsafe unsafe = Unsafe.getUnsafe();
     private static final long valueOffset;
 
     static {
       try {
         valueOffset = unsafe.objectFieldOffset
-            (AtomicInteger.class.getDeclaredField(&quot;value&quot;));
+            (AtomicReference.class.getDeclaredField(&quot;value&quot;));
       } catch (Exception ex) { throw new Error(ex); }
     }
 
-    private volatile int value;
+    private volatile V value;
 
     /**
-     * Creates a new AtomicInteger with the given initial value.
+     * Creates a new AtomicReference with the given initial value.
      *
      * @param initialValue the initial value
      */
     /**
-     * 创建具有给定初始值的新 AtomicInteger。
+     * 使用给定的初始值创建新的 AtomicReference。
      * @param  initialValue 初始值
      */
-    public AtomicInteger(int initialValue) {
+    public AtomicReference(V initialValue) {
         value = initialValue;
     }
 
     /**
-     * Creates a new AtomicInteger with initial value {@code 0}.
+     * Creates a new AtomicReference with null initial value.
      */
     /**
-     * 创建具有初始值 0 的新 AtomicInteger。
+     * 使用 null 初始值创建新的 AtomicReference。
      */
-    public AtomicInteger() {
+    public AtomicReference() {
     }
 
     /**
@@ -266,7 +244,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * 获取当前值。
      * @return 当前值
      */
-    public final int get() {
+    public final V get() {
         return value;
     }
 
@@ -279,7 +257,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * 设置为给定值。
      * @param newValue 新值
      */
-    public final void set(int newValue) {
+    public final void set(V newValue) {
         value = newValue;
     }
 
@@ -290,37 +268,16 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * @since 1.6
      */
     /**
-     * 最后设置为给定值。
+     * 最终设置为给定值。
      * @param newValue 新值
-     * @since 1.6
      */
-    public final void lazySet(int newValue) {
-        unsafe.putOrderedInt(this, valueOffset, newValue);
-    }
-
-    /**
-     * Atomically sets to the given value and returns the old value.
-     *
-     * @param newValue the new value
-     * @return the previous value
-     */
-    /**
-     * 以原子方式设置为给定值，并返回旧值。
-     * @param  newValue 新值
-     * @return          以前的值
-     */
-    public final int getAndSet(int newValue) {
-        for (;;) {
-            int current = get();
-            if (compareAndSet(current, newValue))
-                return current;
-        }
+    public final void lazySet(V newValue) {
+        unsafe.putOrderedObject(this, valueOffset, newValue);
     }
 
     /**
      * Atomically sets the value to the given updated value
      * if the current value {@code ==} the expected value.
-     *
      * @param expect the expected value
      * @param update the new value
      * @return true if successful. False return indicates that
@@ -330,10 +287,10 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
      * @param  expect 预期值
      * @param  update 新值
-     * @return        如果成功，则返回 true。返回 False 指示实际值与预期值不相等。
+     * @return        如果成功，则返回 true。返回 false 指示实际值与预期值不相等。
      */
-    public final boolean compareAndSet(int expect, int update) {
-    return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
+    public final boolean compareAndSet(V expect, V update) {
+        return unsafe.compareAndSwapObject(this, valueOffset, expect, update);
     }
 
     /**
@@ -349,127 +306,32 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * @return true if successful.
      */
     /**
-     * 如果当前值 == 预期值，则以原子方式将该设置为给定的更新值。
-     * 可能意外失败并且不提供排序保证，所以只有在很少的情况下才对 compareAndSet 
-     * 进行适当地选择。
-     * 
+     * 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
+     * 可能意外失败并且不提供排序保证，因此几乎只是 compareAndSet 的适当替代方法。
      * @param  expect 预期值
      * @param  update 新值
      * @return        如果成功，则返回 true。
      */
-    public final boolean weakCompareAndSet(int expect, int update) {
-    return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
+    public final boolean weakCompareAndSet(V expect, V update) {
+        return unsafe.compareAndSwapObject(this, valueOffset, expect, update);
     }
 
     /**
-     * Atomically increments by one the current value.
+     * Atomically sets to the given value and returns the old value.
      *
+     * @param newValue the new value
      * @return the previous value
      */
     /**
-     * 以原子方式将当前值加 1。
-     * @return 以前的值
+     * 以原子方式设置为给定值，并返回旧值。
+     * @param  newValue 新值
+     * @return          以前的值
      */
-    public final int getAndIncrement() {
-        for (;;) {
-            int current = get();
-            int next = current + 1;
-            if (compareAndSet(current, next))
-                return current;
-        }
-    }
-
-    /**
-     * Atomically decrements by one the current value.
-     *
-     * @return the previous value
-     */
-    /**
-     * 以原子方式将当前值减 1。
-     * @return 以前的值
-     */
-    public final int getAndDecrement() {
-        for (;;) {
-            int current = get();
-            int next = current - 1;
-            if (compareAndSet(current, next))
-                return current;
-        }
-    }
-
-    /**
-     * Atomically adds the given value to the current value.
-     *
-     * @param delta the value to add
-     * @return the previous value
-     */
-    /**
-     * 以原子方式将给定值与当前值相加。
-     * @param  delta 要加上的值
-     * @return       以前的值
-     */
-    public final int getAndAdd(int delta) {
-        for (;;) {
-            int current = get();
-            int next = current + delta;
-            if (compareAndSet(current, next))
-                return current;
-        }
-    }
-
-    /**
-     * Atomically increments by one the current value.
-     *
-     * @return the updated value
-     */
-    /**
-     * 以原子方式将当前值加 1。
-     * @return 更新的值
-     */
-    public final int incrementAndGet() {
-        for (;;) {
-            int current = get();
-            int next = current + 1;
-            if (compareAndSet(current, next))
-                return next;
-        }
-    }
-
-    /**
-     * Atomically decrements by one the current value.
-     *
-     * @return the updated value
-     */
-    /**
-     * 以原子方式将当前值减 1。
-     * @return 更新的值
-     */
-    public final int decrementAndGet() {
-        for (;;) {
-            int current = get();
-            int next = current - 1;
-            if (compareAndSet(current, next))
-                return next;
-        }
-    }
-
-    /**
-     * Atomically adds the given value to the current value.
-     *
-     * @param delta the value to add
-     * @return the updated value
-     */
-    /**
-     * 以原子方式将给定值与当前值相加。
-     * @param  delta 要加上的值
-     * @return       更新的值
-     */
-    public final int addAndGet(int delta) {
-        for (;;) {
-            int current = get();
-            int next = current + delta;
-            if (compareAndSet(current, next))
-                return next;
+    public final V getAndSet(V newValue) {
+        while (true) {
+            V x = get();
+            if (compareAndSet(x, newValue))
+                return x;
         }
     }
 
@@ -479,48 +341,13 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      */
     /**
      * 返回当前值的字符串表示形式。
-     * 覆盖：类 Object 中的 toString
-     * @return 当前值的字符串表示形式。
+     * @return 当前值的字符串表示形式
      */
     public String toString() {
-        return Integer.toString(get());
-    }
-
-    /**
-     * 从类 Number 复制的描述 以 int 形式返回指定的数值。这可能会涉及到舍入或取整。
-     * 指定者：类 Number 中的 intValue
-     * @return 转换为 int 类型后该对象表示的数值。
-     */
-    public int intValue() {
-    return get();
-    }
-    /**
-     * 从类 Number 复制的描述 以 long 形式返回指定的数值。这可能涉及到舍入或取整。
-     * 指定者：类 Number 中的 longValue
-     * @return 转换为 long 类型后该对象表示的数值。
-     */
-    public long longValue() {
-    return (long)get();
-    }
-    /**
-     * 从类 Number 复制的描述 以 float 形式返回指定的数值。这可能会涉及到舍入。
-     * 指定者：类 Number 中的 floatValue
-     * @return 转换为 float 类型后该对象表示的数值。
-     */
-    public float floatValue() {
-    return (float)get();
-    }
-    /**
-     * 从类 Number 复制的描述 以 double 形式返回指定的数值。这可能会涉及到舍入。
-     * 指定者：类 Number 中的 doubleValue
-     * @return 转换为 double 类型后该对象表示的数值。
-     */
-    public double doubleValue() {
-    return (double)get();
+        return String.valueOf(get());
     }
 
 }
-
 </code></pre>
 
 		</div>

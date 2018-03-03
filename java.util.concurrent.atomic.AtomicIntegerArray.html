@@ -1,0 +1,565 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	java.util.concurrent.atomic.AtomicIntegerArray - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicIntegerArray</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>jdk1.6类 java.util.concurrent.atomic.AtomicIntegerArray</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">java.util.concurrent.atomic.AtomicIntegerArray</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">java.util.concurrent.atomic.AtomicIntegerArray</h2>
+
+<ol>
+<li>public AtomicIntegerArray(int length)</li>
+<li>_private long rawIndex(int i)_</li>
+<li>public AtomicIntegerArray(int length)</li>
+<li>public AtomicIntegerArray(int[] array) </li>
+<li>public final int length()</li>
+<li>public final int get(int i)<br/></li>
+<li>public final void set(int i, int newValue) </li>
+<li>public final void lazySet(int i, int newValue)</li>
+<li>public final int getAndSet(int i, int newValue)</li>
+<li>public final boolean compareAndSet(int i, int expect, int update) </li>
+<li>public final boolean weakCompareAndSet(int i, int expect, int update) </li>
+<li>public final int getAndIncrement(int i) </li>
+<li>public final int getAndDecrement(int i)</li>
+<li>public final int getAndAdd(int i, int delta)</li>
+<li>public final int incrementAndGet(int i)</li>
+<li>public final int decrementAndGet(int i) </li>
+<li>public final int addAndGet(int i, int delta) </li>
+<li>public String toString()</li>
+</ol>
+
+<pre><code class="language-java">
+/*
+ * %W% %E%
+ *
+ * Copyright (c) 2006, Oracle and/or its affiliates. All rights reserved.
+ * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+package java.util.concurrent.atomic;
+import sun.misc.Unsafe;
+import java.util.*;
+
+/**
+ * An {@code int} array in which elements may be updated atomically.
+ * See the {@link java.util.concurrent.atomic} package
+ * specification for description of the properties of atomic
+ * variables.
+ * @since 1.5
+ * @author Doug Lea
+ */
+/**
+ * 可以用原子方式更新其元素的 int 数组。有关原子变量属性的描述，
+ * 请参阅 java.util.concurrent.atomic 包规范。
+ */
+public class AtomicIntegerArray implements java.io.Serializable {
+    private static final long serialVersionUID = 2862133569453604235L;
+
+   // setup to use Unsafe.compareAndSwapInt for updates
+    private static final Unsafe unsafe = Unsafe.getUnsafe();
+    private static final int base = unsafe.arrayBaseOffset(int[].class);
+    private static final int scale = unsafe.arrayIndexScale(int[].class);
+    private final int[] array;
+
+    private long rawIndex(int i) {
+        if (i &lt; 0 || i &gt;= array.length)
+            throw new IndexOutOfBoundsException(&quot;index &quot; + i);
+        return base + (long) i * scale;
+    }
+
+    /**
+     * Creates a new AtomicIntegerArray of given length.
+     *
+     * @param length the length of the array
+     */
+    /**
+     * 创建给定长度的新 AtomicIntegerArray。
+     * @param  length 该数组的长度
+     * @return        
+     */
+    public AtomicIntegerArray(int length) {
+        array = new int[length];
+        // must perform at least one volatile write to conform to JMM
+        if (length &gt; 0)
+            unsafe.putIntVolatile(array, rawIndex(0), 0);
+    }
+
+    /**
+     * Creates a new AtomicIntegerArray with the same length as, and
+     * all elements copied from, the given array.
+     *
+     * @param array the array to copy elements from
+     * @throws NullPointerException if array is null
+     */
+    /**
+     * 创建与给定数组具有相同长度的新 AtomicIntegerArray，并从给定数组复制其所有元素。
+     * @param  array 从中复制元素的数组
+     * @return       [description]
+     */
+    public AtomicIntegerArray(int[] array) {
+        if (array == null)
+            throw new NullPointerException();
+        int length = array.length;
+        this.array = new int[length];
+        if (length &gt; 0) {
+            int last = length-1;
+            for (int i = 0; i &lt; last; ++i)
+                this.array[i] = array[i];
+            // Do the last write as volatile
+            unsafe.putIntVolatile(this.array, rawIndex(last), array[last]);
+        }
+    }
+
+    /**
+     * Returns the length of the array.
+     *
+     * @return the length of the array
+     */
+    /**
+     * 返回该数组的长度。
+     * @return 该数组的长度
+     */
+    public final int length() {
+        return array.length;
+    }
+
+    /**
+     * Gets the current value at position {@code i}.
+     *
+     * @param i the index
+     * @return the current value
+     */
+    /**
+     * 获取位置 i 的当前值。
+     * @param  i 索引
+     * @return   当前值
+     */
+    public final int get(int i) {
+        return unsafe.getIntVolatile(array, rawIndex(i));
+    }
+
+    /**
+     * Sets the element at position {@code i} to the given value.
+     *
+     * @param i the index
+     * @param newValue the new value
+     */
+    /**
+     * 将位置 i 的元素设置为给定值。
+     * @param i        索引
+     * @param newValue 新值
+     */
+    public final void set(int i, int newValue) {
+        unsafe.putIntVolatile(array, rawIndex(i), newValue);
+    }
+
+    /**
+     * Eventually sets the element at position {@code i} to the given value.
+     *
+     * @param i the index
+     * @param newValue the new value
+     * @since 1.6
+     */
+    /**
+     * 最后将位置 i 的元素设置为给定值。
+     * @param i        索引
+     * @param newValue 新值
+     */
+    public final void lazySet(int i, int newValue) {
+        unsafe.putOrderedInt(array, rawIndex(i), newValue);
+    }
+
+    /**
+     * Atomically sets the element at position {@code i} to the given
+     * value and returns the old value.
+     *
+     * @param i the index
+     * @param newValue the new value
+     * @return the previous value
+     */
+    /**
+     * 将位置 i 的元素以原子方式设置为给定值，并返回旧值。
+     * @param  i        索引
+     * @param  newValue 薪值
+     * @return          以前的值
+     */
+    public final int getAndSet(int i, int newValue) {
+        while (true) {
+            int current = get(i);
+            if (compareAndSet(i, current, newValue))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically sets the element at position {@code i} to the given
+     * updated value if the current value {@code ==} the expected value.
+     *
+     * @param i the index
+     * @param expect the expected value
+     * @param update the new value
+     * @return true if successful. False return indicates that
+     * the actual value was not equal to the expected value.
+     */
+    /**
+     * 如果当前值 == 预期值，则以原子方式将位置 i 的元素设置为给定的更新值。
+     * @param  i      索引
+     * @param  expect 预期值
+     * @param  update 薪值
+     * @return        如果成功，则返回 true。返回 false 指示实际值与预期值不相等。
+     */
+    public final boolean compareAndSet(int i, int expect, int update) {
+        return unsafe.compareAndSwapInt(array, rawIndex(i),
+                                        expect, update);
+    }
+
+    /**
+     * Atomically sets the element at position {@code i} to the given
+     * updated value if the current value {@code ==} the expected value.
+     *
+     * &lt;p&gt;May &lt;a href=&quot;package-summary.html#Spurious&quot;&gt;fail spuriously&lt;/a&gt;
+     * and does not provide ordering guarantees, so is only rarely an
+     * appropriate alternative to {@code compareAndSet}.
+     *
+     * @param i the index
+     * @param expect the expected value
+     * @param update the new value
+     * @return true if successful.
+     */
+    /**
+     * 如果当前值 == 预期值，则以原子方式将位置 i 的元素设置为给定的更新值。
+     * 可能意外失败并且不提供排序保证，所以只是在很少的情况下才对 
+     * compareAndSet 进行适当地选择。
+     * @param  i      索引
+     * @param  expect 预期值
+     * @param  update 薪值
+     * @return        如果成功，则返回 true。
+     */
+    public final boolean weakCompareAndSet(int i, int expect, int update) {
+        return compareAndSet(i, expect, update);
+    }
+
+    /**
+     * Atomically increments by one the element at index {@code i}.
+     *
+     * @param i the index
+     * @return the previous value
+     */
+    /**
+     * 以原子方式将索引 i 的元素加 1。
+     * @param  i 索引
+     * @return   以前的值
+     */
+    public final int getAndIncrement(int i) {
+        while (true) {
+            int current = get(i);
+            int next = current + 1;
+            if (compareAndSet(i, current, next))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically decrements by one the element at index {@code i}.
+     *
+     * @param i the index
+     * @return the previous value
+     */
+    /**
+     * 以原子方式将索引 i 的元素减 1。
+     * @param  i 索引
+     * @return   以前的值
+     */
+    public final int getAndDecrement(int i) {
+        while (true) {
+            int current = get(i);
+            int next = current - 1;
+            if (compareAndSet(i, current, next))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically adds the given value to the element at index {@code i}.
+     *
+     * @param i the index
+     * @param delta the value to add
+     * @return the previous value
+     */
+    /**
+     * 以原子方式将给定值与索引 i 的元素相加。
+     * @param  i     索引
+     * @param  delta 要加上的值
+     * @return       以前的值
+     */
+    public final int getAndAdd(int i, int delta) {
+        while (true) {
+            int current = get(i);
+            int next = current + delta;
+            if (compareAndSet(i, current, next))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically increments by one the element at index {@code i}.
+     *
+     * @param i the index
+     * @return the updated value
+     */
+    /**
+     * 以原子方式将索引 i 的元素加 1。
+     * @param  i 索引
+     * @return   更新的值
+     */
+    public final int incrementAndGet(int i) {
+        while (true) {
+            int current = get(i);
+            int next = current + 1;
+            if (compareAndSet(i, current, next))
+                return next;
+        }
+    }
+
+    /**
+     * Atomically decrements by one the element at index {@code i}.
+     *
+     * @param i the index
+     * @return the updated value
+     */
+    /**
+     * 以原子方式将索引 i 的元素减 1。
+     * @param  i 索引
+     * @return   更新的值
+     */
+    public final int decrementAndGet(int i) {
+        while (true) {
+            int current = get(i);
+            int next = current - 1;
+            if (compareAndSet(i, current, next))
+                return next;
+        }
+    }
+
+    /**
+     * Atomically adds the given value to the element at index {@code i}.
+     *
+     * @param i the index
+     * @param delta the value to add
+     * @return the updated value
+     */
+    /**
+     * 以原子方式将给定值与索引 i 的元素相加。
+     * @param  i     索引
+     * @param  delta 要加上的值
+     * @return       更新的值
+     */
+    public final int addAndGet(int i, int delta) {
+        while (true) {
+            int current = get(i);
+            int next = current + delta;
+            if (compareAndSet(i, current, next))
+                return next;
+        }
+    }
+
+    /**
+     * Returns the String representation of the current values of array.
+     * @return the String representation of the current values of array.
+     */
+    /**
+     * 返回数组当前值的字符串表示形式。
+     * @return 数组当前值的字符串表示形式。
+     */
+    public String toString() {
+        if (array.length &gt; 0) // force volatile read
+            get(0);
+        return Arrays.toString(array);
+    }
+
+}
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

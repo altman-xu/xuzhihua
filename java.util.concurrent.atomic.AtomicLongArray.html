@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	java.util.concurrent.atomic.AtomicInteger - xuzhihua blog
+  	java.util.concurrent.atomic.AtomicLongArray - xuzhihua blog
   	
 	</title>
 
@@ -148,45 +148,40 @@
 			<div class="mid-col-container"> <div id="content" class="inner">
 
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicInteger</h1>
+		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicLongArray</h1>
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
-<p>jdk1.6类 java.util.concurrent.atomic.AtomicInteger</p>
-
-<p>转自<a href="http://www.runoob.com/manual/jdk1.6/java/util/concurrent/atomic/AtomicInteger.html">类 AtomicInteger</a></p>
+<p>jdk1.6类 java.util.concurrent.atomic.AtomicLongArray</p>
 </blockquote>
 
 <span id="more"></span><!-- more -->
 
 <ul>
 <li>
-<a href="#toc_0">java.util.concurrent.atomic.AtomicInteger</a>
+<a href="#toc_0">java.util.concurrent.atomic.AtomicLongArray</a>
 </li>
 </ul>
 
 
-<h2 id="toc_0">java.util.concurrent.atomic.AtomicInteger</h2>
+<h2 id="toc_0">java.util.concurrent.atomic.AtomicLongArray</h2>
 
 <ol>
-<li>public AtomicInteger(int initialValue)</li>
-<li>public AtomicInteger()</li>
-<li>public final int get()</li>
-<li>public final void set(int newValue)</li>
-<li>public final void lazySet(int newValue)</li>
-<li>public final int getAndSet(int newValue)</li>
-<li>public final boolean compareAndSet(int expect, int update)</li>
-<li>public final boolean weakCompareAndSet(int expect, int update)</li>
-<li> public final int getAndIncrement()</li>
-<li>public final int getAndDecrement()</li>
-<li>public final int getAndAdd(int delta)</li>
-<li>public final int incrementAndGet()</li>
-<li>public final int decrementAndGet()</li>
-<li>public final int addAndGet(int delta)</li>
-<li>public String toString()</li>
-<li>public int intValue()</li>
-<li>public long longValue()</li>
-<li>public float floatValue()</li>
-<li>public double doubleValue()</li>
+<li>private long rawIndex(int i)</li>
+<li>public AtomicLongArray(int length) </li>
+<li>public AtomicLongArray(long[] array)</li>
+<li>public final int length() </li>
+<li>public final long get(int i)</li>
+<li>public final void set(int i, long newValue) </li>
+<li>public final void lazySet(int i, long newValue) </li>
+<li>public final long getAndSet(int i, long newValue) </li>
+<li>public final boolean compareAndSet(int i, long expect, long update) </li>
+<li>public final boolean weakCompareAndSet(int i, long expect, long update) </li>
+<li>public final long getAndIncrement(int i)</li>
+<li>public final long getAndDecrement(int i) </li>
+<li>public final long getAndAdd(int i, long delta) </li>
+<li>public final long incrementAndGet(int i)</li>
+<li>public final long decrementAndGet(int i) </li>
+<li>public long addAndGet(int i, long delta)</li>
 </ol>
 
 <pre><code class="language-java">/*
@@ -198,121 +193,153 @@
 
 package java.util.concurrent.atomic;
 import sun.misc.Unsafe;
+import java.util.*;
 
 /**
- * An {@code int} value that may be updated atomically.  See the
- * {@link java.util.concurrent.atomic} package specification for
- * description of the properties of atomic variables. An
- * {@code AtomicInteger} is used in applications such as atomically
- * incremented counters, and cannot be used as a replacement for an
- * {@link java.lang.Integer}. However, this class does extend
- * {@code Number} to allow uniform access by tools and utilities that
- * deal with numerically-based classes.
- *
+ * A {@code long} array in which elements may be updated atomically.
+ * See the {@link java.util.concurrent.atomic} package specification
+ * for description of the properties of atomic variables.
  * @since 1.5
  * @author Doug Lea
-*/
-/**
- * 可以用原子方式更新的 int 值。有关原子变量属性的描述，
- * 请参阅 java.util.concurrent.atomic 包规范。
- * AtomicInteger 可用在应用程序中（如以原子方式增加的计数器），并且不能用于
- * 替换 Integer。但是，此类确实扩展了 Number，允许那些处理基于数字类的工具和
- * 实用工具进行统一访问。
  */
-public class AtomicInteger extends Number implements java.io.Serializable {
-    private static final long serialVersionUID = 6214790243416807050L;
+/**
+ * 可以用原子方式更新其元素的 long 数组。
+ * 有关原子变量属性的描述，请参阅 java.util.concurrent.atomic 包规范。
+ */
+public class AtomicLongArray implements java.io.Serializable {
+    private static final long serialVersionUID = -2308431214976778248L;
 
     // setup to use Unsafe.compareAndSwapInt for updates
     private static final Unsafe unsafe = Unsafe.getUnsafe();
-    private static final long valueOffset;
+    private static final int base = unsafe.arrayBaseOffset(long[].class);
+    private static final int scale = unsafe.arrayIndexScale(long[].class);
+    private final long[] array;
 
-    static {
-      try {
-        valueOffset = unsafe.objectFieldOffset
-            (AtomicInteger.class.getDeclaredField(&quot;value&quot;));
-      } catch (Exception ex) { throw new Error(ex); }
+    private long rawIndex(int i) {
+        if (i &lt; 0 || i &gt;= array.length)
+            throw new IndexOutOfBoundsException(&quot;index &quot; + i);
+        return base + (long) i * scale;
     }
 
-    private volatile int value;
-
     /**
-     * Creates a new AtomicInteger with the given initial value.
+     * Creates a new AtomicLongArray of given length.
      *
-     * @param initialValue the initial value
+     * @param length the length of the array
      */
     /**
-     * 创建具有给定初始值的新 AtomicInteger。
-     * @param  initialValue 初始值
+     * 创建给定长度的新 AtomicLongArray。
+     * @param  length 该数组的长度
      */
-    public AtomicInteger(int initialValue) {
-        value = initialValue;
+    public AtomicLongArray(int length) {
+        array = new long[length];
+        // must perform at least one volatile write to conform to JMM
+        if (length &gt; 0)
+            unsafe.putLongVolatile(array, rawIndex(0), 0);
     }
 
     /**
-     * Creates a new AtomicInteger with initial value {@code 0}.
-     */
-    /**
-     * 创建具有初始值 0 的新 AtomicInteger。
-     */
-    public AtomicInteger() {
-    }
-
-    /**
-     * Gets the current value.
+     * Creates a new AtomicLongArray with the same length as, and
+     * all elements copied from, the given array.
      *
+     * @param array the array to copy elements from
+     * @throws NullPointerException if array is null
+     */
+    /**
+     * 创建与给定数组具有相同长度的新 AtomicLongArray，并从给定数组复制其所有元素。
+     * @param  array 从中复制元素的数组
+     */
+    public AtomicLongArray(long[] array) {
+        if (array == null)
+            throw new NullPointerException();
+        int length = array.length;
+        this.array = new long[length];
+        if (length &gt; 0) {
+            int last = length-1;
+            for (int i = 0; i &lt; last; ++i)
+                this.array[i] = array[i];
+            // Do the last write as volatile
+            unsafe.putLongVolatile(this.array, rawIndex(last), array[last]);
+        }
+    }
+
+    /**
+     * Returns the length of the array.
+     *
+     * @return the length of the array
+     */
+    /**
+     * 返回该数组的长度。
+     * @return 该数组的长度
+     */
+    public final int length() {
+        return array.length;
+    }
+
+    /**
+     * Gets the current value at position {@code i}.
+     *
+     * @param i the index
      * @return the current value
      */
     /**
-     * 获取当前值。
-     * @return 当前值
+     * 获取位置 i 的当前值。
+     * @param  i 索引
+     * @return   当前值
      */
-    public final int get() {
-        return value;
+    public final long get(int i) {
+        return unsafe.getLongVolatile(array, rawIndex(i));
     }
 
     /**
-     * Sets to the given value.
+     * Sets the element at position {@code i} to the given value.
      *
+     * @param i the index
      * @param newValue the new value
      */
     /**
-     * 设置为给定值。
+     * 将位置 i 的元素设置为给定值。
+     * @param i        索引
      * @param newValue 新值
      */
-    public final void set(int newValue) {
-        value = newValue;
+    public final void set(int i, long newValue) {
+        unsafe.putLongVolatile(array, rawIndex(i), newValue);
     }
 
     /**
-     * Eventually sets to the given value.
+     * Eventually sets the element at position {@code i} to the given value.
      *
+     * @param i the index
      * @param newValue the new value
      * @since 1.6
      */
     /**
-     * 最后设置为给定值。
+     * 最终将位置 i 的元素设置为给定值。
+     * @param i        索引
      * @param newValue 新值
-     * @since 1.6
      */
-    public final void lazySet(int newValue) {
-        unsafe.putOrderedInt(this, valueOffset, newValue);
+    public final void lazySet(int i, long newValue) {
+        unsafe.putOrderedLong(array, rawIndex(i), newValue);
     }
 
+
     /**
-     * Atomically sets to the given value and returns the old value.
+     * Atomically sets the element at position {@code i} to the given value
+     * and returns the old value.
      *
+     * @param i the index
      * @param newValue the new value
      * @return the previous value
      */
     /**
-     * 以原子方式设置为给定值，并返回旧值。
+     * 以原子方式将位置 i 的元素设置为给定值，并返回旧值。
+     * @param  i        索引
      * @param  newValue 新值
      * @return          以前的值
      */
-    public final int getAndSet(int newValue) {
-        for (;;) {
-            int current = get();
-            if (compareAndSet(current, newValue))
+    public final long getAndSet(int i, long newValue) {
+        while (true) {
+            long current = get(i);
+            if (compareAndSet(i, current, newValue))
                 return current;
         }
     }
@@ -321,6 +348,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * Atomically sets the value to the given updated value
      * if the current value {@code ==} the expected value.
      *
+     * @param i the index
      * @param expect the expected value
      * @param update the new value
      * @return true if successful. False return indicates that
@@ -328,12 +356,14 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      */
     /**
      * 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
+     * @param  i      索引
      * @param  expect 预期值
      * @param  update 新值
-     * @return        如果成功，则返回 true。返回 False 指示实际值与预期值不相等。
+     * @return        如果成功，则返回 true。返回 false 指示实际值与预期值不相等。
      */
-    public final boolean compareAndSet(int expect, int update) {
-    return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
+    public final boolean compareAndSet(int i, long expect, long update) {
+        return unsafe.compareAndSwapLong(array, rawIndex(i),
+                                         expect, update);
     }
 
     /**
@@ -344,183 +374,162 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * and does not provide ordering guarantees, so is only rarely an
      * appropriate alternative to {@code compareAndSet}.
      *
+     * @param i the index
      * @param expect the expected value
      * @param update the new value
      * @return true if successful.
      */
     /**
-     * 如果当前值 == 预期值，则以原子方式将该设置为给定的更新值。
-     * 可能意外失败并且不提供排序保证，所以只有在很少的情况下才对 compareAndSet 
-     * 进行适当地选择。
-     * 
+     * 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
+     * 可能意外失败并且不提供排序保证，所以只能在很少的情况下对 compareAndSet 进行适当地选择。
+     * @param  i      索引
      * @param  expect 预期值
      * @param  update 新值
      * @return        如果成功，则返回 true。
      */
-    public final boolean weakCompareAndSet(int expect, int update) {
-    return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
+    public final boolean weakCompareAndSet(int i, long expect, long update) {
+        return compareAndSet(i, expect, update);
     }
 
     /**
-     * Atomically increments by one the current value.
+     * Atomically increments by one the element at index {@code i}.
      *
+     * @param i the index
      * @return the previous value
      */
     /**
-     * 以原子方式将当前值加 1。
-     * @return 以前的值
+     * 以原子方式将索引 i 的元素加 1。
+     * @param  i 索引
+     * @return   以前的值
      */
-    public final int getAndIncrement() {
-        for (;;) {
-            int current = get();
-            int next = current + 1;
-            if (compareAndSet(current, next))
+    public final long getAndIncrement(int i) {
+        while (true) {
+            long current = get(i);
+            long next = current + 1;
+            if (compareAndSet(i, current, next))
                 return current;
         }
     }
 
     /**
-     * Atomically decrements by one the current value.
+     * Atomically decrements by one the element at index {@code i}.
      *
+     * @param i the index
      * @return the previous value
      */
     /**
-     * 以原子方式将当前值减 1。
-     * @return 以前的值
+     * 以原子方式将索引 i 的元素减 1。
+     * @param  i 索引
+     * @return   以前的值
      */
-    public final int getAndDecrement() {
-        for (;;) {
-            int current = get();
-            int next = current - 1;
-            if (compareAndSet(current, next))
+    public final long getAndDecrement(int i) {
+        while (true) {
+            long current = get(i);
+            long next = current - 1;
+            if (compareAndSet(i, current, next))
                 return current;
         }
     }
 
     /**
-     * Atomically adds the given value to the current value.
+     * Atomically adds the given value to the element at index {@code i}.
      *
+     * @param i the index
      * @param delta the value to add
      * @return the previous value
      */
     /**
-     * 以原子方式将给定值与当前值相加。
+     * 以原子方式将给定值与索引 i 的元素相加。
+     * @param  i     索引
      * @param  delta 要加上的值
      * @return       以前的值
      */
-    public final int getAndAdd(int delta) {
-        for (;;) {
-            int current = get();
-            int next = current + delta;
-            if (compareAndSet(current, next))
+    public final long getAndAdd(int i, long delta) {
+        while (true) {
+            long current = get(i);
+            long next = current + delta;
+            if (compareAndSet(i, current, next))
                 return current;
         }
     }
 
     /**
-     * Atomically increments by one the current value.
+     * Atomically increments by one the element at index {@code i}.
      *
+     * @param i the index
      * @return the updated value
      */
     /**
-     * 以原子方式将当前值加 1。
-     * @return 更新的值
+     * 以原子方式将索引 i 的元素加1。
+     * @param  i 索引
+     * @return   更新的值
      */
-    public final int incrementAndGet() {
-        for (;;) {
-            int current = get();
-            int next = current + 1;
-            if (compareAndSet(current, next))
+    public final long incrementAndGet(int i) {
+        while (true) {
+            long current = get(i);
+            long next = current + 1;
+            if (compareAndSet(i, current, next))
                 return next;
         }
     }
 
     /**
-     * Atomically decrements by one the current value.
+     * Atomically decrements by one the element at index {@code i}.
      *
+     * @param i the index
      * @return the updated value
      */
     /**
-     * 以原子方式将当前值减 1。
-     * @return 更新的值
+     * 以原子方式将索引 i 的元素减1。
+     * @param  i  索引
+     * @return    更新的值
      */
-    public final int decrementAndGet() {
-        for (;;) {
-            int current = get();
-            int next = current - 1;
-            if (compareAndSet(current, next))
+    public final long decrementAndGet(int i) {
+        while (true) {
+            long current = get(i);
+            long next = current - 1;
+            if (compareAndSet(i, current, next))
                 return next;
         }
     }
 
     /**
-     * Atomically adds the given value to the current value.
+     * Atomically adds the given value to the element at index {@code i}.
      *
+     * @param i the index
      * @param delta the value to add
      * @return the updated value
      */
     /**
-     * 以原子方式将给定值与当前值相加。
-     * @param  delta 要加上的值
+     * 以原子方式将给定值添加到索引 i 的元素。
+     * @param  i     索引
+     * @param  delta 要添加的值
      * @return       更新的值
      */
-    public final int addAndGet(int delta) {
-        for (;;) {
-            int current = get();
-            int next = current + delta;
-            if (compareAndSet(current, next))
+    public long addAndGet(int i, long delta) {
+        while (true) {
+            long current = get(i);
+            long next = current + delta;
+            if (compareAndSet(i, current, next))
                 return next;
         }
     }
 
     /**
-     * Returns the String representation of the current value.
-     * @return the String representation of the current value.
+     * Returns the String representation of the current values of array.
+     * @return the String representation of the current values of array.
      */
     /**
-     * 返回当前值的字符串表示形式。
-     * 覆盖：类 Object 中的 toString
-     * @return 当前值的字符串表示形式。
+     * 返回数组当前值的字符串表示形式。
+     * @return 数组当前值的字符串表示形式。
      */
     public String toString() {
-        return Integer.toString(get());
-    }
-
-    /**
-     * 从类 Number 复制的描述 以 int 形式返回指定的数值。这可能会涉及到舍入或取整。
-     * 指定者：类 Number 中的 intValue
-     * @return 转换为 int 类型后该对象表示的数值。
-     */
-    public int intValue() {
-    return get();
-    }
-    /**
-     * 从类 Number 复制的描述 以 long 形式返回指定的数值。这可能涉及到舍入或取整。
-     * 指定者：类 Number 中的 longValue
-     * @return 转换为 long 类型后该对象表示的数值。
-     */
-    public long longValue() {
-    return (long)get();
-    }
-    /**
-     * 从类 Number 复制的描述 以 float 形式返回指定的数值。这可能会涉及到舍入。
-     * 指定者：类 Number 中的 floatValue
-     * @return 转换为 float 类型后该对象表示的数值。
-     */
-    public float floatValue() {
-    return (float)get();
-    }
-    /**
-     * 从类 Number 复制的描述 以 double 形式返回指定的数值。这可能会涉及到舍入。
-     * 指定者：类 Number 中的 doubleValue
-     * @return 转换为 double 类型后该对象表示的数值。
-     */
-    public double doubleValue() {
-    return (double)get();
+        if (array.length &gt; 0) // force volatile read
+            get(0);
+        return Arrays.toString(array);
     }
 
 }
-
 </code></pre>
 
 		</div>
