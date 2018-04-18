@@ -215,70 +215,73 @@
 <a href="#toc_18">删除分支 git branch -d dev</a>
 </li>
 <li>
-<a href="#toc_19">解决冲突</a>
+<a href="#toc_19">删除远程分支</a>
 </li>
 <li>
-<a href="#toc_20">查看分支合并图</a>
+<a href="#toc_20">解决冲突</a>
 </li>
 <li>
-<a href="#toc_21">合并时禁用 Fast forward 模式</a>
+<a href="#toc_21">查看分支合并图</a>
 </li>
 <li>
-<a href="#toc_22">分支策略</a>
+<a href="#toc_22">合并时禁用 Fast forward 模式</a>
 </li>
 <li>
-<a href="#toc_23">突发的Bug分支 git stash</a>
+<a href="#toc_23">分支策略</a>
 </li>
 <li>
-<a href="#toc_24">强行删除分支 git branch -D dev</a>
-</li>
-</ul>
+<a href="#toc_24">突发的Bug分支 git stash</a>
 </li>
 <li>
-<a href="#toc_25">远程库</a>
-<ul>
-<li>
-<a href="#toc_26">查看远程库 git remote</a>
-</li>
-<li>
-<a href="#toc_27">推送分支 git push dev</a>
-</li>
-<li>
-<a href="#toc_28">抓取分支 git pull dev</a>
+<a href="#toc_25">强行删除分支 git branch -D dev</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_29">标签管理</a>
+<a href="#toc_26">远程库</a>
 <ul>
 <li>
-<a href="#toc_30">创建标签 git tag tagName</a>
+<a href="#toc_27">查看远程库 git remote</a>
 </li>
 <li>
-<a href="#toc_31">推送标签到远程 git push origin tagName</a>
+<a href="#toc_28">推送分支 git push dev</a>
 </li>
 <li>
-<a href="#toc_32">删除本地标签git tag -d tagName</a>
-</li>
-<li>
-<a href="#toc_33">删除远程标签 git push origin :refs/tags/tagName</a>
+<a href="#toc_29">抓取分支 git pull dev</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_34">自定义git</a>
+<a href="#toc_30">标签管理</a>
 <ul>
 <li>
-<a href="#toc_35">让git显示颜色 git config --global color.ui.true</a>
+<a href="#toc_31">创建标签 git tag tagName</a>
 </li>
 <li>
-<a href="#toc_36">忽略特殊文件 .gitignore文件</a>
+<a href="#toc_32">推送标签到远程 git push origin tagName</a>
 </li>
 <li>
-<a href="#toc_37">配置别名 git config --global alias.aliasName cmdName</a>
+<a href="#toc_33">删除本地标签git tag -d tagName</a>
 </li>
 <li>
-<a href="#toc_38">搭建git服务器</a>
+<a href="#toc_34">删除远程标签 git push origin :refs/tags/tagName</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_35">自定义git</a>
+<ul>
+<li>
+<a href="#toc_36">让git显示颜色 git config --global color.ui.true</a>
+</li>
+<li>
+<a href="#toc_37">忽略特殊文件 .gitignore文件</a>
+</li>
+<li>
+<a href="#toc_38">配置别名 git config --global alias.aliasName cmdName</a>
+</li>
+<li>
+<a href="#toc_39">搭建git服务器</a>
 </li>
 </ul>
 </li>
@@ -405,7 +408,13 @@ git merge dev
 git branch
 </code></pre>
 
-<h4 id="toc_19">解决冲突</h4>
+<h4 id="toc_19">删除远程分支</h4>
+
+<pre><code class="language-zsh">git branch -r -d origin/branch-name  
+git push origin :branch-name  
+</code></pre>
+
+<h4 id="toc_20">解决冲突</h4>
 
 <pre><code class="language-zsh">git merge dev
 #提示有冲突
@@ -415,12 +424,12 @@ git status
 #git 用 &lt;&lt;&lt;&lt;&lt;&lt;&lt;,=======,&gt;&gt;&gt;&gt;&gt;&gt;&gt;标记出冲突中不同分支的内容，修改后再 add，commit
 </code></pre>
 
-<h4 id="toc_20">查看分支合并图</h4>
+<h4 id="toc_21">查看分支合并图</h4>
 
 <pre><code class="language-zsh">git log --graph --pretty=oneline --abbrev-commit
 </code></pre>
 
-<h4 id="toc_21">合并时禁用 Fast forward 模式</h4>
+<h4 id="toc_22">合并时禁用 Fast forward 模式</h4>
 
 <p>通常，合并分支时，如果可能，git会用 Fast forward 模式，但这种模式下，删除分支后，会丢掉分支信息</p>
 
@@ -440,14 +449,14 @@ git merge --no-ff -m &quot;merge with no-ff&quot; dev
 git log --graph --pretty=oneline --abbrev-commit
 </code></pre>
 
-<h4 id="toc_22">分支策略</h4>
+<h4 id="toc_23">分支策略</h4>
 
 <p>master分支应该是非常稳定的，也就是仅用来发布新版本，通常不能再上面开发。<br/>
 dev分支是不稳定的，通常用来开发，到某个时候，比如2.0版本发布时，再把dev分支合并到master上，在master分支上发布2.0版本<br/>
 开发人员每个人都在dev分支，每个人都有自己的分支，时不时往dev分支上合并就可以<br/>
 <img src="media/15223808233737/git%20master%20dev%20developer.jpg" alt="git master dev develope"/></p>
 
-<h4 id="toc_23">突发的Bug分支 git stash</h4>
+<h4 id="toc_24">突发的Bug分支 git stash</h4>
 
 <p>场景: <br/>
 当你突然接到一个代号101的bug任务（两个小时内完成）<br/>
@@ -491,15 +500,15 @@ git stash list
 git stash apply stash@{0}
 </code></pre>
 
-<h4 id="toc_24">强行删除分支 git branch -D dev</h4>
+<h4 id="toc_25">强行删除分支 git branch -D dev</h4>
 
 <pre><code class="language-zsh">#对于未被合并的分支dev，如果删除，将会丢失掉修改，如果要强行删除，使用命令
 git branch -D dev
 </code></pre>
 
-<h3 id="toc_25">远程库</h3>
+<h3 id="toc_26">远程库</h3>
 
-<h4 id="toc_26">查看远程库 git remote</h4>
+<h4 id="toc_27">查看远程库 git remote</h4>
 
 <p>当你从远程仓库克隆时，实际上Git自动把本地master分支和远程master分支对应起来，并且，远程仓库的默认名称是 origin</p>
 
@@ -509,7 +518,7 @@ git remote
 git remote -v
 </code></pre>
 
-<h4 id="toc_27">推送分支 git push dev</h4>
+<h4 id="toc_28">推送分支 git push dev</h4>
 
 <p>推送分支，就是把该分支上的所有本地提交推送到远程库。推送是，要指定本地分支，git就会把该分支推送到远程库对应的远程分支上</p>
 
@@ -519,7 +528,7 @@ git push origin master
 git push origin dev
 </code></pre>
 
-<h4 id="toc_28">抓取分支 git pull dev</h4>
+<h4 id="toc_29">抓取分支 git pull dev</h4>
 
 <pre><code class="language-zsh">#1. developerA 克隆分支
 git clone git@github.com:**/**.git
@@ -543,11 +552,11 @@ git commit -m &quot;merge &amp; fix conflict&quot;
 git push origin dev
 </code></pre>
 
-<h3 id="toc_29">标签管理</h3>
+<h3 id="toc_30">标签管理</h3>
 
 <p>发布一个版本时，我们通常在版本库中打一个标签，这样，就唯一确定了打标签时刻的版本，将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本qu出来，所以，标签也是版本库的一个快照</p>
 
-<h4 id="toc_30">创建标签 git tag tagName</h4>
+<h4 id="toc_31">创建标签 git tag tagName</h4>
 
 <pre><code class="language-zsh">#查看分支
 git branch
@@ -574,7 +583,7 @@ git tag v2.5 commitId   # 注 此commitId应替换成实际值
 git tag 
 </code></pre>
 
-<h4 id="toc_31">推送标签到远程 git push origin tagName</h4>
+<h4 id="toc_32">推送标签到远程 git push origin tagName</h4>
 
 <pre><code class="language-zsh">#推送某个标签到远程
 git push origin v3.1
@@ -582,14 +591,14 @@ git push origin v3.1
 git push origin --tags
 </code></pre>
 
-<h4 id="toc_32">删除本地标签git tag -d tagName</h4>
+<h4 id="toc_33">删除本地标签git tag -d tagName</h4>
 
 <p>因创建的标签都之存储在本地，不会指定推送到远程，所以，打错的标签可以在本地安全删除<br/>
 <code>zsh<br/>
 git tag -d v3.1<br/>
 </code></p>
 
-<h4 id="toc_33">删除远程标签 git push origin :refs/tags/tagName</h4>
+<h4 id="toc_34">删除远程标签 git push origin :refs/tags/tagName</h4>
 
 <pre><code class="language-zsh">#先从本地删除
 git tag -d v3.2
@@ -598,14 +607,14 @@ git push origin :refs/tags/v3.2
 #上github上看是否真的删除了远程标签
 </code></pre>
 
-<h3 id="toc_34">自定义git</h3>
+<h3 id="toc_35">自定义git</h3>
 
-<h4 id="toc_35">让git显示颜色 git config --global color.ui.true</h4>
+<h4 id="toc_36">让git显示颜色 git config --global color.ui.true</h4>
 
 <pre><code class="language-zsh">git config --global color.ui.true
 </code></pre>
 
-<h4 id="toc_36">忽略特殊文件 .gitignore文件</h4>
+<h4 id="toc_37">忽略特殊文件 .gitignore文件</h4>
 
 <p>在git工作区的根目录下创建一个特殊的 .gitignore 文件，然后把要忽略的文件名填进去，git 就会自动忽略这些文件</p>
 
@@ -619,7 +628,7 @@ git push origin :refs/tags/v3.2
 <li>忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件</li>
 </ol>
 
-<h4 id="toc_37">配置别名 git config --global alias.aliasName cmdName</h4>
+<h4 id="toc_38">配置别名 git config --global alias.aliasName cmdName</h4>
 
 <pre><code class="language-zsh">git config --global alias.st status         # git st = git status
 git config --global alias.co checkout       # git co = git checkout
@@ -630,7 +639,7 @@ git config --global alias.last &#39;log -l&#39;     # git last = git log -1
 git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;    #可以试一下git lg 的效果
 </code></pre>
 
-<h4 id="toc_38">搭建git服务器</h4>
+<h4 id="toc_39">搭建git服务器</h4>
 
 <pre><code class="language-zsh">#1. 安装git
 sudo apt-git install git
