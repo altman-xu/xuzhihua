@@ -165,57 +165,64 @@
 
 <ul>
 <li>
-<a href="#toc_0">JVM结构</a>
+<a href="#toc_0">MindNode 图</a>
+</li>
+<li>
+<a href="#toc_1">JVM结构</a>
 <ul>
 <li>
-<a href="#toc_1">类加载子系统（Class Loader）</a>
+<a href="#toc_2">类加载子系统（Class Loader）</a>
 </li>
 <li>
-<a href="#toc_2">运行时数据区（内存空间）（JVM内存模型）</a>
+<a href="#toc_3">运行时数据区（内存空间）（JVM内存模型）</a>
 <ul>
 <li>
-<a href="#toc_3">(线程私有)  虚拟机栈（VM Stack）（Java栈（Java Stack））</a>
+<a href="#toc_4">(线程私有)  虚拟机栈（VM Stack）（Java栈（Java Stack））</a>
 </li>
 <li>
-<a href="#toc_4">(线程私有)  本地方法栈（Native Method Stack）</a>
+<a href="#toc_5">(线程私有)  本地方法栈（Native Method Stack）</a>
 </li>
 <li>
-<a href="#toc_5">(线程私有)  PC 寄存器(程序计数器)</a>
+<a href="#toc_6">(线程私有)  PC 寄存器(程序计数器)</a>
 </li>
 <li>
-<a href="#toc_6">(线程共享)  方法区（Method Area）</a>
+<a href="#toc_7">(线程共享)  方法区（Method Area）</a>
 </li>
 <li>
-<a href="#toc_7">(线程共享)  堆（Heap）</a>
+<a href="#toc_8">(线程共享)  堆（Heap）</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_8">执行引擎</a>
+<a href="#toc_9">执行引擎</a>
 <ul>
 <li>
-<a href="#toc_9">1. 解释执行</a>
+<a href="#toc_10">1. 解释执行</a>
 </li>
 <li>
-<a href="#toc_10">2. 编译执行</a>
+<a href="#toc_11">2. 编译执行</a>
 </li>
 <li>
-<a href="#toc_11">3. 自适应优化执行</a>
+<a href="#toc_12">3. 自适应优化执行</a>
 </li>
 <li>
-<a href="#toc_12">JDK编译模式：Client和Server模式</a>
+<a href="#toc_13">JDK编译模式：Client和Server模式</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_13">本地方法接口</a>
+<a href="#toc_14">本地方法接口</a>
 </li>
 </ul>
 </li>
 </ul>
 
 
-<h2 id="toc_0">JVM结构</h2>
+<h2 id="toc_0">MindNode 图</h2>
+
+<p><img src="media/15180160346472/JVM.png" alt="JV"/></p>
+
+<h2 id="toc_1">JVM结构</h2>
 
 <p><strong>JVM（Java Virtual Machine）</strong></p>
 
@@ -236,7 +243,7 @@
 <p>众所周知，Java语言具有跨平台的特性，这也是由JVM来实现的。更准确地说，是Sun利用JVM在不同平台上的实现帮我们把平台相关性的问题给解决了，这就好比是HTML语言可以在不同厂商的浏览器上呈现元素（虽然某些浏览器在对W3C标准的支持上还有一些问题）。同时，Java语言支持通过JNI（Java Native Interface）来实现本地方法的调用，但是需要注意到，如果你在Java程序用调用了本地方法，那么你的程序就很可能不再具有跨平台性，即本地方法会破坏平台无关性。</p>
 </blockquote>
 
-<h3 id="toc_1">类加载子系统（Class Loader）</h3>
+<h3 id="toc_2">类加载子系统（Class Loader）</h3>
 
 <blockquote>
 <p>类加载器子系统负责加载编译好的.class字节码文件，并装入内存，使JVM可以实例化或以其它方式使用加载后的类。JVM的类加载子系统支持在运行时的动态加载，动态加载的优点有很多，例如可以节省内存空间、灵活地从网络上加载类，动态加载的另一好处是可以通过命名空间的分隔来实现类的隔离，增强了整个系统的安全性。</p>
@@ -291,11 +298,11 @@
 </ol>
 </blockquote>
 
-<h3 id="toc_2">运行时数据区（内存空间）（JVM内存模型）</h3>
+<h3 id="toc_3">运行时数据区（内存空间）（JVM内存模型）</h3>
 
 <p><img src="media/15180160346472/15180562136359.jpg" alt=""/></p>
 
-<h4 id="toc_3">(线程私有)  虚拟机栈（VM Stack）（Java栈（Java Stack））</h4>
+<h4 id="toc_4">(线程私有)  虚拟机栈（VM Stack）（Java栈（Java Stack））</h4>
 
 <blockquote>
 <p>Java栈由栈帧组成，一个帧对应一个方法调用。调用方法时压入栈帧，方法返回时弹出栈帧并抛弃。<br/>
@@ -326,19 +333,19 @@
 <p>局部变量区和操作数栈的大小依照具体方法在编译时就已经确定。调用方法时会从方法区中找到对应类的类型信息，从中得到具体方法的局部变量区和操作数栈的大小，依此分配栈帧内存，压入Java栈。</p>
 </blockquote>
 
-<h4 id="toc_4">(线程私有)  本地方法栈（Native Method Stack）</h4>
+<h4 id="toc_5">(线程私有)  本地方法栈（Native Method Stack）</h4>
 
 <blockquote>
 <p>本地方法栈类似于Java栈，主要存储了本地方法调用的状态。在Sun JDK中，本地方法栈和Java栈是同一个。</p>
 </blockquote>
 
-<h4 id="toc_5">(线程私有)  PC 寄存器(程序计数器)</h4>
+<h4 id="toc_6">(线程私有)  PC 寄存器(程序计数器)</h4>
 
 <blockquote>
 <p>PC 寄存器，也叫程序计数器。JVM支持多个线程同时运行，每个线程都有自己的程序计数器。倘若当前执行的是 JVM 的方法，则该寄存器中保存当前执行指令的地址；倘若执行的是native 方法，则PC寄存器中为空。</p>
 </blockquote>
 
-<h4 id="toc_6">(线程共享)  方法区（Method Area）</h4>
+<h4 id="toc_7">(线程共享)  方法区（Method Area）</h4>
 
 <blockquote>
 <p><strong><em>方法区也是所有线程共享</em></strong>。主要用于存储类的信息、常量池、方法数据、方法代码等。方法区逻辑上属于堆的一部分，但是为了与堆进行区分，通常又叫“非堆”。<br/>
@@ -365,7 +372,7 @@
 <p>在Sun JDK中，方法区对应了持久代（Permanent Generation），默认最小值为16MB，最大值为64MB。</p>
 </blockquote>
 
-<h4 id="toc_7">(线程共享)  堆（Heap）</h4>
+<h4 id="toc_8">(线程共享)  堆（Heap）</h4>
 
 <blockquote>
 <p>堆用于存储对象实例以及数组值。堆中有指向类数据的指针，该指针指向了方法区中对应的类型信息。堆中还可能存放了指向方法表的指针。<br/>
@@ -386,7 +393,7 @@
 </ol>
 </blockquote>
 
-<h3 id="toc_8">执行引擎</h3>
+<h3 id="toc_9">执行引擎</h3>
 
 <blockquote>
 <p>执行引擎是JVM执行Java字节码的核心<br/>
@@ -398,7 +405,7 @@
 <p><strong><em>JVM指令由单字节操作码和若干操作数组成。对于需要操作数的指令，通常是先把操作数压入操作数栈，即使是对局部变量赋值，也会先入栈再赋值</em></strong>。注意这里是“通常”情况，之后会讲到由于优化导致的例外。</p>
 </blockquote>
 
-<h4 id="toc_9">1. 解释执行</h4>
+<h4 id="toc_10">1. 解释执行</h4>
 
 <blockquote>
 <p>和一些动态语言类似，JVM可以解释执行字节码。Sun JDK采用了token-threading的方式，感兴趣的同学可以深入了解一下。</p>
@@ -418,13 +425,13 @@
 </ol>
 </blockquote>
 
-<h4 id="toc_10">2. 编译执行</h4>
+<h4 id="toc_11">2. 编译执行</h4>
 
 <blockquote>
 <p>为了提升执行速度，Sun JDK提供了将字节码编译为机器指令的支持，主要利用了JIT（Just-In-Time）编译器在运行时进行编译，它会在第一次执行时编译字节码为机器码并缓存，之后就可以重复利用。Oracle JRockit采用的是完全的编译执行。</p>
 </blockquote>
 
-<h4 id="toc_11">3. 自适应优化执行</h4>
+<h4 id="toc_12">3. 自适应优化执行</h4>
 
 <blockquote>
 <p>自适应优化执行的思想是程序中10%~20%的代码占据了80%~90%的执行时间，所以通过将那少部分代码编译为优化过的机器码就可以大大提升执行效率。自适应优化的典型代表是Sun的Hotspot VM，正如其名，JVM会监测代码的执行情况，当判断特定方法是瓶颈或热点时，将会启动一个后台线程，把该方法的字节码编译为极度优化的、静态链接的C++代码。当方法不再是热区时，则会取消编译过的代码，重新进行解释执行。</p>
@@ -432,7 +439,7 @@
 <p>自适应优化不仅通过利用小部分的编译时间获得大部分的效率提升，而且由于在执行过程中时刻监测，对内联代码等优化也起到了很大的作用。由于面向对象的多态性，一个方法可能对应了很多种不同实现，自适应优化就可以通过监测只内联那些用到的代码，大大减少了内联函数的大小。</p>
 </blockquote>
 
-<h4 id="toc_12">JDK编译模式：Client和Server模式</h4>
+<h4 id="toc_13">JDK编译模式：Client和Server模式</h4>
 
 <blockquote>
 <p>Sun JDK在编译上采用了两种模式：Client和Server模式。<br/>
@@ -443,7 +450,7 @@
 <p>此外，执行引擎也必须保证线程安全性，因而<a href="http://www.cs.umd.edu/%7Epugh/java/memoryModel/">JMM（Java Memory Model）</a>也是由执行引擎确保的。</p>
 </blockquote>
 
-<h3 id="toc_13">本地方法接口</h3>
+<h3 id="toc_14">本地方法接口</h3>
 
 <blockquote>
 <p>主要是调用C或C++实现的本地方法及返回结果</p>
