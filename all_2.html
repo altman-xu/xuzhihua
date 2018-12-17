@@ -105,6 +105,8 @@
 						
 						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
 						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
 						  <li id=""><a target="_self" href="Java.html">Java</a></li>
 						
 						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
@@ -149,6 +151,231 @@
 <div itemscope itemtype="http://schema.org/Blog">
 
 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="2018-04-18T21:54:46+08:00" itemprop="datePublished">2018/4/18</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='Python.html'>Python</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="Python%E7%BC%96%E7%A8%8B_%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5.html" itemprop="url">
+		Python编程_从入门到实践</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<!--more-->
+
+<ul>
+<li>
+<a href="#toc_0">Python 之禅</a>
+</li>
+<li>
+<a href="#toc_1">PEP</a>
+</li>
+<li>
+<a href="#toc_2">查看版本安装</a>
+</li>
+<li>
+<a href="#toc_3">安装ipython</a>
+</li>
+<li>
+<a href="#toc_4">语法</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">Python 之禅</h2>
+
+<pre><code class="language-python">&gt;&gt;&gt;
+import this
+</code></pre>
+
+<h2 id="toc_1">PEP</h2>
+
+<p>PEP (Python Enhancement Proposal) 编写Python改进提案<br/>
+PEP8 建议：</p>
+
+<pre><code>1. 缩进 4个空格
+2. 行长 每行不超过80字符，注释行长不超过72字符（最初计算机终端窗口每行只能容纳79字符）
+</code></pre>
+
+<h2 id="toc_2">查看版本安装</h2>
+
+<pre><code class="language-zsh">#查看版本
+python --version
+python3 --version
+#查看安装位置
+type -a python
+type -a python3
+which python
+whereis python
+</code></pre>
+
+<h2 id="toc_3">安装ipython</h2>
+
+<pre><code class="language-zsh">#ipython 语法高亮
+pip3 install ipython
+#安装完终端输入 ipython 
+</code></pre>
+
+<h2 id="toc_4">语法</h2>
+
+<pre><code class="language-python">&gt;&gt;&gt;
+## title, upper, lower, rstrip, str
+print(&quot;hello world&quot;);
+message = &quot;xuzhihua Hello Python Crash Course reader!   &quot;
+print(message.title());
+print(message.upper());
+print(message.lower());
+print(message.rstrip());
+print(3*0.1);
+message = &quot;Happy &quot; + str(23) + &quot; xuzhihua&quot;
+print(message)
+
+
+##array array[n], append, insert, del, pop, remove, sort, sorted
+bicycle = [&#39;xu&#39;, &#39;zhi&#39;, &#39;hua&#39;, &#39;altman&#39;]
+print(bicycle[0])
+print(bicycle[-1])
+print(bicycle[0])
+bicycle[1] = &#39;zhizhi&#39;
+print(bicycle)
+bicycle.append(&#39;altman025&#39;)
+print(bicycle)
+bicycle.insert(2,&#39;insertTest&#39;)
+print(bicycle)
+del bicycle[3]
+print(bicycle)
+bicycle_pop = bicycle.pop();
+bicycle_pop_3 = bicycle.pop(3);
+print(bicycle_pop)
+print(bicycle_pop_3)
+print(bicycle)
+bicycle.remove(&#39;zhizhi&#39;)
+print(bicycle)
+bicycle = [&#39;xu&#39;,&#39;zhi&#39;,&#39;hua&#39;,&#39;altman&#39;]
+bicycle.sort()
+print(bicycle)
+bicycle = [&#39;xu&#39;,&#39;zhi&#39;,&#39;hua&#39;,&#39;altman&#39;]
+print(sorted(bicycle))
+print(bicycle)
+bicycle.reverse()
+print(bicycle)
+print(bicycle)
+print(len(bicycle))
+
+
+##forLoop for, range, list, min, max, sum, list[m:n], ()
+magicians = [&#39;alice&#39;, &#39;david&#39;, &#39;carolina&#39;]
+for magician in magicians:
+    print(magician + &quot;, that was a great trick&quot;)
+    print(&quot;I can&#39;t to see your next trick &quot; + magician.title() + &quot;.\n&quot;)
+for value in range(1,6):
+    print(value)
+numbers = list(range(1,10))
+print(numbers)
+even_number = list(range(2,11,2))
+print(even_number)
+
+squares = []
+for value in range(1,11):
+    squares.append(value**2)
+print(squares)
+squares = [value**2 for value in range(11,15)]
+print(squares)
+
+digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+print(min(digits))
+print(max(digits))
+print(sum(digits))
+
+players = [&#39;charles&#39;, &#39;martina&#39;, &#39;michael&#39;, &#39;florence&#39;, &#39;eli&#39;]
+print(players[0:3])
+print(players[:4])
+print(players[2:])
+print(players[-3:])
+#值赋值
+players_copy = players[:]
+#引用赋值
+players_copy_ref = players
+print(players_copy)
+#元组，值不可变
+dimensions = (200,500)
+print(dimensions[0])
+print(dimensions[1])
+dimensions[0] = 100    # wrong 值不可变
+dimensions = (400,400) # yes    直接赋值新元组
+
+</code></pre>
+
+
+			
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="2018-04-12T09:54:43+08:00" itemprop="datePublished">2018/4/12</time>
+			</div>
+			
+			 
+			
+		</div>
+		<h1 class="title" itemprop="name"><a href="15234980833594.html" itemprop="url">
+		Adobe Livecycle Designer</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<!--more-->
+
+<ul>
+<li>
+<a href="#toc_0">交互式PDF</a>
+<ul>
+<li>
+<a href="#toc_1">AcroForm</a>
+</li>
+<li>
+<a href="#toc_2">XML Forms Architecture(XFA)</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p><a href="http://blog.51cto.com/ifbateam/588459">使用Adobe LiveCycle Designer进行PDF交互式表单的设计--Part1</a><br/>
+<a href="http://blog.51cto.com/ifbateam/592944">使用Adobe LiveCycle Designer进行PDF交互式表单的设计--Part2</a><br/>
+<a href="http://blog.51cto.com/ifbateam/597030">使用Adobe LiveCycle Designer进行PDF交互式表单的设计--Part3</a><br/>
+<a href="http://blog.51cto.com/ifbateam/608319">使用Adobe LiveCycle Designer进行PDF交互式表单的设计--Part4</a><br/>
+<a href="http://blog.51cto.com/ifbateam/616364">使用Adobe LiveCycle Designer进行PDF交互式表单的设计--Part5</a><br/>
+<a href="http://blog.51cto.com/ifbateam/622809">使用Adobe LiveCycle Designer进行PDF交互式表单的设计--Part6</a></p>
+
+<p>PDF表单</p>
+
+<h2 id="toc_0">交互式PDF</h2>
+
+<p>交互式PDF表单分两种：</p>
+
+<h3 id="toc_1">AcroForm</h3>
+
+<p>AcroForm， 它是PDF Specification 1.2 中引入的。 这种表单是从用户那里通过交互方式收集信息的字段集。交互式表单的内容和属性都是由一个交互式表单字典定义的，这个字典引用自 PDF 文件的文档类别的 AcroForm条目。</p>
+
+<h3 id="toc_2">XML Forms Architecture(XFA)</h3>
+
+<p>XML Forms Architecture（XFA），它是嵌入动态 XML 的  XFA 表单。XFA 提供了基于模板的语法和处理规则集，它们允许用户构建交互式表单。基于模板的语法将定义用户在其中提供数据的字段。XFA 的开放特性将提供描述交互式表单的通用 XML 语法，这是在表单处理应用程序之间执行与表单相关的交互操作的通用基础。这种开放特性意味着将在各种业务中应用 XFA。</p>
+
+
+			
+			
+		</div>
+
+	</article>
+ 
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
@@ -318,64 +545,6 @@
 
 			 
 			<a href="java.util.concurrent.atomic.AtomicReference.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2018-03-03T10:45:24+08:00" itemprop="datePublished">2018/3/3</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='jdkSource.html'>jdkSource</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="java.util.concurrent.atomic.AtomicMarkableReference.html" itemprop="url">
-		java.util.concurrent.atomic.AtomicMarkableReference</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>jdk1.6类 java.util.concurrent.atomic.AtomicMarkableReference</p>
-</blockquote>
-
-
-
-			 
-			<a href="java.util.concurrent.atomic.AtomicMarkableReference.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2018-03-03T10:25:54+08:00" itemprop="datePublished">2018/3/3</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='jdkSource.html'>jdkSource</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="java.util.concurrent.atomic.AtomicLongFieldUpdater.html" itemprop="url">
-		java.util.concurrent.atomic.AtomicLongFieldUpdater</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>jdk1.6类 java.util.concurrent.atomic.AtomicLongFieldUpdater</p>
-</blockquote>
-
-
-
-			 
-			<a href="java.util.concurrent.atomic.AtomicLongFieldUpdater.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
