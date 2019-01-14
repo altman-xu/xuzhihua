@@ -99,7 +99,7 @@
 						
 						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
 						
-						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						  <li id=""><a target="_self" href="Redis.html">Redis</a></li>
 						
 						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
 						
@@ -200,15 +200,18 @@ jps
 zkCli
 
 ## 创建某个节点
-create /zookeeper/test1 test1Data
+create /newNood/ newNoodData
+create /newNood/test1 test1Data
 ## 查看某个节点信息 
-ls /zookeeper
+ls /newNood
 ## 获取某个节点数据
-get /zookeeper/test1
+get /newNood/test1
 ## 修改摸个节点数据
-set /zookeeper/test1 test1ModifyData
+set /newNood/test1 test1ModifyData
 ## 删除某个节点
-delete /zookeeper/test1
+delete /newNood/test1
+## 递归删除某个节点
+rmr /newNood
 
 </code></pre>
 
