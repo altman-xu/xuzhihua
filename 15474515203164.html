@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	nginx编译安装方式安装第三方模块 - xuzhihua blog
+  	Mac 本地搭建 activemq 单机服务 - xuzhihua blog
   	
 	</title>
 
@@ -152,118 +152,96 @@
 			<div class="mid-col-container"> <div id="content" class="inner">
 
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">nginx编译安装方式安装第三方模块</h1>
+		<h1 class="title" itemprop="name">Mac 本地搭建 activemq 单机服务</h1>
 		<div class="entry-content" itemprop="articleBody">
-			<blockquote>
-<p>nginx编译安装方式安装第三方模块</p>
-</blockquote>
-
-<span id="more"></span><!-- more -->
+			<span id="more"></span><!-- more -->
 
 <ul>
 <li>
-<a href="#toc_0">安装 ngx_http_consistent_hash-master 模块</a>
-<ul>
-<li>
-<a href="#toc_1">1. 查看之前安装的configure 命令</a>
+<a href="#toc_0">安装 activemq 服务</a>
 </li>
 <li>
-<a href="#toc_2">2. 下载添加模块 ngx_http_consistent_hash-master</a>
+<a href="#toc_1">启动 activemq 服务，查看状态和进程信息</a>
 </li>
 <li>
-<a href="#toc_3">3. 重新编译 加上新模块</a>
+<a href="#toc_2">关闭 activemq 服务</a>
 </li>
 <li>
-<a href="#toc_4">4. configure没问题的话，就make install</a>
-</li>
-</ul>
+<a href="#toc_3">activemq 配置文件地址</a>
 </li>
 <li>
-<a href="#toc_5">安装 nginx 统计模块，便于观察nginx的状态</a>
-<ul>
-<li>
-<a href="#toc_6">1. 查看之前安装的configure 命令</a>
+<a href="#toc_4">activemq admin 管控台</a>
 </li>
 <li>
-<a href="#toc_7">2. 重新编译 加上新模块</a>
-</li>
-<li>
-<a href="#toc_8">3. configure没问题的话，就make install</a>
-</li>
-<li>
-<a href="#toc_9">4. 配置 nginx.conf</a>
-</li>
-</ul>
+<a href="#toc_5">activemq 安全机制</a>
 </li>
 </ul>
 
 
-<h2 id="toc_0">安装 ngx_http_consistent_hash-master 模块</h2>
+<h2 id="toc_0">安装 activemq 服务</h2>
+
+<pre><code class="language-zsh">## 通过 brew 安装 redis
+brew search activemq
+brew install activemq
+
+## 查看 redis 信息
+brew info activemq
+</code></pre>
+
+<h2 id="toc_1">启动 activemq 服务，查看状态和进程信息</h2>
+
+<pre><code class="language-zsh">## 启动 activemq 服务，并设置开机自启
+brew services start activemq
+## 启动 redis 服务，不设置开机自启
+activemq start
+</code></pre>
+
+<h2 id="toc_2">关闭 activemq 服务</h2>
+
+<pre><code class="language-zsh">## 下面这条命令不生效，暂不知原因
+brew services stop activemq
+
+## 关闭 activemq 服务
+activemq stop
+</code></pre>
+
+<h2 id="toc_3">activemq 配置文件地址</h2>
+
+<pre><code class="language-zsh">## 5.15.5 版本号根据本机安装情况确定
+/usr/local/Cellar/activemq/5.15.5/libexec/conf/activemq.xml
+</code></pre>
+
+<h2 id="toc_4">activemq admin 管控台</h2>
 
 <blockquote>
-<p>建议先把之前安装 <code>make isntall</code> 好的nginx全部删掉，不删也没问题，会在bin目录下生成 <code>nginx nginx.old</code></p>
+<p>activemq admin 管控台使用 jetty 部署</p>
 </blockquote>
 
-<h3 id="toc_1">1. 查看之前安装的configure 命令</h3>
+<pre><code class="language-zsh">## 5.15.5 版本号根据本机安装情况确定
+应用路径: /usr/local/Cellar/activemq/5.15.5/libexec/webapps
+网址: http://127.0.0.1:8161/admin/
+用户名: admin
+密码: admin
 
-<pre><code class="language-zsh">/usr/local/AppBuildedBySource/nginx/sbin/nginx -V
+
+端口配置文件: /usr/local/Cellar/activemq/5.15.5/libexec/conf/jetty.xml
+账户配置文件: /usr/local/Cellar/activemq/5.15.5/libexec/conf/jetty-realm.properties
 </code></pre>
 
-<h3 id="toc_2">2. 下载添加模块 <a href="https://www.nginx.com/resources/wiki/modules/consistent_hash/">ngx_http_consistent_hash-master</a></h3>
+<h2 id="toc_5">activemq 安全机制</h2>
 
-<pre><code class="language-zsh">cd /usr/local/AppBuildedBySource/src
-wget https://github.com/replay/ngx_http_consistent_hash/archive/master.zip
-unzip master.zip
+<pre><code class="language-zsh">## 在 activemq 的配置文件 
+## /usr/local/Cellar/activemq/5.15.5/libexec/conf/activemq.xml 
+## 的节点 &lt;broker&gt;&lt;/broker&gt; 中添加如下内容
+
+&lt;plugins&gt;
+    &lt;simpleAuthenticationPlugin&gt;
+        &lt;users&gt;
+            &lt;authenticationUser username=&quot;root&quot; password=&quot;root&quot; groups=&quot;users,admins&quot;  /&gt;
+        &lt;/users&gt;
+    &lt;/simpleAuthenticationPlugin&gt;
+&lt;/plugins&gt; 
 </code></pre>
-
-<h3 id="toc_3">3. 重新编译 加上新模块</h3>
-
-<pre><code class="language-zsh">#切换到nginx源码目录下
-cd /usr/local/AppBuildedBySource/src/nginx-1.12.2 
-#重新编译 加上新模块
-./configure --prefix=/usr/local/AppBuildedBySource/nginx --add-module=/usr/local/AppBuildedBySource/src/ngx_http_consistent_hash-master/
-</code></pre>
-
-<h3 id="toc_4">4. configure没问题的话，就make install</h3>
-
-<pre><code class="language-zsh">make &amp;&amp; make install
-#完成安装
-</code></pre>
-
-<h2 id="toc_5">安装 nginx 统计模块，便于观察nginx的状态</h2>
-
-<h3 id="toc_6">1. 查看之前安装的configure 命令</h3>
-
-<pre><code class="language-zsh">/usr/local/AppBuildedBySource/nginx/sbin/nginx -V
-</code></pre>
-
-<h3 id="toc_7">2. 重新编译 加上新模块</h3>
-
-<pre><code class="language-zsh">#切换到nginx源码目录下
-cd /usr/local/AppBuildedBySource/src/nginx-1.12.2 
-#重新编译 加上新模块
-./configure --prefix=/usr/local/AppBuildedBySource/nginx 
---add-module=/usr/local/AppBuildedBySource/src/ngx_http_consistent_hash-master/  
---with-http_stub_status_module
-</code></pre>
-
-<h3 id="toc_8">3. configure没问题的话，就make install</h3>
-
-<pre><code class="language-zsh">make &amp;&amp; make install
-#完成安装
-</code></pre>
-
-<h3 id="toc_9">4. 配置 nginx.conf</h3>
-
-<pre><code>location /status{
-    stub_status  on;
-    access_log off;
-    #allow 127.0.0.1:8101;
-    #deny all;
-}
-</code></pre>
-
-<p>此时开启nginx服务，便可以在 localhost:8101/status 页面看到统计情况</p>
 
 		</div>
 	</article>

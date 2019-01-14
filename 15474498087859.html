@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	nginx编译安装方式安装第三方模块 - xuzhihua blog
+  	JMS 介绍 - xuzhihua blog
   	
 	</title>
 
@@ -152,118 +152,44 @@
 			<div class="mid-col-container"> <div id="content" class="inner">
 
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">nginx编译安装方式安装第三方模块</h1>
+		<h1 class="title" itemprop="name">JMS 介绍</h1>
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
-<p>nginx编译安装方式安装第三方模块</p>
+<p>JMS: Java消息服务(Java Message Service)</p>
 </blockquote>
 
 <span id="more"></span><!-- more -->
 
 <ul>
 <li>
-<a href="#toc_0">安装 ngx_http_consistent_hash-master 模块</a>
-<ul>
-<li>
-<a href="#toc_1">1. 查看之前安装的configure 命令</a>
+<a href="#toc_0">JMS 术语</a>
 </li>
 <li>
-<a href="#toc_2">2. 下载添加模块 ngx_http_consistent_hash-master</a>
-</li>
-<li>
-<a href="#toc_3">3. 重新编译 加上新模块</a>
-</li>
-<li>
-<a href="#toc_4">4. configure没问题的话，就make install</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_5">安装 nginx 统计模块，便于观察nginx的状态</a>
-<ul>
-<li>
-<a href="#toc_6">1. 查看之前安装的configure 命令</a>
-</li>
-<li>
-<a href="#toc_7">2. 重新编译 加上新模块</a>
-</li>
-<li>
-<a href="#toc_8">3. configure没问题的话，就make install</a>
-</li>
-<li>
-<a href="#toc_9">4. 配置 nginx.conf</a>
-</li>
-</ul>
+<a href="#toc_1">JMS 消息格式定义</a>
 </li>
 </ul>
 
 
-<h2 id="toc_0">安装 ngx_http_consistent_hash-master 模块</h2>
+<h2 id="toc_0">JMS 术语</h2>
 
-<blockquote>
-<p>建议先把之前安装 <code>make isntall</code> 好的nginx全部删掉，不删也没问题，会在bin目录下生成 <code>nginx nginx.old</code></p>
-</blockquote>
+<p>Provide(MessageProvide): 生产者<br/>
+Consumer(MessageConsumer): 消费者<br/>
+PTP(Point to Point): 点对点的消息模型<br/>
+Pub/Sub(Publish/Subscribe): 发布/订阅的消息模型<br/>
+Queue: 队列目标<br/>
+Topic: 主题目标<br/>
+ConnectionFactory: 连接工程，JMS用它创建连接<br/>
+Connect: JMS客户端到 JMS Provider 的连接<br/>
+Destination: 消息的目的地<br/>
+Session: 会话，一个发送或接受消息的线程</p>
 
-<h3 id="toc_1">1. 查看之前安装的configure 命令</h3>
+<h2 id="toc_1">JMS 消息格式定义</h2>
 
-<pre><code class="language-zsh">/usr/local/AppBuildedBySource/nginx/sbin/nginx -V
-</code></pre>
-
-<h3 id="toc_2">2. 下载添加模块 <a href="https://www.nginx.com/resources/wiki/modules/consistent_hash/">ngx_http_consistent_hash-master</a></h3>
-
-<pre><code class="language-zsh">cd /usr/local/AppBuildedBySource/src
-wget https://github.com/replay/ngx_http_consistent_hash/archive/master.zip
-unzip master.zip
-</code></pre>
-
-<h3 id="toc_3">3. 重新编译 加上新模块</h3>
-
-<pre><code class="language-zsh">#切换到nginx源码目录下
-cd /usr/local/AppBuildedBySource/src/nginx-1.12.2 
-#重新编译 加上新模块
-./configure --prefix=/usr/local/AppBuildedBySource/nginx --add-module=/usr/local/AppBuildedBySource/src/ngx_http_consistent_hash-master/
-</code></pre>
-
-<h3 id="toc_4">4. configure没问题的话，就make install</h3>
-
-<pre><code class="language-zsh">make &amp;&amp; make install
-#完成安装
-</code></pre>
-
-<h2 id="toc_5">安装 nginx 统计模块，便于观察nginx的状态</h2>
-
-<h3 id="toc_6">1. 查看之前安装的configure 命令</h3>
-
-<pre><code class="language-zsh">/usr/local/AppBuildedBySource/nginx/sbin/nginx -V
-</code></pre>
-
-<h3 id="toc_7">2. 重新编译 加上新模块</h3>
-
-<pre><code class="language-zsh">#切换到nginx源码目录下
-cd /usr/local/AppBuildedBySource/src/nginx-1.12.2 
-#重新编译 加上新模块
-./configure --prefix=/usr/local/AppBuildedBySource/nginx 
---add-module=/usr/local/AppBuildedBySource/src/ngx_http_consistent_hash-master/  
---with-http_stub_status_module
-</code></pre>
-
-<h3 id="toc_8">3. configure没问题的话，就make install</h3>
-
-<pre><code class="language-zsh">make &amp;&amp; make install
-#完成安装
-</code></pre>
-
-<h3 id="toc_9">4. 配置 nginx.conf</h3>
-
-<pre><code>location /status{
-    stub_status  on;
-    access_log off;
-    #allow 127.0.0.1:8101;
-    #deny all;
-}
-</code></pre>
-
-<p>此时开启nginx服务，便可以在 localhost:8101/status 页面看到统计情况</p>
+<p>StreamMessage   Java原始值的shuju流<br/>
+MapMessage      一套键值对<br/>
+TextMessage     一个字符串对象<br/>
+ObjectMessage   一个序列化的Java对象<br/>
+BytesMessage    一个未解释字节的数据流</p>
 
 		</div>
 	</article>

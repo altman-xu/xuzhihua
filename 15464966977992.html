@@ -103,9 +103,11 @@
 						
 						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
 						
-						  <li id=""><a target="_self" href="Redis.html">Redis</a></li>
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
 						
 						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
 						
 						  <li id=""><a target="_self" href="Java.html">Java</a></li>
 						
@@ -359,11 +361,11 @@ cluster help
 
 <h2 id="toc_12">关闭集群，需逐个关闭每个节点</h2>
 
-<pre><code class="language-zsh">redis-cli -c -h 127.0.0.1 -p 7001 shutdown; redis-cli -c -h 127.0.0.1 -p 7002 shutdown; redis-cli -c -h 127.0.0.1 -p 7003 shutdown; redis-cli -c -h 127.0.0.1 -p 7004 shutdown; redis-cli -c -h 127.0.0.1 -p 7005 shutdown; redis-cli -c -h 127.0.0.1 -p 7006 shutdown;
+<pre><code class="language-zsh">redis-cli -c -h 127.0.0.1 -p 7001 shutdown; redis-cli -c -h 127.0.0.1 -p 7002 shutdown; redis-cli -c -h 127.0.0.1 -p 7003 shutdown; redis-cli -c -h 127.0.0.1 -p 7004 shutdown; redis-cli -c -h 127.0.0.1 -p 7005 shutdown; redis-cli -c -h 127.0.0.1 -p 7006 shutdown; redis-server /usr/local/redis-cluster/7007/redis.conf;redis-server /usr/local/redis-cluster/7008/redis.conf;
 
 
 ## 关闭后重启启动集群，只需要启动每个节点就可以
-redis-server /usr/local/redis-cluster/7001/redis.conf;redis-server /usr/local/redis-cluster/7002/redis.conf;redis-server /usr/local/redis-cluster/7003/redis.conf;redis-server /usr/local/redis-cluster/7004/redis.conf;redis-server /usr/local/redis-cluster/7005/redis.conf;redis-server /usr/local/redis-cluster/7006/redis.conf;
+redis-server /usr/local/redis-cluster/7001/redis.conf;redis-server /usr/local/redis-cluster/7002/redis.conf;redis-server /usr/local/redis-cluster/7003/redis.conf;redis-server /usr/local/redis-cluster/7004/redis.conf;redis-server /usr/local/redis-cluster/7005/redis.conf;redis-server /usr/local/redis-cluster/7006/redis.conf;redis-server /usr/local/redis-cluster/7007/redis.conf;redis-server /usr/local/redis-cluster/7008/redis.conf;
 </code></pre>
 
 <h2 id="toc_13">注</h2>
