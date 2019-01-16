@@ -159,12 +159,14 @@
 <ul>
 <li>
 <a href="#toc_0">zookeeper 实现的 Master-Slave 高可用</a>
+<ul>
+<li>
+<a href="#toc_1">搭建例子 zookeeper(一主两从) + activemq (一主两从)</a>
+</li>
+</ul>
 </li>
 <li>
-<a href="#toc_1">集群 两套以上的</a>
-</li>
-<li>
-<a href="#toc_2">搭建例子 zookeeper(一主两从) + activemq (一主两从)</a>
+<a href="#toc_2">负载均衡配置</a>
 </li>
 </ul>
 
@@ -175,27 +177,27 @@
 
 <p>配置：Zookeeper集群 + (一主两从 activemq)  (注: 也可以是 一主四从， 保持奇数个 activemq 即可)</p>
 
-<h2 id="toc_1">集群 两套以上的</h2>
+<h3 id="toc_1">搭建例子 zookeeper(一主两从) + activemq (一主两从)</h3>
 
-<p>配置：Zookeeper集群 + (一主两从 activemq) + (一主两从 activemq) </p>
+<ol>
+<li><p>操作 zookeeper </p>
 
-<h2 id="toc_2">搭建例子 zookeeper(一主两从) + activemq (一主两从)</h2>
-
-<pre><code class="language-zsh">## 三台 Centos linux主机ip 192.168.1.121 192.168.1.122 192.168.1.123
-## 下面的操作要操作到三台主机上
-1. 将 zookeeper-**.tar.gz 和 apache-activemq-**-bin.tar.gz 分别解压到 /usr/local/ 目录的 zookeeper 和 activemq 中 
+<pre><code class="language-zsh">1. 规划
+    ip 192.168.1.121 192.168.1.122 192.168.1.123 (三台linux主机)
+    消息端口 2181
+    通信端口 2888:3888
+    下面的操作要操作到三台主机上
+2. 将 zookeeper-**.tar.gz 解压到 /usr/local/ 目录的 zookeeper 
     1. tar -zxvf zookeeper-**.tar.gz -zxvf -C /usr/local/
-    2. tar -zxvf apache-activemq-**-bin.tar.gz -zxvf -C /usr/local/
-    3. mv zookeeper-** zookeeper
-    4. mv apache-activemq-** activemq
-2. 配置环境变量
+    2. mv zookeeper-** zookeeper
+3. 配置环境变量
     vi /etc/profile
     增加更新下面两个变量
     export ZOOKEEPER_HOME=/usr/local/zookeeper
     export PATH=.:$ZOOKEEPER_HOME/home:$PATH
     修改后生效一下
     source /etc/profile
-3. 配置zookeeper
+4. 配置zookeeper
     1. cd /usr/local/zookeeper/conf
     2. cp zoo_sample.cfg zoo.cfg
     3. vi zoo.cfg
@@ -207,13 +209,85 @@
         3. server.2=192.168.1.123:2888:3888
     6. mkdir -p /usr/local/zookeeper/data
     7. vim /user/local/zookeeper/data/myid     （在 192.168.1.121 中写入0保存退出，在 192.168.1.122 中写入1保存退出，在 192.168.1.122 中写入2保存退出）
-4. 运行zookeeper
+5. 运行zookeeper
     1. cd /usr/local/
     2. zkServer.sh start
-5. 查看zookeeper运行状态 zkServer.sh status
-6. 1
-7. 1
-8. 1
+6. 查看zookeeper运行状态 zkServer.sh status (一台 Leader 两台 Follower)
+
+</code></pre></li>
+<li><p>操作 ActiveMQ</p>
+
+<pre><code class="language-zsh">## 一主两从 activemq 部署在同一台机器上，端口不一样
+1. 规划
+    ip: 192.168.1.111 192.168.1.111 192.168.1.111 
+    集群通信端口: 62621 62622 62623
+    消息端口: 51511 51512 51513
+    控制台端口: 8161 8162 8163
+2. 解压 activemq 到集群目录
+    1. cd /usr/local/
+    2. mkdir activemq-cluster
+    3. tar -zxvf apache-activemq-**.tar.gz -C /usr/local/activemq-cluster/
+    4. cd /usr/local/activemq-cluster
+    5. mv apache-activemq-** node1
+    6. cp -r node1 node2
+    7. cp -r node1 node3
+3. 配置activemq
+    1. 修改网页控制台端口
+        1. vim /usr/local/activemq-cluster/node1/conf/jetty.xml
+        2. 找到 jettyPort 将port值从 8161 改为8161(node1) 8162(node2) 8163(node3)
+    2. 修改 activemq.xml
+        1. vim /usr/local/activemq-cluster/node1/conf/activemq.xml
+        2. 修改如下内容
+        3. &lt;broker&gt;节点中的 brokerName=&quot;activemq-cluster&quot; (名字可改成其他的)
+        4. 修改kahadb (注 下面的62621 在node2(62622) node3(62623))
+            &lt;persistenceAdapter&gt;
+                &lt;!-- &lt;kahaDB directory=&quot;${activemq.data}/kaha&quot; /&gt; --&gt;
+                &lt;replicatedLevelDB directory=&quot;${activemq.data}/leveldb&quot; replicas=&quot;3&quot; bind=&quot;tcp:/0.0.0.0:62621&quot; zkAddress=&quot;192.168.1.121:2181,192.168.1.122.2182,192.168.1.123:2183&quot; hostname=&quot;altman111&quot; zkPath=&quot;/activemq/leveldb-stores&quot; /&gt;
+            &lt;/persistenceAdapter&gt;
+        5. 修改与java通信端口 51511 (node2(51512) node3(51513))
+            &lt;transportConnector&gt; 节点的 tcp 协议 从 61616 改为 51511
+4. 运行zookeeper
+    1. /usr/local/activemq-cluster/node1/bin/activemq start
+    2. /usr/local/activemq-cluster/node2/bin/activemq start
+    3. /usr/local/activemq-cluster/node3/bin/activemq start
+5. 查看日志信息 验证是否成功启动
+    1. tail -f /usr/local/activemq-cluster/node1/data/activemq.log
+    2. tail -f /usr/local/activemq-cluster/node2/data/activemq.log
+    3. tail -f /usr/local/activemq-cluster/node3/data/activemq.log
+6. 1 
+
+</code></pre></li>
+<li><p>验证 zookeeper + activemq ok</p>
+
+<ol>
+<li>在 192.168.1.121 192.168.1.122 192.168.1.123 任一台登录 zookeeper，输入命令 zkCli.sh</li>
+<li>输入 ls /    看到多了一个 节点 activemq ，   ls /activemq/leveldb-stores  可以看到三个数据(0000000000,0000000001,0000000002) 说明activemq主从已经注册到zookeeper (可以查看一下这三个节点的内容 get /activemq/leveldb-stores/0000000000 如果看到里面的 address 和 elected 有值，说明这个节点是activemq主节点， 如果为null，说明是activemq从节点)</li>
+</ol></li>
+</ol>
+
+<h2 id="toc_2">负载均衡配置</h2>
+
+<blockquote>
+<p>集群1 在192.168.1.121 使用端口区分，部署一主两从<br/>
+集群2 在192.168.1.122 使用端口区分，部署一主两从</p>
+</blockquote>
+
+<pre><code class="language-zsh">配置文件 : /usr/local/activemq-cluster/node*/conf/activemq.xml
+配置位置 : 放在 &lt;PersistenceAdapter&gt; 节点之前 
+
+
+## 集群1连接集群2
+&lt;networkConnectors&gt;
+    &lt;networkConnector uri=&quot;static:(tcp://192.168.1.122:51514,tcp://192.168.1.122:51515,tcp://192.168.1.122:51516)&quot; duplex=&quot;false&quot; /&gt;
+&lt;/networkConnectors&gt;
+
+## 集群2连接集群1
+&lt;networkConnectors&gt;
+    &lt;networkConnector uri=&quot;static:(tcp://192.168.1.121:51511,tcp://192.168.1.121:51512,tcp://192.168.1.121:51513)&quot; duplex=&quot;false&quot; /&gt;
+&lt;/networkConnectors&gt;
+
+如果还有集群3，则在&lt;networkConnectors&gt; 中再添加一个 子节点 &lt;networkConnector ... /&gt;
+
 </code></pre>
 
 		</div>
