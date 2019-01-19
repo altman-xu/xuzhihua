@@ -239,7 +239,7 @@
         1. vim /usr/local/activemq-cluster/node1/conf/activemq.xml
         2. 修改如下内容
         3. &lt;broker&gt;节点中的 brokerName=&quot;activemq-cluster&quot; (名字可改成其他的)
-        4. 修改kahadb (注 下面的62621 在node2(62622) node3(62623))
+        4. 将 kahadb 改为 leveldb (注 下面的62621 在node2(62622) node3(62623))
             &lt;persistenceAdapter&gt;
                 &lt;!-- &lt;kahaDB directory=&quot;${activemq.data}/kaha&quot; /&gt; --&gt;
                 &lt;replicatedLevelDB directory=&quot;${activemq.data}/leveldb&quot; replicas=&quot;3&quot; bind=&quot;tcp:/0.0.0.0:62621&quot; zkAddress=&quot;192.168.1.121:2181,192.168.1.122.2182,192.168.1.123:2183&quot; hostname=&quot;altman111&quot; zkPath=&quot;/activemq/leveldb-stores&quot; /&gt;
@@ -254,7 +254,6 @@
     1. tail -f /usr/local/activemq-cluster/node1/data/activemq.log
     2. tail -f /usr/local/activemq-cluster/node2/data/activemq.log
     3. tail -f /usr/local/activemq-cluster/node3/data/activemq.log
-6. 1 
 
 </code></pre></li>
 <li><p>验证 zookeeper + activemq ok</p>
@@ -262,6 +261,12 @@
 <ol>
 <li>在 192.168.1.121 192.168.1.122 192.168.1.123 任一台登录 zookeeper，输入命令 zkCli.sh</li>
 <li>输入 ls /    看到多了一个 节点 activemq ，   ls /activemq/leveldb-stores  可以看到三个数据(0000000000,0000000001,0000000002) 说明activemq主从已经注册到zookeeper (可以查看一下这三个节点的内容 get /activemq/leveldb-stores/0000000000 如果看到里面的 address 和 elected 有值，说明这个节点是activemq主节点， 如果为null，说明是activemq从节点)</li>
+</ol></li>
+<li><p>停止服务，分别关闭每个 activemq、zookeeper节点</p>
+
+<ol>
+<li>/usr/local/activemq-cluster/node*/bin/activemq stop</li>
+<li>(每台主机) zkServersh.sh</li>
 </ol></li>
 </ol>
 
