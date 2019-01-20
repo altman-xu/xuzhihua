@@ -1,0 +1,557 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	java.util.concurrent.atomic.AtomicLong - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicLong</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>jdk1.6类 java.util.concurrent.atomic.AtomicLong</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">java.util.concurrent.atomic.AtomicLong</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">java.util.concurrent.atomic.AtomicLong</h2>
+
+<ol>
+<li>private static native boolean VMSupportsCS8()</li>
+<li>public AtomicLong(long initialValue)</li>
+<li>public AtomicLong() </li>
+<li>public final long get() </li>
+<li>public final void set(long newValue) </li>
+<li>public final void lazySet(long newValue)</li>
+<li>public final long getAndSet(long newValue)</li>
+<li>public final boolean compareAndSet(long expect, long update) </li>
+<li>public final boolean weakCompareAndSet(long expect, long update) </li>
+<li>public final long getAndIncrement() </li>
+<li>public final long getAndDecrement()</li>
+<li>public final long getAndAdd(long delta)</li>
+<li>public final long incrementAndGet() </li>
+<li>public final long decrementAndGet() </li>
+<li>public final long addAndGet(long delta) </li>
+<li>public String toString() </li>
+<li>public int intValue() </li>
+<li>public long longValue() </li>
+<li>public float floatValue() </li>
+<li>public double doubleValue() </li>
+</ol>
+
+<pre><code class="language-java">/*
+ * %W% %E%
+ *
+ * Copyright (c) 2006, Oracle and/or its affiliates. All rights reserved.
+ * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+package java.util.concurrent.atomic;
+import sun.misc.Unsafe;
+
+/**
+ * A {@code long} value that may be updated atomically.  See the
+ * {@link java.util.concurrent.atomic} package specification for
+ * description of the properties of atomic variables. An
+ * {@code AtomicLong} is used in applications such as atomically
+ * incremented sequence numbers, and cannot be used as a replacement
+ * for a {@link java.lang.Long}. However, this class does extend
+ * {@code Number} to allow uniform access by tools and utilities that
+ * deal with numerically-based classes.
+ *
+ * @since 1.5
+ * @author Doug Lea
+ */
+/**
+ * 可以用原子方式更新的 long 值。有关原子变量属性的描述，
+ * 请参阅 java.util.concurrent.atomic 包规范。AtomicLong 可用在应用程序中
+ * （如以原子方式增加的序列号），并且不能用于替换 Long。但是，此类确实扩展了 Number，
+ * 允许那些处理基于数字类的工具和实用工具进行统一访问。
+ */
+public class AtomicLong extends Number implements java.io.Serializable {
+    private static final long serialVersionUID = 1927816293512124184L;
+
+    // setup to use Unsafe.compareAndSwapLong for updates
+    private static final Unsafe unsafe = Unsafe.getUnsafe();
+    private static final long valueOffset;
+
+    /**
+     * Records whether the underlying JVM supports lockless
+     * CompareAndSet for longs. While the unsafe.CompareAndSetLong
+     * method works in either case, some constructions should be
+     * handled at Java level to avoid locking user-visible locks.
+     */
+    static final boolean VM_SUPPORTS_LONG_CAS = VMSupportsCS8();
+
+    /**
+     * Returns whether underlying JVM supports lockless CompareAndSet
+     * for longs. Called only once and cached in VM_SUPPORTS_LONG_CAS.
+     */
+    private static native boolean VMSupportsCS8();
+
+    static {
+      try {
+        valueOffset = unsafe.objectFieldOffset
+            (AtomicLong.class.getDeclaredField(&quot;value&quot;));
+      } catch (Exception ex) { throw new Error(ex); }
+    }
+
+    private volatile long value;
+
+    /**
+     * Creates a new AtomicLong with the given initial value.
+     *
+     * @param initialValue the initial value
+     */
+    /**
+     * 创建具有给定初始值的新 AtomicLong。
+     * @param  initialValue 初始值
+     */
+    public AtomicLong(long initialValue) {
+        value = initialValue;
+    }
+
+    /**
+     * Creates a new AtomicLong with initial value {@code 0}.
+     */
+    /**
+     * 创建具有初始值 0 的新 AtomicLong。
+     */
+    public AtomicLong() {
+    }
+
+    /**
+     * Gets the current value.
+     *
+     * @return the current value
+     */
+    /**
+     * 获取当前值。
+     * @return 当前值
+     */
+    public final long get() {
+        return value;
+    }
+
+    /**
+     * Sets to the given value.
+     *
+     * @param newValue the new value
+     */
+    /**
+     * 设置为给定值。
+     * @param newValue 新值
+     */
+    public final void set(long newValue) {
+        value = newValue;
+    }
+
+    /**
+     * Eventually sets to the given value.
+     *
+     * @param newValue the new value
+     * @since 1.6
+     */
+    /**
+     * 最后设置为给定值。
+     * @param newValue 新值
+     */
+    public final void lazySet(long newValue) {
+        unsafe.putOrderedLong(this, valueOffset, newValue);
+    }
+
+    /**
+     * Atomically sets to the given value and returns the old value.
+     *
+     * @param newValue the new value
+     * @return the previous value
+     */
+    /**
+     * 以原子方式设置为给定值，并返回旧值。
+     * @param  newValue 新值
+     * @return          以前的值
+     */
+    public final long getAndSet(long newValue) {
+        while (true) {
+            long current = get();
+            if (compareAndSet(current, newValue))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically sets the value to the given updated value
+     * if the current value {@code ==} the expected value.
+     *
+     * @param expect the expected value
+     * @param update the new value
+     * @return true if successful. False return indicates that
+     * the actual value was not equal to the expected value.
+     */
+    /**
+     * 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
+     * @param  expect 预期值
+     * @param  update 新值
+     * @return        如果成功，则返回 true。返回 false 指示实际值与预期值不相等。
+     */
+    public final boolean compareAndSet(long expect, long update) {
+    return unsafe.compareAndSwapLong(this, valueOffset, expect, update);
+    }
+
+    /**
+     * Atomically sets the value to the given updated value
+     * if the current value {@code ==} the expected value.
+     *
+     * &lt;p&gt;May &lt;a href=&quot;package-summary.html#Spurious&quot;&gt;fail spuriously&lt;/a&gt;
+     * and does not provide ordering guarantees, so is only rarely an
+     * appropriate alternative to {@code compareAndSet}.
+     *
+     * @param expect the expected value
+     * @param update the new value
+     * @return true if successful.
+     */
+    /**
+     * 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
+     * 可能意外失败并且不提供排序保证，所以只能在很少的情况下对 compareAndSet 进行适当地选择。
+     * @param  expect 预期值
+     * @param  update 新值
+     * @return        如果成功，则返回 true。
+     */
+    public final boolean weakCompareAndSet(long expect, long update) {
+    return unsafe.compareAndSwapLong(this, valueOffset, expect, update);
+    }
+
+    /**
+     * Atomically increments by one the current value.
+     *
+     * @return the previous value
+     */
+    /**
+     * 以原子方式将当前值加 1。
+     * @return 以前的值
+     */
+    public final long getAndIncrement() {
+        while (true) {
+            long current = get();
+            long next = current + 1;
+            if (compareAndSet(current, next))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically decrements by one the current value.
+     *
+     * @return the previous value
+     */
+    /**
+     * 以原子方式将当前值减 1。
+     * @return 以前的值
+     */
+    public final long getAndDecrement() {
+        while (true) {
+            long current = get();
+            long next = current - 1;
+            if (compareAndSet(current, next))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically adds the given value to the current value.
+     *
+     * @param delta the value to add
+     * @return the previous value
+     */
+    /**
+     * 以原子方式将给定值添加到当前值。
+     * @param  delta 要添加的值
+     * @return       以前的值
+     */
+    public final long getAndAdd(long delta) {
+        while (true) {
+            long current = get();
+            long next = current + delta;
+            if (compareAndSet(current, next))
+                return current;
+        }
+    }
+
+    /**
+     * Atomically increments by one the current value.
+     *
+     * @return the updated value
+     */
+    /**
+     * 以原子方式将当前值加 1。
+     * @return 更新的值
+     */
+    public final long incrementAndGet() {
+        for (;;) {
+            long current = get();
+            long next = current + 1;
+            if (compareAndSet(current, next))
+                return next;
+        }
+    }
+
+    /**
+     * Atomically decrements by one the current value.
+     *
+     * @return the updated value
+     */
+    /**
+     * 以原子方式将当前值减 1。
+     * @return 更新的值
+     */
+    public final long decrementAndGet() {
+        for (;;) {
+            long current = get();
+            long next = current - 1;
+            if (compareAndSet(current, next))
+                return next;
+        }
+    }
+
+    /**
+     * Atomically adds the given value to the current value.
+     *
+     * @param delta the value to add
+     * @return the updated value
+     */
+    /**
+     * 以原子方式将给定值添加到当前值。
+     * @param  delta 要添加的值
+     * @return       更新的值
+     */
+    public final long addAndGet(long delta) {
+        for (;;) {
+            long current = get();
+            long next = current + delta;
+            if (compareAndSet(current, next))
+                return next;
+        }
+    }
+
+    /**
+     * Returns the String representation of the current value.
+     * @return the String representation of the current value.
+     */
+    /**
+     * 返回当前值的字符串表示形式。
+     * @return 当前值的字符串表示形式。
+     */
+    public String toString() {
+        return Long.toString(get());
+    }
+
+    /**
+     * 从类 Number 复制的描述
+     * 以 int 形式返回指定的数值。这可能会涉及到舍入或取整。
+     */
+    public int intValue() {
+    return (int)get();
+    }
+    /**
+     * 从类 Number 复制的描述
+     * 以 long 形式返回指定的数值。这可能涉及到舍入或取整。
+     */
+    public long longValue() {
+    return (long)get();
+    }
+    /**
+     * 从类 Number 复制的描述
+     * 以 float 形式返回指定的数值。这可能会涉及到舍入。
+     */
+    public float floatValue() {
+    return (float)get();
+    }
+    /**
+     * 从类 Number 复制的描述
+     * 以 double 形式返回指定的数值。这可能会涉及到舍入。
+     */
+    public double doubleValue() {
+    return (double)get();
+    }
+
+}
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

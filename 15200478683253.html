@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	java.util.concurrent.atomic.AtomicStampedReference - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicStampedReference</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>jdk1.6类 java.util.concurrent.atomic.AtomicStampedReference</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">java.util.concurrent.atomic.AtomicStampedReference</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">java.util.concurrent.atomic.AtomicStampedReference</h2>
+
+<ol>
+<li>public AtomicStampedReference(V initialRef, int initialStamp)</li>
+<li>public V getReference()</li>
+<li>public int getStamp()</li>
+<li>public V get(int[] stampHolder)</li>
+<li>public boolean weakCompareAndSet(V expectedReference, V newReference, int expectedStamp, int newStamp)</li>
+<li>public boolean compareAndSet(V expectedReference, V newReference, int expectedStamp, int newStamp)</li>
+<li>public void set(V newReference, int newStamp)</li>
+<li>public boolean attemptStamp(V expectedReference, int newStamp) </li>
+</ol>
+
+<pre><code class="language-java">/*
+ * %W% %E%
+ *
+ * Copyright (c) 2006, Oracle and/or its affiliates. All rights reserved.
+ * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+package java.util.concurrent.atomic;
+
+/**
+ * An {@code AtomicStampedReference} maintains an object reference
+ * along with an integer &quot;stamp&quot;, that can be updated atomically.
+ *
+ * &lt;p&gt; Implementation note. This implementation maintains stamped
+ * references by creating internal objects representing &quot;boxed&quot;
+ * [reference, integer] pairs.
+ *
+ * @since 1.5
+ * @author Doug Lea
+ * @param &lt;V&gt; The type of object referred to by this reference
+ */
+/**
+ * AtomicStampedReference 维护带有整数“标志”的对象引用，可以用原子方式对其进行更新。
+ * 实现注意事项。通过创建表示“已装箱”的 [reference, integer] 对的内部对象，此实现维持带标志的引用。
+ */
+public class AtomicStampedReference&lt;V&gt;  {
+
+    private static class ReferenceIntegerPair&lt;T&gt; {
+        private final T reference;
+        private final int integer;
+        ReferenceIntegerPair(T r, int i) {
+            reference = r; integer = i;
+        }
+    }
+
+    private final AtomicReference&lt;ReferenceIntegerPair&lt;V&gt;&gt;  atomicRef;
+
+    /**
+     * Creates a new {@code AtomicStampedReference} with the given
+     * initial values.
+     *
+     * @param initialRef the initial reference
+     * @param initialStamp the initial stamp
+     */
+    /**
+     * 创建具有给定初始值的新 AtomicStampedReference。
+     * @param  initialRef   初始引用
+     * @param  initialStamp 初始标志
+     */
+    public AtomicStampedReference(V initialRef, int initialStamp) {
+        atomicRef = new AtomicReference&lt;ReferenceIntegerPair&lt;V&gt;&gt;
+            (new ReferenceIntegerPair&lt;V&gt;(initialRef, initialStamp));
+    }
+
+    /**
+     * Returns the current value of the reference.
+     *
+     * @return the current value of the reference
+     */
+    /**
+     * 返回该引用的当前值。
+     * @return 该引用的当前值
+     */
+    public V getReference() {
+        return atomicRef.get().reference;
+    }
+
+    /**
+     * Returns the current value of the stamp.
+     *
+     * @return the current value of the stamp
+     */
+    /**
+     * 返回该标志的当前值。
+     * @return 该标志的当前值
+     */
+    public int getStamp() {
+        return atomicRef.get().integer;
+    }
+
+    /**
+     * Returns the current values of both the reference and the stamp.
+     * Typical usage is {@code int[1] holder; ref = v.get(holder); }.
+     *
+     * @param stampHolder an array of size of at least one.  On return,
+     * {@code stampholder[0]} will hold the value of the stamp.
+     * @return the current value of the reference
+     */
+    /**
+     * 返回该引用和该标志的当前值。典型的用法为 int[1] holder; ref = v.get(holder); 。
+     * @param  stampHolder 大小至少为 1 的数组。返回时，stampholder[0] 将保存该标志的值。
+     * @return             该引用的当前值
+     */
+    public V get(int[] stampHolder) {
+        ReferenceIntegerPair&lt;V&gt; p = atomicRef.get();
+        stampHolder[0] = p.integer;
+        return p.reference;
+    }
+
+    /**
+     * Atomically sets the value of both the reference and stamp
+     * to the given update values if the
+     * current reference is {@code ==} to the expected reference
+     * and the current stamp is equal to the expected stamp.
+     *
+     * &lt;p&gt;May &lt;a href=&quot;package-summary.html#Spurious&quot;&gt;fail spuriously&lt;/a&gt;
+     * and does not provide ordering guarantees, so is only rarely an
+     * appropriate alternative to {@code compareAndSet}.
+     *
+     * @param expectedReference the expected value of the reference
+     * @param newReference the new value for the reference
+     * @param expectedStamp the expected value of the stamp
+     * @param newStamp the new value for the stamp
+     * @return true if successful
+     */
+    /**
+     * 如果当前引用 == 预期引用，并且当前标志等于预期标志，
+     * 则以原子方式将该引用和该标志的值设置为给定的更新值。可能意外失败并且不提供排序保证，
+     * 所以只有在很少的情况下才对 compareAndSet 进行适当的选择。
+     * @param  expectedReference 该引用的预期值
+     * @param  newReference      该引用的新值
+     * @param  expectedStamp     该标志的预期值
+     * @param  newStamp          该标志的新值
+     * @return                   如果成功，则返回 true
+     */
+    public boolean weakCompareAndSet(V      expectedReference,
+                                     V      newReference,
+                                     int    expectedStamp,
+                                     int    newStamp) {
+        ReferenceIntegerPair&lt;V&gt; current = atomicRef.get();
+        return  expectedReference == current.reference &amp;&amp;
+            expectedStamp == current.integer &amp;&amp;
+            ((newReference == current.reference &amp;&amp;
+              newStamp == current.integer) ||
+             atomicRef.weakCompareAndSet(current,
+                                     new ReferenceIntegerPair&lt;V&gt;(newReference,
+                                                              newStamp)));
+    }
+
+    /**
+     * Atomically sets the value of both the reference and stamp
+     * to the given update values if the
+     * current reference is {@code ==} to the expected reference
+     * and the current stamp is equal to the expected stamp.
+     *
+     * @param expectedReference the expected value of the reference
+     * @param newReference the new value for the reference
+     * @param expectedStamp the expected value of the stamp
+     * @param newStamp the new value for the stamp
+     * @return true if successful
+     */
+    /**
+     * 如果当前引用 == 预期引用，并且当前标志等于预期标志，则以原子方式将该引用和该标志的值设置为给定的更新值。
+     * @param  expectedReference 该引用的预期值
+     * @param  newReference      该引用的新值
+     * @param  expectedStamp     该标志的预期值
+     * @param  newStamp          该标志的新值
+     * @return                   如果成功，则返回 true
+     */
+    public boolean compareAndSet(V      expectedReference,
+                                 V      newReference,
+                                 int    expectedStamp,
+                                 int    newStamp) {
+        ReferenceIntegerPair&lt;V&gt; current = atomicRef.get();
+        return  expectedReference == current.reference &amp;&amp;
+            expectedStamp == current.integer &amp;&amp;
+            ((newReference == current.reference &amp;&amp;
+              newStamp == current.integer) ||
+             atomicRef.compareAndSet(current,
+                                     new ReferenceIntegerPair&lt;V&gt;(newReference,
+                                                              newStamp)));
+    }
+
+
+    /**
+     * Unconditionally sets the value of both the reference and stamp.
+     *
+     * @param newReference the new value for the reference
+     * @param newStamp the new value for the stamp
+     */
+    /**
+     * 无条件地同时设置该引用和标志的值。
+     * @param newReference 该引用的新值
+     * @param newStamp     该标志的新值
+     */
+    public void set(V newReference, int newStamp) {
+        ReferenceIntegerPair&lt;V&gt; current = atomicRef.get();
+        if (newReference != current.reference || newStamp != current.integer)
+            atomicRef.set(new ReferenceIntegerPair&lt;V&gt;(newReference, newStamp));
+    }
+
+    /**
+     * Atomically sets the value of the stamp to the given update value
+     * if the current reference is {@code ==} to the expected
+     * reference.  Any given invocation of this operation may fail
+     * (return {@code false}) spuriously, but repeated invocation
+     * when the current value holds the expected value and no other
+     * thread is also attempting to set the value will eventually
+     * succeed.
+     *
+     * @param expectedReference the expected value of the reference
+     * @param newStamp the new value for the stamp
+     * @return true if successful
+     */
+    /**
+     * 如果当前引用 == 预期引用，则以原子方式将该标志的值设置为给定的更新值。
+     * 此操作的任何给定调用都可能会意外失败（返回 false），
+     * 但是在当前值保持预期值而且没有其他线程也在尝试设置该值时，重复调用将最终获得成功。
+     * @param  expectedReference 该引用的预期值
+     * @param  newStamp          该标志的新值
+     * @return                   如果成功，则返回 true
+     */
+    public boolean attemptStamp(V expectedReference, int newStamp) {
+        ReferenceIntegerPair&lt;V&gt; current = atomicRef.get();
+        return  expectedReference == current.reference &amp;&amp;
+            (newStamp == current.integer ||
+             atomicRef.compareAndSet(current,
+                                     new ReferenceIntegerPair&lt;V&gt;(expectedReference,
+                                                              newStamp)));
+    }
+}
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>
