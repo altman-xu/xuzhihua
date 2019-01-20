@@ -1,0 +1,894 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	前缀、中缀、后缀表达式 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">前缀、中缀、后缀表达式</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>介绍前缀中缀后缀表达式的表示方法<br/>
+程序与人工方式 实现 中缀转前缀后缀</p>
+
+<p>转自<a href="http://blog.csdn.net/antineutrino/article/details/6763722">前缀、中缀、后缀表达式</a></p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">1. 前缀表达式（前缀记法、波兰式）</a>
+</li>
+<li>
+<a href="#toc_1">2. 后缀表达式（后缀记法、逆波兰式）</a>
+</li>
+<li>
+<a href="#toc_2">3. 中缀表达式（中缀记法）</a>
+</li>
+<li>
+<a href="#toc_3">4. 中缀转前缀(程序)</a>
+</li>
+<li>
+<a href="#toc_4">5. 中缀转后缀(程序)</a>
+</li>
+<li>
+<a href="#toc_5">中缀转前缀后缀(人工)</a>
+</li>
+<li>
+<a href="#toc_6">java 程序</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">1. 前缀表达式（前缀记法、波兰式）</h2>
+
+<p>前缀表达式的运算符位于操作数之前</p>
+
+<pre><code>- × + 3 4 5 6 前缀表达式
+</code></pre>
+
+<blockquote>
+<p>前缀表达式的计算机求值：<br/>
+从右至左扫描表达式，遇到数字时，将数字压入堆栈，遇到运算符时，弹出栈顶的两个数，用运算符对它们做相应的计算（栈顶元素 op 次顶元素），并将结果入栈；重复上述过程直到表达式最左端，最后运算得出的值即为表达式的结果。<br/>
+例如前缀表达式“- × + 3 4 5 6”：</p>
+
+<ol>
+<li>从右至左扫描，将6、5、4、3压入堆栈；</li>
+<li>遇到+运算符，因此弹出3和4（3为栈顶元素，4为次顶元素，注意与后缀表达式做比较），计算出3+4的值，得7，再将7入栈；</li>
+<li>接下来是×运算符，因此弹出7和5，计算出7×5=35，将35入栈；</li>
+<li>最后是-运算符，计算出35-6的值，即29，由此得出最终结果。</li>
+</ol>
+
+<p>可以看出，用计算机计算前缀表达式的值是很容易的。</p>
+</blockquote>
+
+<h2 id="toc_1">2. 后缀表达式（后缀记法、逆波兰式）</h2>
+
+<p>后缀表达式与前缀表达式类似，只是运算符位于操作数之后。</p>
+
+<pre><code>3 4 + 5 × 6 - 后缀表达式
+</code></pre>
+
+<blockquote>
+<p>后缀表达式的计算机求值：<br/>
+与前缀表达式类似，只是顺序是从左至右：<br/>
+从左至右扫描表达式，遇到数字时，将数字压入堆栈，遇到运算符时，弹出栈顶的两个数，用运算符对它们做相应的计算（次顶元素 op 栈顶元素），并将结果入栈；重复上述过程直到表达式最右端，最后运算得出的值即为表达式的结果。<br/>
+例如后缀表达式“3 4 + 5 × 6 -”：</p>
+
+<ol>
+<li>从左至右扫描，将3和4压入堆栈；</li>
+<li>遇到+运算符，因此弹出4和3（4为栈顶元素，3为次顶元素，注意与前缀表达式做比较），计算出3+4的值，得7，再将7入栈；</li>
+<li>将5入栈；</li>
+<li>接下来是×运算符，因此弹出5和7，计算出7×5=35，将35入栈；</li>
+<li>将6入栈；</li>
+<li>最后是-运算符，计算出35-6的值，即29，由此得出最终结果。</li>
+</ol>
+</blockquote>
+
+<h2 id="toc_2">3. 中缀表达式（中缀记法）</h2>
+
+<p>中缀表达式是一种通用的算术或逻辑公式表示方法，操作符以中缀形式处于操作数的中间。中缀表达式是人们常用的算术表示方法。<br/>
+虽然人的大脑很容易理解与分析中缀表达式，但对计算机来说中缀表达式却是很复杂的，因此计算表达式的值时，通常需要先将中缀表达式转换为前缀或后缀表达式，然后再进行求值。对计算机来说，计算前缀或后缀表达式的值非常简单。</p>
+
+<pre><code>(3 + 4) × 5 - 6 就是中缀表达式
+</code></pre>
+
+<h2 id="toc_3">4. 中缀转前缀(程序)</h2>
+
+<blockquote>
+<p>将中缀表达式转换为前缀表达式：<br/>
+遵循以下步骤：</p>
+
+<ol>
+<li>初始化两个栈：运算符栈S1和储存中间结果的栈S2；</li>
+<li>从右至左扫描中缀表达式；</li>
+<li>遇到操作数时，将其压入S2；</li>
+<li>遇到运算符时，比较其与S1栈顶运算符的优先级：
+
+<ol>
+<li>如果S1为空，或栈顶运算符为右括号“)”，则直接将此运算符入栈；</li>
+<li> 否则，若优先级比栈顶运算符的较高或相等，也将运算符压入S1；</li>
+<li>否则，将S1栈顶的运算符弹出并压入到S2中，再次转到(i)与S1中新的栈顶运算符相比较；</li>
+</ol></li>
+<li>遇到括号时：
+
+<ol>
+<li>如果是右括号“)”，则直接压入S1；</li>
+<li>如果是左括号“(”，则依次弹出S1栈顶的运算符，并压入S2，直到遇到右括号为止，此时将这一对括号丢弃；</li>
+</ol></li>
+<li>重复步骤(2)至(5)，直到表达式的最左边；</li>
+<li>将S1中剩余的运算符依次弹出并压入S2；</li>
+<li>依次弹出S2中的元素并输出，结果即为中缀表达式对应的前缀表达式。</li>
+</ol>
+
+<p>例如，将中缀表达式“1+((2+3)×4)-5”转换为前缀表达式的过程如下：</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>扫描到的元素</th>
+<th>S2(栈底-&gt;栈顶)</th>
+<th>S1 (栈底-&gt;栈顶)</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>5</td>
+<td>5</td>
+<td>空</td>
+<td>数字，直接入栈</td>
+</tr>
+<tr>
+<td>-</td>
+<td>5</td>
+<td>-</td>
+<td>S1为空，运算符直接入栈</td>
+</tr>
+<tr>
+<td>)</td>
+<td>5</td>
+<td>- )</td>
+<td>右括号直接入栈</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5 4</td>
+<td>- )</td>
+<td>数字直接入栈</td>
+</tr>
+<tr>
+<td>×</td>
+<td>5 4</td>
+<td>- ) ×</td>
+<td>S1栈顶是右括号，直接入栈</td>
+</tr>
+<tr>
+<td>)</td>
+<td>5 4</td>
+<td>- ) × )</td>
+<td>右括号直接入栈</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5 4 3</td>
+<td>- ) × )</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>+</td>
+<td>5 4 3</td>
+<td>- ) × ) +</td>
+<td>S1栈顶是右括号，直接入栈</td>
+</tr>
+<tr>
+<td>2</td>
+<td>5 4 3 2</td>
+<td>- ) × ) +</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>(</td>
+<td>5 4 3 2 +</td>
+<td>- ) ×</td>
+<td>左括号，弹出运算符直至遇到右括号</td>
+</tr>
+<tr>
+<td>(</td>
+<td>5 4 3 2 + ×</td>
+<td>-</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>+</td>
+<td>5 4 3 2 + ×</td>
+<td>-  +</td>
+<td>优先级与-相同，入栈</td>
+</tr>
+<tr>
+<td>1</td>
+<td>5 4 3 2 + × 1</td>
+<td>- +</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>到达最左端</td>
+<td>5 4 3 2 + × 1 + -</td>
+<td>空</td>
+<td>S1中剩余的运算符</td>
+</tr>
+</tbody>
+</table>
+
+<p>因此结果为“- + 1 × + 2 3 4 5”</p>
+
+<h2 id="toc_4">5. 中缀转后缀(程序)</h2>
+
+<blockquote>
+<p>将中缀表达式转换为后缀表达式：<br/>
+与转换为前缀表达式相似，遵循以下步骤：</p>
+
+<ol>
+<li>初始化两个栈：运算符栈S1和储存中间结果的栈S2；</li>
+<li>从左至右扫描中缀表达式；</li>
+<li>遇到操作数时，将其压入S2；</li>
+<li>遇到运算符时，比较其与S1栈顶运算符的优先级：
+
+<ol>
+<li>如果S1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；</li>
+<li>否则，若优先级比栈顶运算符的高，也将运算符压入S1（注意转换为前缀表达式时是优先级较高或相同，而这里则不包括相同的情况）；</li>
+<li>否则，将S1栈顶的运算符弹出并压入到S2中，再次转到(4-1)与S1中新的栈顶运算符相比较；</li>
+</ol></li>
+<li>遇到括号时：
+
+<ol>
+<li>如果是左括号“(”，则直接压入S1；</li>
+<li>如果是右括号“)”，则依次弹出S1栈顶的运算符，并压入S2，直到遇到左括号为止，此时将这一对括号丢弃；</li>
+</ol></li>
+<li>重复步骤(2)至(5)，直到表达式的最右边；</li>
+<li>将S1中剩余的运算符依次弹出并压入S2；</li>
+<li>依次弹出S2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式（转换为前缀表达式时不用逆序）。</li>
+</ol>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>扫描到的元素</th>
+<th>S2(栈底-&gt;栈顶)</th>
+<th>S1 (栈底-&gt;栈顶)</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>空</td>
+<td>数字，直接入栈</td>
+</tr>
+<tr>
+<td>+</td>
+<td>1</td>
+<td>+</td>
+<td>S1为空，运算符直接入栈</td>
+</tr>
+<tr>
+<td>(</td>
+<td>1</td>
+<td>+(</td>
+<td>左括号，直接入栈</td>
+</tr>
+<tr>
+<td>(</td>
+<td>1</td>
+<td>+ ( (</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1 2</td>
+<td>+ ( (</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>+</td>
+<td>1 2</td>
+<td>+ ( ( +</td>
+<td>S1栈顶为左括号，运算符直接入栈</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1 2 3</td>
+<td>+ ( ( +</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>)</td>
+<td>1 2 3</td>
+<td>+   + (</td>
+<td>右括号，弹出运算符直至遇到左括号</td>
+</tr>
+<tr>
+<td>×</td>
+<td>1 2 3 +</td>
+<td>+ ( ×</td>
+<td>S1栈顶为左括号，运算符直接入栈</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1 2 3 + 4</td>
+<td>+ ( ×</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>)</td>
+<td>1 2 3 + 4 ×</td>
+<td>+</td>
+<td>右括号，弹出运算符直至遇到左括号</td>
+</tr>
+<tr>
+<td>-</td>
+<td>1 2 3 + 4 × +</td>
+<td>-</td>
+<td>-与+优先级相同，因此弹出+，再压入-</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1 2 3 + 4 × + 5</td>
+<td>-</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>到达最右端</td>
+<td>1 2 3 + 4 × + 5 -</td>
+<td>空</td>
+<td>S1中剩余的运算符</td>
+</tr>
+</tbody>
+</table>
+
+<p>因此结果为“1 2 3 + 4 × + 5 -”（注意需要逆序输出）。</p>
+
+<h2 id="toc_5">中缀转前缀后缀(人工)</h2>
+
+<pre><code>人工实现转换，这里我给出一个中缀表达式：a+b*c-(d+e)
+第一步：按照运算符的优先级对所有的运算单位加括号：式子变成了：((a+(b*c))-(d+e))
+第二步：转换前缀与后缀表达式
+前缀：把运算符号移动到对应的括号前面
+则变成了：-( +(a *(bc)) +(de))
+把括号去掉：-+a*bc+de 前缀式子出现
+后缀：把运算符号移动到对应的括号后面
+则变成了：((a(bc)* )+ (de)+ )-
+把括号去掉：abc*+de+- 后缀式子出现
+</code></pre>
+
+<h2 id="toc_6">java 程序</h2>
+
+<blockquote>
+<p>编写Java程序将一个中缀表达式转换为前缀表达式和后缀表达式，并计算表达式的值。其中的toPolishNotation()方法将中缀表达式转换为前缀表达式（波兰式）、toReversePolishNotation()方法则用于将中缀表达式转换为后缀表达式（逆波兰式）：<br/>
+注<br/>
+(1) 程序很长且注释比较少，但如果将上面的理论内容弄懂之后再将程序编译并运行起来，还是比较容易理解的。有耐心的话可以研究一下。(2) 此程序是笔者为了说明上述概念而编写，仅做了简单的测试，不保证其中没有Bug，因此不要将其用于除研究之外的其他场合。</p>
+</blockquote>
+
+<pre><code class="language-java">package qmk.simple_test;
+import java.util.Scanner;
+import java.util.Stack;
+/**
+ * Example of converting an infix-expression to
+ * Polish Notation (PN) or Reverse Polish Notation (RPN).
+ * Written in 2011-8-25
+ * @author QiaoMingkui
+ */
+public class Calculator {
+      public static final String USAGE = &quot;== usage ==\n&quot;
+            + &quot;input the expressions, and then the program &quot;
+            + &quot;will calculate them and show the result.\n&quot;
+            + &quot;input &#39;bye&#39; to exit.\n&quot;;
+      /**
+       * @param args
+       */
+      public static void main(String[] args) {
+            System.out.println(USAGE);
+            Scanner scanner = new Scanner(System.in);
+            String input = &quot;&quot;;
+            final String CLOSE_MARK = &quot;bye&quot;;
+            System.out.println(&quot;input an expression:&quot;);
+            input = scanner.nextLine();
+            while (input.length() != 0
+                  &amp;&amp; !CLOSE_MARK.equals((input))) {
+                  System.out.print(&quot;Polish Notation (PN):&quot;);
+                  try {
+                        toPolishNotation(input);
+                  } catch (NumberFormatException e) {
+                        System.out.println(&quot;\ninput error, not a number.&quot;);
+                  } catch (IllegalArgumentException e) {
+                        System.out.println(&quot;\ninput error:&quot; + e.getMessage());
+                  } catch (Exception e) {
+                        System.out.println(&quot;\ninput error, invalid expression.&quot;);
+                  }
+                  System.out.print(&quot;Reverse Polish Notation (RPN):&quot;);
+                  try {
+                        toReversePolishNotation(input);
+                  } catch (NumberFormatException e) {
+                        System.out.println(&quot;\ninput error, not a number.&quot;);
+                  } catch (IllegalArgumentException e) {
+                        System.out.println(&quot;\ninput error:&quot; + e.getMessage());
+                  } catch (Exception e) {
+                        System.out.println(&quot;\ninput error, invalid expression.&quot;);
+                  }
+                  System.out.println(&quot;input a new expression:&quot;);
+                  input = scanner.nextLine();
+            }
+            System.out.println(&quot;program exits&quot;);
+      }
+      /**
+       * parse the expression , and calculate it.
+       * @param input
+       * @throws IllegalArgumentException
+       * @throws NumberFormatException
+       */
+      private static void toPolishNotation(String input)
+                  throws IllegalArgumentException, NumberFormatException {
+            int len = input.length();
+            char c, tempChar;
+            Stack&lt;Character&gt; s1 = new Stack&lt;Character&gt;();
+            Stack&lt;Double&gt; s2 = new Stack&lt;Double&gt;();
+            Stack&lt;Object&gt; expression = new Stack&lt;Object&gt;();
+            double number;
+            int lastIndex = -1;
+            for (int i=len-1; i&gt;=0; --i) {
+                  c = input.charAt(i);
+                  if (Character.isDigit(c)) {
+                        lastIndex = readDoubleReverse(input, i);
+                        number = Double.parseDouble(input.substring(lastIndex, i+1));
+                        s2.push(number);
+                        i = lastIndex;
+                        if ((int) number == number)
+                              expression.push((int) number);
+                        else
+                              expression.push(number);
+                  } else if (isOperator(c)) {
+                        while (!s1.isEmpty()
+                                    &amp;&amp; s1.peek() != &#39;)&#39;
+                                    &amp;&amp; priorityCompare(c, s1.peek()) &lt; 0) {
+                              expression.push(s1.peek());
+                              s2.push(calc(s2.pop(), s2.pop(), s1.pop()));
+                        }
+                        s1.push(c);
+                  } else if (c == &#39;)&#39;) {
+                        s1.push(c);
+                  } else if (c == &#39;(&#39;) {
+                        while ((tempChar=s1.pop()) != &#39;)&#39;) {
+                              expression.push(tempChar);
+                              s2.push(calc(s2.pop(), s2.pop(), tempChar));
+                              if (s1.isEmpty()) {
+                                    throw new IllegalArgumentException(
+                                          &quot;bracket dosen&#39;t match, missing right bracket &#39;)&#39;.&quot;);
+                              }
+                        }
+                  } else if (c == &#39; &#39;) {
+                        // ignore
+                  } else {
+                        throw new IllegalArgumentException(
+                                    &quot;wrong character &#39;&quot; + c + &quot;&#39;&quot;);
+                  }
+            }
+            while (!s1.isEmpty()) {
+                  tempChar = s1.pop();
+                  expression.push(tempChar);
+                  s2.push(calc(s2.pop(), s2.pop(), tempChar));
+            }
+            while (!expression.isEmpty()) {
+                  System.out.print(expression.pop() + &quot; &quot;);
+            }
+            double result = s2.pop();
+            if (!s2.isEmpty())
+                  throw new IllegalArgumentException(&quot;input is a wrong expression.&quot;);
+            System.out.println();
+            if ((int) result == result)
+                  System.out.println(&quot;the result is &quot; + (int) result);
+            else
+                  System.out.println(&quot;the result is &quot; + result);
+      }
+      /**
+       * parse the expression, and calculate it.
+       * @param input
+       * @throws IllegalArgumentException
+       * @throws NumberFormatException
+       */
+      private static void toReversePolishNotation(String input)
+                  throws IllegalArgumentException, NumberFormatException {
+            int len = input.length();
+            char c, tempChar;
+            Stack&lt;Character&gt; s1 = new Stack&lt;Character&gt;();
+            Stack&lt;Double&gt; s2 = new Stack&lt;Double&gt;();
+            double number;
+            int lastIndex = -1;
+            for (int i=0; i&lt;len; ++i) {
+                  c = input.charAt(i);
+                  if (Character.isDigit(c) || c == &#39;.&#39;) {
+                        lastIndex = readDouble(input, i);
+                        number = Double.parseDouble(input.substring(i, lastIndex));
+                        s2.push(number);
+                        i = lastIndex - 1;
+                        if ((int) number == number)
+                              System.out.print((int) number + &quot; &quot;);
+                        else
+                              System.out.print(number + &quot; &quot;);
+                  } else if (isOperator(c)) {
+                        while (!s1.isEmpty()
+                                    &amp;&amp; s1.peek() != &#39;(&#39;
+                                    &amp;&amp; priorityCompare(c, s1.peek()) &lt;= 0) {
+                              System.out.print(s1.peek() + &quot; &quot;);
+                              double num1 = s2.pop();
+                              double num2 = s2.pop();
+                              s2.push(calc(num2, num1, s1.pop()));
+                        }
+                        s1.push(c);
+                  } else if (c == &#39;(&#39;) {
+                        s1.push(c);
+                  } else if (c == &#39;)&#39;) {
+                        while ((tempChar=s1.pop()) != &#39;(&#39;) {
+                              System.out.print(tempChar + &quot; &quot;);
+                              double num1 = s2.pop();
+                              double num2 = s2.pop();
+                              s2.push(calc(num2, num1, tempChar));
+                              if (s1.isEmpty()) {
+                                    throw new IllegalArgumentException(
+                                          &quot;bracket dosen&#39;t match, missing left bracket &#39;(&#39;.&quot;);
+                              }
+                        }
+                  } else if (c == &#39; &#39;) {
+                        // ignore
+                  } else {
+                        throw new IllegalArgumentException(
+                                    &quot;wrong character &#39;&quot; + c + &quot;&#39;&quot;);
+                  }
+            }
+            while (!s1.isEmpty()) {
+                  tempChar = s1.pop();
+                  System.out.print(tempChar + &quot; &quot;);
+                  double num1 = s2.pop();
+                  double num2 = s2.pop();
+                  s2.push(calc(num2, num1, tempChar));
+            }
+            double result = s2.pop();
+            if (!s2.isEmpty())
+                  throw new IllegalArgumentException(&quot;input is a wrong expression.&quot;);
+            System.out.println();
+            if ((int) result == result)
+                  System.out.println(&quot;the result is &quot; + (int) result);
+            else
+                  System.out.println(&quot;the result is &quot; + result);
+      }
+      /**
+       * calculate the two number with the operation.
+       * @param num1
+       * @param num2
+       * @param op
+       * @return
+       * @throws IllegalArgumentException
+       */
+      private static double calc(double num1, double num2, char op)
+                  throws IllegalArgumentException {
+            switch (op) {
+            case &#39;+&#39;:
+                  return num1 + num2;
+            case &#39;-&#39;:
+                  return num1 - num2;
+            case &#39;*&#39;:
+                  return num1 * num2;
+            case &#39;/&#39;:
+                  if (num2 == 0) throw new IllegalArgumentException(&quot;divisor can&#39;t be 0.&quot;);
+                  return num1 / num2;
+            default:
+                  return 0; // will never catch up here
+            }
+      }
+      /**
+       * compare the two operations&#39; priority.
+       * @param c
+       * @param peek
+       * @return
+       */
+      private static int priorityCompare(char op1, char op2) {
+            switch (op1) {
+            case &#39;+&#39;: case &#39;-&#39;:
+                  return (op2 == &#39;*&#39; || op2 == &#39;/&#39; ? -1 : 0);
+            case &#39;*&#39;: case &#39;/&#39;:
+                  return (op2 == &#39;+&#39; || op2 == &#39;-&#39; ? 1 : 0);
+            }
+            return 1;
+      }
+      /**
+       * read the next number (reverse)
+       * @param input
+       * @param start
+       * @return
+       * @throws IllegalArgumentException
+       */
+      private static int readDoubleReverse(String input, int start)
+                  throws IllegalArgumentException {
+            int dotIndex = -1;
+            char c;
+            for (int i=start; i&gt;=0; --i) {
+                  c = input.charAt(i);
+                  if (c == &#39;.&#39;) {
+                        if (dotIndex != -1)
+                              throw new IllegalArgumentException(
+                                    &quot;there have more than 1 dots in the number.&quot;);
+                        else
+                              dotIndex = i;
+                  } else if (!Character.isDigit(c)) {
+                        return i + 1;
+                  } else if (i == 0) {
+                        return 0;
+                  }
+            }
+            throw new IllegalArgumentException(&quot;not a number.&quot;);
+      }
+      
+      /**
+       * read the next number
+       * @param input
+       * @param start
+       * @return
+       * @throws IllegalArgumentException
+       */
+      private static int readDouble(String input, int start)
+      throws IllegalArgumentException {
+            int len = input.length();
+            int dotIndex = -1;
+            char c;
+            for (int i=start; i&lt;len; ++i) {
+                  c = input.charAt(i);
+                  if (c == &#39;.&#39;) {
+                        if (dotIndex != -1)
+                              throw new IllegalArgumentException(
+                              &quot;there have more than 1 dots in the number.&quot;);
+                        else if (i == len - 1)
+                              throw new IllegalArgumentException(
+                              &quot;not a number, dot can&#39;t be the last part of a number.&quot;);
+                        else
+                              dotIndex = i;
+                  } else if (!Character.isDigit(c)) {
+                        if (dotIndex == -1 || i - dotIndex &gt; 1)
+                              return i;
+                        else
+                              throw new IllegalArgumentException(
+                              &quot;not a number, dot can&#39;t be the last part of a number.&quot;);
+                  } else if (i == len - 1) {
+                        return len;
+                  }
+            }
+            
+            throw new IllegalArgumentException(&quot;not a number.&quot;);
+      }
+      /**
+       * return true if the character is an operator.
+       * @param c
+       * @return
+       */
+      private static boolean isOperator(char c) {
+            return (c==&#39;+&#39; || c==&#39;-&#39; || c==&#39;*&#39; || c==&#39;/&#39;);
+      }
+}
+</code></pre>
+
+<p>java输出结果</p>
+
+<p>== usage ==<br/>
+input the expressions, and then the program will calculate them and show the result.<br/>
+input &#39;bye&#39; to exit.</p>
+
+<p>input an expression:</p>
+
+<pre><code>#输入中缀表达式
+3.8+5.3
+</code></pre>
+
+<p>Polish Notation (PN):+ 3.8 5.3<br/>
+the result is 9.1<br/>
+Reverse Polish Notation (RPN):3.8 5.3 +<br/>
+the result is 9.1<br/>
+input a new expression:</p>
+
+<pre><code>#输入中缀表达式
+5*(9.1+3.2)/(1-5+4.88)
+</code></pre>
+
+<p>Polish Notation (PN):/ * 5 + 9.1 3.2 + - 1 5 4.88<br/>
+the result is 69.88636363636364<br/>
+Reverse Polish Notation (RPN):5 9.1 3.2 + * 1 5 - 4.88 + /<br/>
+the result is 69.88636363636364<br/>
+input a new expression:</p>
+
+<pre><code>#输入中缀表达式
+1+((2+3)*4)-5
+</code></pre>
+
+<p>Polish Notation (PN):- + 1 * + 2 3 4 5<br/>
+the result is 16<br/>
+Reverse Polish Notation (RPN):1 2 3 + 4 * + 5 -<br/>
+the result is 16<br/>
+input a new expression:<br/>
+bye<br/>
+program exits</p>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

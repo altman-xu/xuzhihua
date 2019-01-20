@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	Algorithms - xuzhihua blog
+  	SpringMVC生命周期 - xuzhihua blog
   	
 	</title>
 
@@ -150,145 +150,98 @@
 		</div>	
 		<div class="mid-col">
 			<div class="mid-col-container"> <div id="content" class="inner">
-<div itemscope itemtype="http://schema.org/Blog">
 
-
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2018-02-08T14:45:25+08:00" itemprop="datePublished">2018/2/8</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Algorithms.html'>Algorithms</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15180723254103.html" itemprop="url">
-		二叉树、平衡二叉树、B树介绍</a></h1>
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">SpringMVC生命周期</h1>
 		<div class="entry-content" itemprop="articleBody">
-			
 			<blockquote>
-<p>介绍 二叉树，完全二叉树，满二叉树，二叉排序树，平衡二叉树，红黑树，B数，B+树，B*树 等数据结构</p>
+<p>图例展示SpringMVC的生命周期，请求过程<br/>
+介绍<code>DispatcherServlet、HandlerMapping、HandlerAdapter、HandlerExceptionResolver、ViewResolver、View、ModelAndView</code>的作用</p>
 
-<p>转自<a href="http://blog.csdn.net/yuxin6866/article/details/52327328">二叉树，完全二叉树，满二叉树，二叉排序树，平衡二叉树，红黑树，B数，B-树，B+树，B*树</a><br/>
-转自<a href="http://www.cnblogs.com/nullzx/p/6111175.html">从2-3-4树到红黑树（上）</a><br/>
-转自<a href="http://www.cnblogs.com/nullzx/p/6075644.html">AVL树原理及实现（C语言实现以及Java语言实现）</a></p>
+<p>转自<a href="http://www.cnblogs.com/zhaoyang/archive/2012/01/07/2315403.html">Spring 3.x MVC 入门1 -- 图解MVC整体流程</a><br/>
+转自<a href="http://blog.csdn.net/biaohu_lanh/article/details/16818931">Spring mvc 的生命周期</a><br/>
+转自<a href="https://www.cnblogs.com/santian/p/4644317.html">springmvc 生命周期</a></p>
 </blockquote>
 
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">生命周期</a>
+</li>
+<li>
+<a href="#toc_1">图例</a>
+</li>
+</ul>
 
 
-			 
-			<a href="15180723254103.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
+<h2 id="toc_0">生命周期</h2>
 
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2018-02-08T14:15:21+08:00" itemprop="datePublished">2018/2/8</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Algorithms.html'>Algorithms</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15180705210193.html" itemprop="url">
-		二叉树的先序遍历、中序遍历、后序遍历、层次遍历</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>介绍二叉树的4中遍历方式<br/>
-java用递归和非递归方式实现前序中序后序遍历</p>
+<blockquote>
+<p>(下面介绍的HandlerMapping,HandlerAdapter,HandlerExceptionResovler,ViewResolver都有个order属性，<br/>
+因为这些接口每一个都可以注册多个实现，order代表他们的执行顺序，order越小的越先执行，一般先执行的匹配到了后面的就不会执行了)</p>
 </blockquote>
 
+<ol>
+<li><p>DispatcherServlet</p>
 
+<blockquote>
+<p>整个Spring MVC的前端控制器，由它来接管来自客户端的请求</p>
+</blockquote></li>
+<li><p>HandlerMapping</p>
 
-			 
-			<a href="15180705210193.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
+<blockquote>
+<p>DispatcherServlet会通过它来处理客户端请求到各个(Controller)处理器的映射</p>
+</blockquote></li>
+<li><p>HandlerAdapter</p>
+
+<blockquote>
+<p>HandlerMapping会根据它来调用Controller里需要被执行的方法</p>
+</blockquote></li>
+<li><p>HandlerExceptionResolver</p>
+
+<blockquote>
+<p>spring mvc处理流程中，如果有异常抛出，会交给它来进行异常处理</p>
+</blockquote></li>
+<li><p>ViewResolver</p>
+
+<blockquote>
+<p>HandlerAdapter会把Controller中调用返回值最终包装成ModelAndView,ViewResolver会检查其中的view，如果view是一个字符串，它就负责处理这个字符串并返回一个真正的View，如果view是一个真正的View则不会交给它处理，为什么view即可以是字符串又会是View呢下面会进行解释</p>
+</blockquote></li>
+<li><p>View</p>
+
+<blockquote>
+<p>对应MVC 中的V， 此接口只有一个方法 render,用于视图展现</p>
+</blockquote></li>
+<li><p>ModelAndView</p>
+
+<blockquote>
+<p>对于解决上面介绍ViewResoler或者下面图片的疑惑，这个类中的view这个属性是 Object 类型的，它可以是一个视图名也可以是一个实际的View</p>
+</blockquote></li>
+</ol>
+
+<h2 id="toc_1">图例</h2>
+
+<ol>
+<li><p>图解<br/>
+<img src="media/15180088565993/15180098974258.jpg" alt=""/></p></li>
+<li><p>图解<br/>
+<img src="media/15180088565993/15180100356421.jpg" alt=""/>      </p></li>
+<li><p>图解<br/>
+<img src="media/15180088565993/15180098529637.jpg" alt=""/></p></li>
+</ol>
+
 		</div>
-
 	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2018-02-07T22:23:39+08:00" itemprop="datePublished">2018/2/7</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Algorithms.html'>Algorithms</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15180134196525.html" itemprop="url">
-		算法-快排</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>已知关键字序列为(51,22,83,46,75,18,68,30),进行快速排序，第一趟按关键码字51进行,完成后的序列为(30,22,18,46,51,75,68,83)</p>
-</blockquote>
-
-
-
-			 
-			<a href="15180134196525.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2018-02-07T22:21:33+08:00" itemprop="datePublished">2018/2/7</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Algorithms.html'>Algorithms</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15180132934950.html" itemprop="url">
-		算法-最小堆排序</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>{0, 2, 1, 4, 3, 9, 5, 8, 6, 7}是以数组形式存储的最小堆，删除堆顶元素0后的堆的新结果<br/>
-{1,2,5,4,3,9,7,8,6}</p>
-</blockquote>
-
-
-
-			 
-			<a href="15180132934950.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
-  
-
-</div>
-<nav id="pagenavi">
+	<div class="share-comment">
 	 
-	
-	<div class="center"><a href="archives.html">Blog Archives</a></div>
 
-</nav>
+	  
 
-</div>
+	  
 
-
-
-        </div>
+	</div>
+</div>        </div>
 			<footer id="footer" class="inner">Copyright &copy; 2014
 Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
 Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
