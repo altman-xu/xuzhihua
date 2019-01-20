@@ -159,6 +159,26 @@
 <ul>
 <li>
 <a href="#toc_0">mac 本地搭建 RocketMQ 单 Master 集群例子</a>
+<ul>
+<li>
+<a href="#toc_1">1. 下载 alibaba-rocketmq</a>
+</li>
+<li>
+<a href="#toc_2">2. 解压、改名(带上版本号)、建立软连接</a>
+</li>
+<li>
+<a href="#toc_3">3. 启动 Nameserver</a>
+</li>
+<li>
+<a href="#toc_4">4. 启动 BrokerServer</a>
+</li>
+<li>
+<a href="#toc_5">5. RocketMQ Console</a>
+</li>
+<li>
+<a href="#toc_6">6. 关闭 RocketMQ</a>
+</li>
+</ul>
 </li>
 </ul>
 
@@ -167,9 +187,12 @@
 
 <p>本文以 xuzhihua(admin) 用户执行</p>
 
-<ol>
-<li>下载 <a href="media/15478669516455/alibaba-rocketmq-3.2.6.tar.gz">alibaba-rocketmq-3.2.6.tar.gz</a> 到本地桌面</li>
-<li><p>解压、改名(带上版本号)、建立软连接</p>
+<h3 id="toc_1">1. 下载 alibaba-rocketmq</h3>
+
+<pre><code>下载 [alibaba-rocketmq-3.2.6.tar.gz](media/15478669516455/alibaba-rocketmq-3.2.6.tar.gz) 到本地桌面
+</code></pre>
+
+<h3 id="toc_2">2. 解压、改名(带上版本号)、建立软连接</h3>
 
 <pre><code class="language-zsh">cd ~/Desktop
 sudo tar -zxvf alibaba-rocketmq-3.2.6.tar.gz -C /usr/local
@@ -179,16 +202,57 @@ sudo chown xuzhihua:admin alibaba-rocketmq
 sudo mv alibaba-rocketmq alibaba-rocketmq-3.2.6
 sudo ln -s alibaba-rocketmq-3.2.6 rocketmq
 sudo chown xuzhihua:admin rocketmq
-</code></pre></li>
-<li><p>创建存储路径</p>
+</code></pre>
 
-<pre><code class="language-zsh">mkdir /usr/local/rocketmq/store
-mkdir /usr/local/rocketmq/commitlog
-mkdir /usr/local/rocketmq/consumequeue
-mkdir /usr/local/rocketmq/index
-</code></pre></li>
-<li><p>RocketMQ 配置文件</p></li>
-</ol>
+<h3 id="toc_3">3. 启动 Nameserver</h3>
+
+<pre><code class="language-zsh">/usr/local/rocketmq/bin
+nohup sh mqnamesrv &amp;
+    
+## 验证 nameserver 是否启动 
+jps  ## 多了一个 NamesrvStartup 进程
+## 查看日志验证 
+tail -f ~/logs/rocketmqlogs/namesrv.log
+</code></pre>
+
+<h3 id="toc_4">4. 启动 BrokerServer</h3>
+
+<pre><code class="language-zsh">/usr/local/rocketmq/bin
+nohup sh mqbroker -n localhost:9876 &amp;
+ 
+## 验证 nameserver 是否启动 
+jps  ## 多了一个 NamesrvStartup 进程
+## 查看日志验证 
+tail -f ~/logs/rocketmqlogs/broker.log
+</code></pre>
+
+<h3 id="toc_5">5. RocketMQ Console</h3>
+
+<blockquote>
+<p>先在本机装好 tomcat</p>
+</blockquote>
+
+<pre><code class="language-zsh">brew search tomcat
+brew install tomcat
+</code></pre>
+
+<p>将 <a href="media/15478669516455/rocketmq-console.war">rocketmq-console</a> 管控台war包 复制到 <code>/usr/local/Cellar/tomcat/9.0.14/libexec/webapps</code></p>
+
+<p>启动 tomcat</p>
+
+<pre><code class="language-zsh">brew services start tomcat 
+</code></pre>
+
+<p>在浏览器中输入地址 <a href="http://localhost:8080/rocketmq-console/">http://localhost:8080/rocketmq-console/</a> 即可访问 RocketMQ 管控台</p>
+
+<h3 id="toc_6">6. 关闭 RocketMQ</h3>
+
+<pre><code class="language-zsh">cd /usr/local/rocketmq/bin
+sh mqshutdown broker
+sh mqshutdown namesrv
+## 停止 RocketMQ 管控台
+brew services stop tomcat
+</code></pre>
 
 		</div>
 	</article>

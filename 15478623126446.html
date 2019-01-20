@@ -162,6 +162,20 @@
 </li>
 <li>
 <a href="#toc_1">Rocket 集群方式</a>
+<ul>
+<li>
+<a href="#toc_2">1. 单个 Master 模式</a>
+</li>
+<li>
+<a href="#toc_3">2. 多 Master 模式</a>
+</li>
+<li>
+<a href="#toc_4">3. 多 Master 多 Slave 模式，异步复制</a>
+</li>
+<li>
+<a href="#toc_5">4. 多 Master 多 Slave 模式，同步双写</a>
+</li>
+</ul>
 </li>
 </ul>
 
@@ -184,13 +198,13 @@ Broker : 消息中转角色，负责存储消息，一般也称为 Server，在 
 
 <h2 id="toc_1">Rocket 集群方式</h2>
 
-<ol>
-<li><p>单个 Master 模式  </p>
+<h3 id="toc_2">1. 单个 Master 模式</h3>
 
 <blockquote>
 <p>这种方式风险较大， 一旦 Broker 重启或者宕机，会导致整个服务不可用，不建议线上环境使用</p>
-</blockquote></li>
-<li><p>多 Master 模式</p>
+</blockquote>
+
+<h3 id="toc_3">2. 多 Master 模式</h3>
 
 <blockquote>
 <p>一个集群无 Slave， 全是 Master，如2个 Master 或3个 Master</p>
@@ -206,8 +220,9 @@ Broker : 消息中转角色，负责存储消息，一般也称为 Server，在 
 <li>在机器 A， 启动第一个 Master</li>
 <li>在机器 B， 启动第二个 Master</li>
 </ol></li>
-</ol></li>
-<li><p>多 Master 多 Slave 模式，异步复制</p>
+</ol>
+
+<h3 id="toc_4">3. 多 Master 多 Slave 模式，异步复制</h3>
 
 <blockquote>
 <p>每个 Master 配置一个 Slave，有多对 Master-Slave， HA 采用异步复制方式，主备有短暂消息延迟，毫秒级</p>
@@ -225,8 +240,9 @@ Broker : 消息中转角色，负责存储消息，一般也称为 Server，在 
 <li>在机器 C，启动第一个 Slave</li>
 <li>在机器 D，启动第二个 Slave</li>
 </ol></li>
-</ol></li>
-<li><p>多 Master 多 Slave 模式，同步双写</p>
+</ol>
+
+<h3 id="toc_5">4. 多 Master 多 Slave 模式，同步双写</h3>
 
 <blockquote>
 <p>每个 Master 配置一个 Slave，有多对 Master-Slave，HA采用同步双鞋方式，主备都写成功，向应用返回成功</p>
@@ -242,8 +258,7 @@ Broker : 消息中转角色，负责存储消息，一般也称为 Server，在 
 <li>在机器 A，启动第一个 Master</li>
 <li>在机器 B，启动第二个 Master</li>
 <li>在机器 C，启动第一个 Slave</li>
-<li>在机器 D，启动第二个 Slave</li>
-</ol></li>
+<li>在机器 D，启动第二个 Slave </li>
 </ol></li>
 </ol>
 

@@ -159,6 +159,47 @@
 <ul>
 <li>
 <a href="#toc_0">搭建 RocketMQ 双 Master 模式集群例子</a>
+<ul>
+<li>
+<a href="#toc_1">1. 规划</a>
+</li>
+<li>
+<a href="#toc_2">2. Hosts添加信息</a>
+</li>
+<li>
+<a href="#toc_3">3. 下载解压 rocketmq (两台机器)</a>
+</li>
+<li>
+<a href="#toc_4">4. 创建存储路径(两台机器)</a>
+</li>
+<li>
+<a href="#toc_5">5. ROcketMQ 配置文件(两台机器)</a>
+</li>
+<li>
+<a href="#toc_6">6. 修改日志配置文件(两台机器)</a>
+</li>
+<li>
+<a href="#toc_7">7. 修改启动脚本参数(两台机器)</a>
+</li>
+<li>
+<a href="#toc_8">8. 启动 NameServer (两台机器)</a>
+</li>
+<li>
+<a href="#toc_9">9. 启动 BrokerServerA (192.168.1.121)</a>
+</li>
+<li>
+<a href="#toc_10">10. 启动 BrokerServerB (192.168.1.122)</a>
+</li>
+<li>
+<a href="#toc_11">11. RocketMQ Console</a>
+</li>
+<li>
+<a href="#toc_12">12. 停止 RocketMQ 集群</a>
+</li>
+<li>
+<a href="#toc_13">13. 数据清理</a>
+</li>
+</ul>
 </li>
 </ul>
 
@@ -167,8 +208,7 @@
 
 <p>以 root 用户执行下面操作</p>
 
-<ol>
-<li><p>规划</p>
+<h3 id="toc_1">1. 规划</h3>
 
 <table>
 <thead>
@@ -194,8 +234,9 @@
 <td>Master2</td>
 </tr>
 </tbody>
-</table></li>
-<li><p>Hosts添加信息</p>
+</table>
+
+<h3 id="toc_2">2. Hosts添加信息</h3>
 
 <p><code>vi /etc/hosts</code></p>
 
@@ -216,28 +257,31 @@ ping rocketmq-nameserver1
 ping rocketmq-master1
 ping rocketmq-nameserver2
 ping rocketmq-master2
-</code></pre></li>
-<li><p>下载解压 rocketmq (两台机器)</p>
+</code></pre>
+
+<h3 id="toc_3">3. 下载解压 rocketmq (两台机器)</h3>
 
 <pre><code class="language-zsh">tar -zxvf alibaba-rocketmq-3.2.6.tar.gz -C /usr/local
 mv alibaba-rocketmq alibaba-rocketmq-3.2.6
 ln -s alibaba-rocketmq-3.2.6 rocketmq
-</code></pre></li>
-<li><p>创建存储路径(两台机器)</p>
+</code></pre>
+
+<h3 id="toc_4">4. 创建存储路径(两台机器)</h3>
 
 <pre><code class="language-zsh">mkdir /usr/local/rocketmq/store
 mkdir /usr/local/rocketmq/commitlog
 mkdir /usr/local/rocketmq/consumequeue
 mkdir /usr/local/rocketmq/index
-</code></pre></li>
-<li><p>ROcketMQ 配置文件(两台机器)</p>
+</code></pre>
+
+<h3 id="toc_5">5. ROcketMQ 配置文件(两台机器)</h3>
 
 <pre><code class="language-zsh">vim /usr/local/rocketmq/conf/2m-noslave/broker-a.properties
-
+    
 vim /usr/local/rocketmq/conf/2m-noslave/broker-b.properties
-
+    
 ## 将两个文件中的默认配置全部清掉，然后改成下面的内容
-
+    
 # 所属集群名字
 brokerClusterName=rocketmq-cluster
 #### broker 名字，注意此处不同的配置文件填写不一样 broker-a broker-b
@@ -284,7 +328,7 @@ maxMessageSize=65536
 #flushConsumeQueueLeastPages=2
 #flushCommitLogThoroughInterval=10000
 #flushConsumeQueueThoroughInterval=60000
-
+    
 # Broker 的角色
 #- ASYNC_MASTER 异步复制Master
 #- SYNC_MASTER 同步双写Master
@@ -295,64 +339,116 @@ brokerRole=ASYNC_MASTER
 #- SYNC_FLUSH 同步刷盘
 flushDiskType=ASYNC_FLUSH
 #checkTransactionMessageEnable=false
-
+    
 #发消息线程池数量
 #sendMessageThreadPoolNums=128
 #拉消息线程池数量
 #pullMessageThreadPoolNums=128
-</code></pre></li>
-<li><p>修改日志配置文件(两台机器)</p>
+</code></pre>
+
+<h3 id="toc_6">6. 修改日志配置文件(两台机器)</h3>
 
 <pre><code class="language-zsh">mkdir -p /usr/local/rocketmq/logs
 cd /usr/local/rocketmq/conf &amp;&amp; sed -i &#39;s#${user.home}#/usr/local/rocketmq#g&#39; *.xml
-</code></pre></li>
-<li><p>修改启动脚本参数(两台机器)</p>
+</code></pre>
+
+<h3 id="toc_7">7. 修改启动脚本参数(两台机器)</h3>
 
 <pre><code class="language-zsh">## 生产环境使用默认即可
 ## 开发环境调整 Xms Xmx Xmn 大小 (xms最小1g，不然启不起来)
-
+    
 vi /usr/local/rocketmq/bin/runbroker.sh
-
+    
 JAVA_OPT=&quot;${JAVA_OPT} -server -Xms1g -Xmx1g -Xmn512 -XX:PermSize=128m -XX:MaxPermSize=320m&quot;
-
+    
+    
 vi /usr/local/rocketmq/bin/runserver.sh
-
+    
 JAVA_OPT=&quot;${JAVA_OPT} -server -Xms1g -Xmx1g -Xmn512 -XX:PermSize=128m -XX:MaxPermSize=320m&quot;
-</code></pre></li>
-<li><p>启动 NameServer (两台机器)</p>
+</code></pre>
+
+<h3 id="toc_8">8. 启动 NameServer (两台机器)</h3>
 
 <pre><code class="language-zsh">cd /usr/local/rocketmq/bin
 nohup sh mqnamesrv &amp;
-
+    
+    
 ## 验证命令 
 jps       ## 多了一个 NamesrvStartup 进程
 tail -f -n 500 /usr/local/rocketmq/logs/rocketmqlogs/namesrv.log
-</code></pre></li>
-<li><p>启动 BrokerServerA (192.168.1.121)</p>
+</code></pre>
+
+<h3 id="toc_9">9. 启动 BrokerServerA (192.168.1.121)</h3>
 
 <pre><code class="language-zsh">cd /usr/local/rocketmq/bin
 nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-noslave/broker-a.properties &gt;/dev/null 2&gt;&amp;1 &amp;
-
+    
 ## 验证命令
 netstat -ntlp
 jps  ## 多了一个 BrokerStartup 进程
 tail -f -n 500 /usr/local/rocketmq/logs/rocketmqlogs/broker.log  
-</code></pre></li>
-<li><p>启动 BrokerServerB (192.168.1.122)</p>
+</code></pre>
+
+<h3 id="toc_10">10. 启动 BrokerServerB (192.168.1.122)</h3>
 
 <pre><code class="language-zsh">cd /usr/local/rocketmq/bin
 nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-noslave/broker-b.properties &gt;/dev/null 2&gt;&amp;1 &amp;
-
+    
 ## 验证命令
 netstat -ntlp
 jps  ## 多了一个 BrokerStartup 进程
 tail -f -n 500 /usr/local/rocketmq/logs/rocketmqlogs/broker.log
-</code></pre></li>
-<li><p>RocketMQ Console</p>
+</code></pre>
 
-<p>RocketMQ 管控台</p></li>
-<li><p>12</p></li>
-</ol>
+<h3 id="toc_11">11. RocketMQ Console</h3>
+
+<p>RocketMQ 管控台</p>
+
+<pre><code class="language-zsh">## 机器上已安装tomcat，目录位于 usr/local/apache-tomcat-7.0.29/
+## 将 [rocketmq-console](media/15478638398938/rocketmq-console.war) 放到192.168.1.121 /usr/local/apache-tomcat-7.0.29/webapps/ 目录下
+cd /usr/local/apache-tomcat-7.0.29/webapps/
+mkdir rocketmq-console
+unzip rocketmq-consolerocketmq-console.war -d rocketmq-console
+rm rocketmq-console.war
+cd rocketmq-console/WEB-INF/classes/
+## 修改 config.properties 文件内容的 nameserver 服务器地址
+vim config.properties
+    
+rocketmq.namesrv.addr=192.168.1.121:9876;192.168.1.121:9876
+    
+## 启动 tomcat
+/usr/local/apache-tomcat-7.0.29/bin/startup.sh
+    
+## 验证 tomcat 是否启动
+jps  ## 多了一个Bootstrap 进程
+    
+    
+## 浏览器访问  输入下面网址即可访问 RocketMQ 管控台 
+192.178.1.121:8080/rocketmq-console/
+</code></pre>
+
+<h3 id="toc_12">12. 停止 RocketMQ 集群</h3>
+
+<pre><code class="language-zsh">## 两台机器都操作
+## 注意 启动时先启动 namesrv， 后启动 broker
+##     关闭是先关闭 broker， 后关闭 namesrv
+cd /usr/local/rocketmq/bin
+sh mqshutdown broker
+sh mqshutdown namesrv
+</code></pre>
+
+<h3 id="toc_13">13. 数据清理</h3>
+
+<pre><code class="language-zsh">## 两台机器都操作
+## 等待 nameserver/broker 停止后
+    
+rm -rf /usr/local/rocketmq/store
+mkdir /usr/local/rocketmq/store
+mkdir /usr/local/rocketmq/store/commitlog
+mkdir /usr/local/rocketmq/store/consumequeue
+mkdir /usr/local/rocketmq/store/index
+
+</code></pre>
 
 		</div>
 	</article>
