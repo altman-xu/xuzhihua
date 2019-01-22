@@ -167,16 +167,19 @@
 <a href="#toc_2">2. 解压、改名(带上版本号)、建立软连接</a>
 </li>
 <li>
-<a href="#toc_3">3. 启动 Nameserver</a>
+<a href="#toc_3">3. 先启动 Nameserver</a>
 </li>
 <li>
-<a href="#toc_4">4. 启动 BrokerServer</a>
+<a href="#toc_4">4. 再启动 BrokerServer</a>
 </li>
 <li>
-<a href="#toc_5">5. RocketMQ Console</a>
+<a href="#toc_5">5. 启动 RocketMQ 管控台</a>
 </li>
 <li>
-<a href="#toc_6">6. 关闭 RocketMQ</a>
+<a href="#toc_6">6. 日志文件 与 数据文件存储路径</a>
+</li>
+<li>
+<a href="#toc_7">7. 关闭 RocketMQ</a>
 </li>
 </ul>
 </li>
@@ -204,7 +207,7 @@ sudo ln -s alibaba-rocketmq-3.2.6 rocketmq
 sudo chown xuzhihua:admin rocketmq
 </code></pre>
 
-<h3 id="toc_3">3. 启动 Nameserver</h3>
+<h3 id="toc_3">3. 先启动 Nameserver</h3>
 
 <pre><code class="language-zsh">/usr/local/rocketmq/bin
 nohup sh mqnamesrv &amp;
@@ -215,7 +218,7 @@ jps  ## 多了一个 NamesrvStartup 进程
 tail -f ~/logs/rocketmqlogs/namesrv.log
 </code></pre>
 
-<h3 id="toc_4">4. 启动 BrokerServer</h3>
+<h3 id="toc_4">4. 再启动 BrokerServer</h3>
 
 <pre><code class="language-zsh">/usr/local/rocketmq/bin
 nohup sh mqbroker -n localhost:9876 &amp;
@@ -226,7 +229,7 @@ jps  ## 多了一个 NamesrvStartup 进程
 tail -f ~/logs/rocketmqlogs/broker.log
 </code></pre>
 
-<h3 id="toc_5">5. RocketMQ Console</h3>
+<h3 id="toc_5">5. 启动 RocketMQ 管控台</h3>
 
 <blockquote>
 <p>先在本机装好 tomcat</p>
@@ -245,7 +248,19 @@ brew install tomcat
 
 <p>在浏览器中输入地址 <a href="http://localhost:8080/rocketmq-console/">http://localhost:8080/rocketmq-console/</a> 即可访问 RocketMQ 管控台</p>
 
-<h3 id="toc_6">6. 关闭 RocketMQ</h3>
+<h3 id="toc_6">6. 日志文件 与 数据文件存储路径</h3>
+
+<pre><code class="language-zsh"> ### 默认日志文件存储路径
+~/logs/rocketmqlogs/
+
+## 默认数据文件存储路径
+~/store/
+
+## rockermq 默认持久化到磁盘 store 下的文件
+## 由于是本地电脑启动，如果 Producer 发送消息是提示 disk full， 可以将  store 下 文件全部删除，在启动。
+</code></pre>
+
+<h3 id="toc_7">7. 关闭 RocketMQ</h3>
 
 <pre><code class="language-zsh">cd /usr/local/rocketmq/bin
 sh mqshutdown broker
