@@ -157,7 +157,8 @@
 		<h1 class="title" itemprop="name">案例：分布式事务处理</h1>
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
-<p>从支付宝转账1万到余额宝 开始分析，解决数据一致性问题</p>
+<p>从支付宝转账1万到余额宝 开始分析，解决数据一致性问题<br/>
+<a href="https://www.jianshu.com/p/453c6e7ff81c">分布式开放消息系统(RocketMQ)的原理与实践</a></p>
 </blockquote>
 
 <span id="more"></span><!-- more -->
@@ -364,6 +365,8 @@ PreCommit是一个缓冲，保证了在最后提交阶段之前各参与节点�
 </blockquote>
 
 <h2 id="toc_12">处理方案3 MQ避免分布式事物</h2>
+
+<p>参考 <a href="https://www.jianshu.com/p/453c6e7ff81c">分布式开放消息系统(RocketMQ)的原理与实践</a> 中 【三、事务消息】</p>
 
 <blockquote>
 <p>生活中场景：去清真牛肉面吃饭，点完拉面后，他们会给你一张小票，然后让你拿着小票到窗口排队取饭。 为什么将付钱和取饭两个动作分开？其中一个重要原因就是为了使他们的接待能力增强(并发量更高)</p>
