@@ -396,7 +396,17 @@ commit;
 <li>当支付宝扣款事务提交失败回滚后，向实时消息服务取消发送，在得到取消发送指令后，该消息将不会被发送</li>
 <li>对于那些未确认的消息或者取消的消息，需要有一个消息状态确认系统定时去支付宝系统查询这个消息的状态并进行更新(进行这一步的原因： 假设支付宝扣款事务被成功提交后，系统挂了，此消息状态并未更新为“确认发送”，从而导致消息不能被发送)</li>
 <li>优点：消息数据独立存储，降低业务系统与消息系统间的耦合</li>
-<li>确定：一次消息发送需要两次请求，业务处理服务需要实现消息状态回查接口</li>
+<li><p>确定：一次消息发送需要两次请求，业务处理服务需要实现消息状态回查接口</p>
+
+<pre><code class="language-sql">--1. 先把(支付宝-10000)封装成一个消息(new Message())
+--2. 然后把这个消息交到MQ服务器上 send(producer.send(new Message(), callBack))
+--3. callBack 处理本地事务：在callBack中方法里：
+     update A set amount=amount-10000 where userId=1;
+     ...
+--4. 当你的本地事务处理完成(本地事务处理成功或失败   MQ再次确认的过程)
+    成功(向MQ发送COMMIT 这个类似 ConsumeConcurrentlyStatus.CONSUME_SUCCESS)
+    失败(向MQ发送ROLLBACK)
+</code></pre></li>
 </ol></li>
 </ol>
 
