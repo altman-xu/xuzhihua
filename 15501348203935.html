@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	mac技巧之加密解密文件 - xuzhihua blog
+  	MySQL 修改root密码 - xuzhihua blog
   	
 	</title>
 
@@ -156,48 +156,43 @@
 			<div class="mid-col-container"> <div id="content" class="inner">
 
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">mac技巧之加密解密文件</h1>
+		<h1 class="title" itemprop="name">MySQL 修改root密码</h1>
 		<div class="entry-content" itemprop="articleBody">
-			<blockquote>
-<p>mac技巧之加密解密文件</p>
-</blockquote>
-
-<span id="more"></span><!-- more -->
+			<span id="more"></span><!-- more -->
 
 <ul>
 <li>
-<a href="#toc_0">加密 解密 文件</a>
+<a href="#toc_0">先在终端下连接mysql客户端</a>
+</li>
+<li>
+<a href="#toc_1">再在客户端中修改密码</a>
+</li>
+<li>
+<a href="#toc_2">退出客户端重新登录</a>
 </li>
 </ul>
 
 
-<h2 id="toc_0">加密 解密 文件</h2>
+<h2 id="toc_0">先在终端下连接mysql客户端</h2>
 
-<p>terminal:</p>
-
-<blockquote>
-<p>桌面有一份文件 ScreenShotOriginal.png<br/>
-加密</p>
-</blockquote>
-
-<pre><code class="language-zsh">openssl enc -aes-256-cbc -e -in /Users/xuzhihua/Desktop/ScreenShotOriginal.png  -out /Users/xuzhihua/Desktop/ScreenShotEncrypt.png
-// -e encrypt 使用 -aes-256-cbc 加密方式
-// 需要输入你想要使用的加密密码
+<pre><code class="language-zsh">mysql -u root -p
+## 默认是没有密码，回车两次就可以进入mysql客户端
 </code></pre>
 
-<blockquote>
-<p>此时会在桌面创建一个 ScreenShotEncrypt.png ，此时可以 ScreenShotOriginal.png 删除<br/>
-解密</p>
-</blockquote>
+<h2 id="toc_1">再在客户端中修改密码</h2>
 
-<pre><code class="language-zsh">openssl enc -aes-256-cbc -d -in /Users/xuzhihua/Desktop/ScreenShotEncrypt.png  -out /Users/xuzhihua/Desktop/ScreenShotDecrypt.png
-// -d decrypt 使用 -aes-256-cbc 加密方式
-// 输入加密的密码
+<pre><code class="language-sql">--注意：密码如果太过简单，过不去安全策略
+ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;1qazXSW@&#39;;
+--回车
+FLUSH PRIVILEGES;
+--回车
 </code></pre>
 
-<blockquote>
-<p>此时会在桌面创建一个 ScreenShotDecrypt.png</p>
-</blockquote>
+<h2 id="toc_2">退出客户端重新登录</h2>
+
+<pre><code class="language-zsh">mysql -u root -p
+##回车 输入密码 回车 成功连接客户端
+</code></pre>
 
 		</div>
 	</article>
