@@ -158,7 +158,11 @@
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 		<h1 class="title" itemprop="name">锁</h1>
 		<div class="entry-content" itemprop="articleBody">
-			<span id="more"></span><!-- more -->
+			<blockquote>
+<p>Java并发编程的艺术</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
 
 <ul>
 <li>
@@ -182,6 +186,9 @@
 <a href="#toc_5">轻量级锁 解锁</a>
 </li>
 </ul>
+</li>
+<li>
+<a href="#toc_6">锁的优缺点对比</a>
 </li>
 </ul>
 
@@ -213,6 +220,10 @@
 <h3 id="toc_5">轻量级锁 解锁</h3>
 
 <p>轻量级解锁时，会使用原子的CAS操作将Displaced Mark Word替换回到对象头，如果成功，则表示没有竞争发生。如果失败，表示当前锁存在竞争，锁就会膨胀成重量级锁。</p>
+
+<h2 id="toc_6">锁的优缺点对比</h2>
+
+<p><img src="media/15505444715643/15507148486757.jpg" alt=""/></p>
 
 		</div>
 	</article>
