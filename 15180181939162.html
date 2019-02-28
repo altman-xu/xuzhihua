@@ -382,6 +382,23 @@ JDK 1.7 下的运行结果：<br/>
 <p>Q：String s = new String(&quot;xyz&quot;)，创建了几个String Object? <br/>
 A：两个，常量池中的&quot;xyz&quot;和堆中对象。</p>
 
+<pre><code>String s = new String(&quot;xyz&quot;);
+首先在string池内找，找到？不创建string对象，否则创建， 这样就一个string对象
+遇到new运算符号了，在内存上创建string对象，并将其返回给s，又一个对象
+
+String s1=&quot;Hello&quot;;
+jvm首先在string池内里面看找不找到字符串&quot;Hello&quot;,找到,返回他的引用给s1，
+否则,创建新的string对象，放到string池里。
+这里由于s=&quot;Hello&quot;了,对象已经被引用，所以依据规则s和s1都是引用同一个对象。
+所以 s==s1将返回true。(==,对于非基本类型，是比较两引用是否引用内存中的同一个对象)
+
+String s2=String(&quot;Hello&quot;);
+jvm首先在string池内里面看找不找到字符串&quot;Hello&quot;,找到,不做任何事情，
+否则,创建新的string对象，放到string池里面。
+由于遇到了new，还会在内存上（不是string池里面）创建string对象存储&quot;Hello&quot;，并将内存上的（不是string池内的）string对象返回给s2。
+所以s==s2将返回false，不是引用同一个对象
+</code></pre>
+
 <p>Q：下列程序的输出结果：<br/>
 String s1 = “abc”;<br/>
 String s2 = “abc”;<br/>
