@@ -162,6 +162,114 @@
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
+				<time datetime="2018-05-03T23:06:33+08:00" itemprop="datePublished">2018/5/3</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='Mac.html'>Mac</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="15253599931682.html" itemprop="url">
+		test</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<pre><code class="language-flow">st=&gt;start: 开始|past:&gt;http://www.baidu.com
+e=&gt;end: 结束|future:&gt;http://www.baidu.com
+io11=&gt;inputoutput: 输入用户名密码
+sub11=&gt;subroutine: 查询数据库子程序
+cond11=&gt;condition: db中是否有此用户密码
+op11=&gt;operation: 用户登录，进入业务逻辑
+op1=&gt;operation: My Operation|past
+op2=&gt;operation: Stuff|current
+sub1=&gt;subroutine: My Subroutine|invalid
+cond=&gt;condition: Yes
+or No?|approved:&gt;http://www.baidu.com
+c2=&gt;condition: Good idea|rejected
+io=&gt;inputoutput: catch something...|future
+
+st-&gt;io11-&gt;sub11-&gt;cond11-&gt;
+cond11(no, right)-&gt;io11
+cond11(yes, left)-&gt;op11
+op11-&gt;e
+</code></pre>
+
+<pre><code class="language-flow">st=&gt;start: Start
+e=&gt;end
+io0=&gt;inputoutput: 输入用户密码
+op1=&gt;operation: 查询db是否有此用户密码
+sub1=&gt;subroutine: 返回登录页面逻辑
+cond=&gt;condition: Yes or No?
+io=&gt;inputoutput: 输入你要购买的东西
+    
+st-&gt;io0-&gt;op1-&gt;cond
+cond(yes)-&gt;io-&gt;e
+cond(no)-&gt;sub1(right)-&gt;io0
+</code></pre>
+
+<pre><code class="language-flow">st=&gt;start: 开始|past
+e=&gt;end: 结束|future
+io0=&gt;inputoutput: 输入用户名密码
+sub0=&gt;subroutine: 查询db此用户名|past
+op2=&gt;operation: 结束之前|current
+sub1=&gt;subroutine: 返回登录页面逻辑|invalid
+cond=&gt;condition: 有无此用户?|approved
+c2=&gt;condition: 验证密码正误|rejected
+io=&gt;inputoutput: 输入想要购买的东西|future
+
+st-&gt;io0-&gt;sub0(right)-&gt;cond
+cond(yes, right)-&gt;c2
+cond(no)-&gt;sub1(right)-&gt;io0
+c2(yes)-&gt;io-&gt;e
+c2(no)-&gt;op2-&gt;e
+</code></pre>
+
+
+			
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="2018-05-03T22:10:05+08:00" itemprop="datePublished">2018/5/3</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='Mac.html'>Mac</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="15253566058764.html" itemprop="url">
+		1</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<pre><code class="language-sequence">sequenceDiagram
+    participant Alice
+    participant Bob
+    Alice-&gt;John: Hello John, how are you?
+    loop Healthcheck
+        John-&gt;John: Fight against hypochondria
+    end
+    Note right of John: Rational thoughts &lt;br/&gt;prevail...
+    John--&gt;Alice: Great!
+    John-&gt;Bob: How about you?
+    Bob--&gt;John: Jolly good!
+    
+</code></pre>
+
+
+			
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
 				<time datetime="2018-05-03T20:19:02+08:00" itemprop="datePublished">2018/5/3</time>
 			</div>
 			<div class="tags">posted in 
@@ -2513,65 +2621,6 @@ dimensions = (400,400) # yes    直接赋值新元组
 
 
 			
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2018-03-30T11:33:43+08:00" itemprop="datePublished">2018/3/30</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Git.html'>Git</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15223808233737.html" itemprop="url">
-		git教程--廖雪峰</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>网站<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">廖雪峰Git教程</a></p>
-</blockquote>
-
-
-
-			 
-			<a href="15223808233737.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2018-03-30T10:42:51+08:00" itemprop="datePublished">2018/3/30</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Git.html'>Git</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15223777718046.html" itemprop="url">
-		git Emoji 定义</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p><a href="https://gitmoji.carloscuesta.me/">gitmoji</a><br/>
-<a href="https://zhuanlan.zhihu.com/p/29764863">git commit 时使用 Emoji 🤗</a></p>
-</blockquote>
-
-
-
-			 
-			<a href="15223777718046.html#more" class="more-link">Read on &rarr;</a>
-    		
 			
 		</div>
 
