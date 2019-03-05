@@ -162,7 +162,15 @@
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
 <p>组合索引的列顺序如何排列<br/>
-<a href="https://blog.csdn.net/robinson1988/article/details/6663503">组合索引怎么应该怎么选取引导列？</a></p>
+<code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code><br/>
+这种sql，t2上建立(id)索引，t1上建立组合索引(owner,id)<br/>
+尽量把join列放到组合索引最后面<br/>
+<code>INDEX FAST FULL SCAN</code> <strong>inx_id_owner</strong>  <code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code> <br/>
+<code>INDEX RANGE SCAN</code> <strong>inx_owner_id</strong>  <code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code><br/>
+<code>INDEX FULL SCAN</code> <strong>inx_id_owner</strong> <code>select /*+ index(t1 inx_id_owner) */ count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SYS&#39;;</code><br/>
+<code>INDEX SKIP SCAN</code> <strong>inx_id_owner</strong> <code>select /*+ index_ss(t1 inx_id_owner) */ count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SYS&#39;;</code></p>
+
+<p><a href="https://blog.csdn.net/robinson1988/article/details/6663503">组合索引怎么应该怎么选取引导列？</a></p>
 </blockquote>
 
 		</div>
