@@ -117,13 +117,19 @@
 						
 						  <li id=""><a target="_self" href="Java.html">Java</a></li>
 						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
 						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
 						
 						  <li id=""><a target="_self" href="Read.html">Read</a></li>
 						
 						  <li id=""><a target="_self" href="Video.html">Video</a></li>
 						
 						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
 						
 						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
 						
@@ -160,8 +166,8 @@
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 		<h1 class="title" itemprop="name">游标</h1>
 		<div class="entry-content" itemprop="articleBody">
-			<pre><code class="language-sql">#在 BEGIN 之前定义变量 v_smoke_flag 
-#在 BEGIN 之前定义游标
+			<pre><code class="language-sql">-- 在 BEGIN 之前定义变量 v_smoke_flag 
+-- 在 BEGIN 之前定义游标
 cursor cur_smoke_flag is
     select smoke_flag
     from uw_apply_info uai, uw_apply_product uap
@@ -169,7 +175,7 @@ cursor cur_smoke_flag is
     and uap.product_code = p_product_info.product_code
     and uai.policy_no = p_policy_no;
     
-#在 BEGIN 之后使用游标  v_smoke_flag可以不用定义 直接使用
+-- 在 BEGIN 之后使用游标  v_smoke_flag可以不用定义 直接使用
 open cur_smoke_flag;
 fetch cur_smoke_flag into v_smoke_flag;
 close cur_smoke_flag;

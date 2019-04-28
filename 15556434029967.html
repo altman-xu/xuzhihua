@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	Oracle 创建、使用 Type - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">Oracle 创建、使用 Type</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">创建 Type (REC_APPLY_PREMIUM, REC_TAB_APPLY_PREMIUM)</a>
+<ul>
+<li>
+<a href="#toc_1">删除 Type (REC_APPLY_PREMIUM, REC_TAB_APPLY_PREMIUM)</a>
+</li>
+<li>
+<a href="#toc_2">使用 Type (REC_APPLY_PREMIUM, REC_TAB_APPLY_PREMIUM)</a>
+</li>
+<li>
+<a href="#toc_3">type / create type 区别联系</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="toc_0">创建 Type (REC_APPLY_PREMIUM, REC_TAB_APPLY_PREMIUM)</h2>
+
+<blockquote>
+<p>可以用 java 的方式理解下面的 REC_APPLY_PREMIUM 和 REC_TAB_APPLY_PREMIUM<br/>
+REC_APPLY_PREMIUM --&gt; UserDomain<br/>
+REC_TAB_APPLY_PREMIUM --&gt; ArrayList<UserDomain></p>
+</blockquote>
+
+<pre><code class="language-sql">-- 文件: type_rec_apply_premium.sql
+CREATE OR REPLACE TYPE NBUCDE.&quot;REC_APPLY_PREMIUM&quot; FORCE AS Object(
+       apply_bar_code         VARCHAR2(20),
+       receivable_bal         NUMBER(15,2)
+)
+/
+grant execute on NBUCDE.REC_APPLY_PREMIUM to NBUCDE;
+grant execute on NBUCDE.REC_APPLY_PREMIUM to BIACDE;
+grant execute on NBUCDE.REC_APPLY_PREMIUM to BIABOPR;
+grant execute on NBUCDE.REC_APPLY_PREMIUM to BIAOPR;
+
+
+-- 文件: type_rec_tab_apply_premium.sql
+CREATE OR REPLACE TYPE NBUCDE.&quot;REC_TAB_APPLY_PREMIUM&quot; AS TABLE OF nbucde.rec_apply_premium
+/
+grant execute on NBUCDE.REC_TAB_APPLY_PREMIUM to NBUCDE;
+grant execute on NBUCDE.REC_TAB_APPLY_PREMIUM to BIACDE;
+grant execute on NBUCDE.REC_TAB_APPLY_PREMIUM to BIABOPR;
+grant execute on NBUCDE.REC_TAB_APPLY_PREMIUM to BIAOPR;
+</code></pre>
+
+<h3 id="toc_1">删除 Type (REC_APPLY_PREMIUM, REC_TAB_APPLY_PREMIUM)</h3>
+
+<pre><code class="language-sql">-- 注意删除顺序: 这两个有引用关系
+-- 先删除引用的 REC_TAB_APPLY_PREMIUM ， 再删除被引用的 REC_APPLY_PREMIUM 
+
+DROP TYPE NBUCDE.&quot;REC_TAB_APPLY_PREMIUM&quot;;
+
+DROP NBUCDE.&quot;REC_APPLY_PREMIUM&quot;
+</code></pre>
+
+<h3 id="toc_2">使用 Type (REC_APPLY_PREMIUM, REC_TAB_APPLY_PREMIUM)</h3>
+
+<pre><code class="language-sql">--******************************************************************************
+--功能说明: 根据银行代码和日期，获取对应保单号和首期应缴保费
+--参数说明: p_date              日期 yyyyMMdd
+--          p_bank_code        银行代码 如0002 建行， 0006交行
+--输出结果: p_rec_apply_premium 对应保单和首期应缴保费数组
+--需求号码: REQ-1663
+--作者时间:  xuzh001 20180423
+--******************************************************************************
+PROCEDURE query_apply_premium (
+      p_date        IN  VARCHAR2,
+      p_bank_code         IN  VARCHAR2,   
+-------------------------------- 使用 rec_tab_apply_premium
+      p_rec_apply_premium OUT nbucde.rec_tab_apply_premium)
+IS
+    v_prompt    VARCHAR2(300);
+    v_message   VARCHAR2(300);
+    v_err_code  VARCHAR2(300);
+-------------------------------- 使用 rec_apply_premium
+    v_apply_premium_item  rec_apply_premium;
+    CURSOR cur_apply_premium IS
+    SELECT *
+      FROM (
+            SELECT uai.apply_bar_code, uai.receivable_bal
+            FROM policy p, uw_apply_info uai
+            WHERE 1=1
+            AND p.apply_no = uai.apply_no
+            AND p.department_no IN(
+                SELECT t.dept_no 
+                FROM DEPARTMENT_INFO t 
+                connect BY prior t.dept_no = t.parent_dept 
+                start with t.dept_no = p_bank_code)
+            AND p.business_source = &#39;2&#39;
+            AND to_char(p.issue_date, &#39;yyyyMMdd&#39;) = decode(p_date, null, to_char(p.issue_date, &#39;yyyyMMdd&#39;), p_date)
+    )ta
+    ORDER BY apply_bar_code, receivable_bal
+    ;
+    v_apply_premium cur_apply_premium%ROWTYPE;
+    v_count INT := 0;
+BEGIN
+-------------------------------- 使用 rec_tab_apply_premium
+    p_rec_apply_premium := NEW nbucde.rec_tab_apply_premium();
+-------------------------------- 使用 rec_apply_premium
+    v_apply_premium_item := NEW rec_apply_premium(null,null);
+    FOR v_apply_premium IN cur_apply_premium LOOP
+        v_apply_premium_item.apply_bar_code := v_apply_premium.apply_bar_code;
+        v_apply_premium_item.receivable_bal := v_apply_premium.receivable_bal;
+        v_count := v_count + 1;
+        p_rec_apply_premium.EXTEND;
+        p_rec_apply_premium(v_count) := v_apply_premium_item;
+    END LOOP;
+EXCEPTION
+  WHEN OTHERS THEN
+     v_message := substrb(&#39;query_apply_premium&#39;,
+                          1,
+                          300);
+     v_err_code := NULL;
+     pub_error_handle.exception_no_raise(&#39;check_unsure_clientInfo_rule2&#39;,
+                                         v_err_code,
+                                         v_message,
+                                         v_prompt);
+END query_apply_premium;
+</code></pre>
+
+<h3 id="toc_3">type / create type 区别联系</h3>
+
+<pre><code class="language-zsh">相同：
+    可用用关键字create type 或者直接用type定义自定义类型,
+
+区别：
+    1. create type 变量 as table of 类型
+    2. create type 变量 as object(字段1 类型1, 字段2 类型2);
+    3. type 变量 is table of 类型
+    4. type 变量 is record(字段1 类型1, 字段2 类型2);
+
+用 create 后面用 as , 若直接用 type 后面用 is
+create 是创 object , 而 type 是创 record 
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

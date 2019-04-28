@@ -1,0 +1,444 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	space-vim 入门 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">space-vim 入门</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<p><a href="http://liuchengxu.org/space-vim-doc/">space-vim-doc</a><br/>
+<a href="http://vim.liuchengxu.org/">space-vim 官网</a></p>
+
+<ul>
+<li>
+<a href="#toc_0">简介</a>
+</li>
+<li>
+<a href="#toc_1">安装 space-vim</a>
+</li>
+<li>
+<a href="#toc_2">项目结构</a>
+</li>
+<li>
+<a href="#toc_3">使用说明</a>
+<ul>
+<li>
+<a href="#toc_4">buffer</a>
+</li>
+<li>
+<a href="#toc_5">window</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<span id="more"></span><!-- more -->
+
+<h2 id="toc_0">简介</h2>
+
+<p>space-vim 和 spacevim 和 spacemacs 都是类似的插件，用来扩展 vim 编辑器</p>
+
+<h2 id="toc_1">安装 space-vim</h2>
+
+<pre><code class="language-zsh">## 前置依赖
+git
+Vim/NeoVim
+
+## 安装命令
+bash &lt;(curl -fsSL https://git.io/vFUhE) 
+</code></pre>
+
+<h2 id="toc_2">项目结构</h2>
+
+<pre><code class="language-zsh">## 配置文件路径
+~/.spacevim
+
+</code></pre>
+
+<h2 id="toc_3">使用说明</h2>
+
+<h3 id="toc_4">buffer</h3>
+
+<p><img src="media/15562416528982/15562605598124.jpg" alt="" style="width:636px;"/></p>
+
+<table>
+<thead>
+<tr>
+<th>Key Binding</th>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>SPC b 1</td>
+<td>Normal</td>
+<td>switch to buffer with number 1</td>
+</tr>
+<tr>
+<td>SPC b 2</td>
+<td>Normal</td>
+<td>switch to buffer with number 2</td>
+</tr>
+<tr>
+<td>SPC b 3</td>
+<td>Normal</td>
+<td>switch to buffer with number 3</td>
+</tr>
+<tr>
+<td>SPC b 4</td>
+<td>Normal</td>
+<td>switch to buffer with number 4</td>
+</tr>
+<tr>
+<td>SPC b 5</td>
+<td>Normal</td>
+<td>switch to buffer with number 5</td>
+</tr>
+<tr>
+<td>SPC b 6</td>
+<td>Normal</td>
+<td>switch to buffer with number 6</td>
+</tr>
+<tr>
+<td>SPC b 7</td>
+<td>Normal</td>
+<td>switch to buffer with number 7</td>
+</tr>
+<tr>
+<td>SPC b 8</td>
+<td>Normal</td>
+<td>switch to buffer with number 8</td>
+</tr>
+<tr>
+<td>SPC b 9</td>
+<td>Normal</td>
+<td>switch to buffer with number 9</td>
+</tr>
+<tr>
+<td>SPC b p</td>
+<td>Normal</td>
+<td>switch to previous buffer</td>
+</tr>
+<tr>
+<td>SPC b n</td>
+<td>Normal</td>
+<td>switch to next buffer</td>
+</tr>
+<tr>
+<td><code>&lt;Tab&gt;</code></td>
+<td>Normal</td>
+<td>swtich to next buffer, equal to SPC b n</td>
+</tr>
+<tr>
+<td><code>&lt;Shift-Tab&gt;</code></td>
+<td>Normal</td>
+<td>switch to previous buffer, equal to SPC b p</td>
+</tr>
+<tr>
+<td>SPC b d</td>
+<td>Normal</td>
+<td>delete current buffer</td>
+</tr>
+<tr>
+<td>SPC b k</td>
+<td>Normal</td>
+<td>kill current buffer</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="toc_5">window</h3>
+
+<p><img src="media/15562416528982/15562607942985.jpg" alt="" style="width:640px;"/></p>
+
+<table>
+<thead>
+<tr>
+<th>Key Binding</th>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>SPC b [1-9]</td>
+<td>Normal</td>
+<td>move cursor to the window with number [1-9]</td>
+</tr>
+<tr>
+<td>SPC w j</td>
+<td>Normal</td>
+<td>move cursor to the window below current one</td>
+</tr>
+<tr>
+<td>SPC w k</td>
+<td>Normal</td>
+<td>move cursor to the window above current one</td>
+</tr>
+<tr>
+<td>SPC w h</td>
+<td>Normal</td>
+<td>move cursor to the window left of current one</td>
+</tr>
+<tr>
+<td>SPC w l</td>
+<td>Normal</td>
+<td>move cursor to the windows right of current one</td>
+</tr>
+<tr>
+<td>SPC w J</td>
+<td>Normal</td>
+<td>Increase current window height downwards</td>
+</tr>
+<tr>
+<td>SPC w K</td>
+<td>Normal</td>
+<td>Increase current window height upwards</td>
+</tr>
+<tr>
+<td>SPC w H</td>
+<td>Normal</td>
+<td>Increase current window height rightwards</td>
+</tr>
+<tr>
+<td>SPC w L</td>
+<td>Normal</td>
+<td>Increase current window height leftwards</td>
+</tr>
+<tr>
+<td>SPC w v</td>
+<td>Normal</td>
+<td>split window vertically</td>
+</tr>
+<tr>
+<td>SPC w 2</td>
+<td>Normal</td>
+<td>2 columns, equal to  <code>| SPC w v</code></td>
+</tr>
+<tr>
+<td>SPC w s</td>
+<td>Normal</td>
+<td>split window horizontally</td>
+</tr>
+<tr>
+<td>SPC w -</td>
+<td>Normal</td>
+<td>equal to  <code>| SPC w -</code></td>
+</tr>
+<tr>
+<td>SPC w d</td>
+<td>Normal</td>
+<td>delete the current window</td>
+</tr>
+<tr>
+<td>SPC w q</td>
+<td>Normal</td>
+<td>quit the current window</td>
+</tr>
+<tr>
+<td>SPC w w</td>
+<td>Normal</td>
+<td>choose window</td>
+</tr>
+<tr>
+<td>SPC w r</td>
+<td>Normal</td>
+<td>rotate windows downwards/rightwards</td>
+</tr>
+<tr>
+<td>SPC w m</td>
+<td>Normal</td>
+<td>maximize the window in GVim</td>
+</tr>
+</tbody>
+</table>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

@@ -117,13 +117,19 @@
 						
 						  <li id=""><a target="_self" href="Java.html">Java</a></li>
 						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
 						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
 						
 						  <li id=""><a target="_self" href="Read.html">Read</a></li>
 						
 						  <li id=""><a target="_self" href="Video.html">Video</a></li>
 						
 						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
 						
 						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
 						
@@ -169,7 +175,24 @@
 <a href="#toc_0">外接键盘时禁用开启 mac 内置键盘</a>
 </li>
 <li>
-<a href="#toc_1">命令</a>
+<a href="#toc_1">session window pane 关系</a>
+</li>
+<li>
+<a href="#toc_2">操作命令</a>
+<ul>
+<li>
+<a href="#toc_3">session 操作</a>
+</li>
+<li>
+<a href="#toc_4">window 操作</a>
+</li>
+<li>
+<a href="#toc_5">pane 操作</a>
+</li>
+<li>
+<a href="#toc_6">tmux 中 vim 操作</a>
+</li>
+</ul>
 </li>
 </ul>
 
@@ -190,60 +213,92 @@
 <p><code>sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/https://pqrs.org/osx/karabiner/history.html.en</code></p></li>
 <li><p>软件方式：</p></li>
 <li><p>karabiner-elements   进入 Preferences-devices <br/>
-<img src="media/15266657573716/15266982824877.jpg" alt=""/></p></li>
+<img src="media/15266657573716/15266982824877.jpg" alt="" style="width:500px;"/></p></li>
 </ol></li>
 </ol>
 
-<h2 id="toc_1">命令</h2>
+<h2 id="toc_1">session window pane 关系</h2>
 
-<ul>
-<li><code>tmux ls</code> (iterm)查看 tmux 下所有的 session</li>
-<li><code>tmux a -t SessionName</code> = <code>tmux attach -t SessionName</code>(iterm)attach 进名字为 sessionName 的会话 </li>
-<li><code>tmux new -s SessionName</code> (iterm)新打开一个 名字为 TmuxName 的 Session，并进入</li>
-<li><code>tmux new -s SessionName -d</code> (iterm)后台新打开一个 名字为 TmuxName 的 Session，不进入</li>
-<li></li>
-<li><code>ctrl-q</code> tmux 的命令<em>前置键</em>， 以 ctrl-q 开头的命令都是在 tmux 界面中执行命令
-*</li>
-<li><code>ctrl-q, r</code> 重新载入 tmux 的配置文件，使其生效
-*</li>
-<li><code>ctrl + d</code> 关闭当前 pane；重复执行，继续关闭 pane；若 pane 没有了，则关闭 window；若 window 没有了，则关闭 session，相当于退出将 session exit，不能再访问这个 session</li>
-<li><code>ctrl-q, x</code> 关闭当前 pane</li>
-<li><code>ctrl-q, &amp;</code> 关闭当前 window，包括当前 window 下的所有 pane</li>
-<li><code>ctrl-q, d</code> 将当前 session detached(改 tmux 可以还在后台运行)，返回到终端</li>
-<li></li>
-<li><code>ctrl-q, $</code> 重命名当前 session 的名字</li>
-<li><code>ctrl-q, ,</code> 重命名当前 window 的名字，显示在状态栏上</li>
-<li><code>ctrl-q, t</code> 在当前的 pane 中显示时间</li>
-<li><code>ctrl-q, i</code> 在状态栏中显示当前 pane 的信息</li>
-<li> </li>
-<li><code>ctrl-q, s</code> 在当前 pane 显示所有 session</li>
-<li><code>ctrl-q, s, hjkl, enter</code> 在当前 pane 显示所有 session， hjkl:左下右上选择 session，enter 进入 session</li>
-<li><code>ctrl-q, w</code> 在当前 pane 查看 tmux 所有的 session，window，pane</li>
-<li><code>ctrl-q, w, hjkl, enter</code> 查看所有 session、window、pane、 hjkl: 左下右上选择， enter:进入所选择项的窗口</li>
-<li><code>ctrl-q, f, enter, hjkl</code> 进入所有 session、window、pane 面板，进行左下右上选择进入</li>
-<li></li>
-<li><code>ctrl-q, q</code> 显示当前 window 中 pane 的编号</li>
-<li><code>ctrl-q, num</code> 在当前 session 中，将窗口切换到 num 对应的窗口</li>
-<li><code>ctrl-q, &#39;, num, enter</code> 在当前 session 中，将窗口切换到 索引为 num 的窗口</li>
-<li><code>ctrl-q, ctrl-q</code> 在最近使用的两个 pane 中，来回切换</li>
-<li><code>ctrl-q, n</code> 在当前 session 中，将 session 窗口切换到 下一个窗口</li>
-<li><code>ctrl-q, %</code> 将当前 pane 左右分屏</li>
-<li><code>ctrl-q, &quot;</code> 将当前 pane 上下分屏</li>
-<li><code>ctrl-q, z</code> 多 pane 情况下，将当前所在的 pane 最大化显示，再执行一次，切换回之前的状态</li>
-<li><code>ctrl-q, m</code> 多 pane 情况下，凸显当前所在的 pane，在执行一下，取消凸显状态</li>
-<li><code>ctrl-q, hjkl</code> 在当前 window 下的 pane 中，hjkl:左下右上进行切换 分屏</li>
-<li><code>ctrl-q, o</code> 在当前 window 中，切换到下一个 pane</li>
-<li><code>ctrl-q, ;</code> 在当前 window 中，切换到上一个 pane</li>
-<li><code>ctrl-q, ctrl-o</code> 调换窗口位置，类似于 vim 中的 ctrl-w</li>
-<li><code>ctrl-q, !</code> 将当前 pane 变为新窗口</li>
-<li></li>
-<li><code>ctrl-q, [</code> [: 进入 <em>vi</em> 状态</li>
-<li><code>ctrl-q, [, hjkl</code> hjkl: 左下右上移动光标</li>
-<li><code>ctrl-q, [, v, hjkl, y</code> (tmux) [:进入 vi 状态，v:从当前光标位置进入<em>选取</em>模式， hjkl:移动选取位置，y:复制前面选取的内容(放入粘贴板)(注:可以多次进行选取，复制入粘贴板)</li>
-<li><code>ctrl-q, p</code> 将粘贴板中的最新一条内容 粘贴出来</li>
-<li><code>ctrl-q, shift+p</code> = <code>ctrl-q, =</code> 进入粘贴板，查看所有粘贴内容</li>
-<li><code>ctrl-q, shift+p, hjkl, enter</code> 进入粘贴板，hjkl:左下右上选择粘贴记录，enter:选取当前记录粘贴到之前进入粘贴板的位置</li>
-</ul>
+<p>session -&gt; window -&gt; pane</p>
+
+<p><img src="media/15266657573716/15562714658386.jpg" alt="" style="width:1438px;"/></p>
+
+<h2 id="toc_2">操作命令</h2>
+
+<pre><code class="language-zsh">ctrl-q                      ## tmux的命令 前置键，tmux的快捷键触发键
+ctrl-q, r                   ## 重新载入 tmux 的配置文件，使其生效 
+</code></pre>
+
+<h3 id="toc_3">session 操作</h3>
+
+<pre><code class="language-zsh">
+## 查看 所有连接
+tmux ls
+
+## 新建 连接
+tmux new -s SessionName             ## 新打开一个名字为 SessionName 的会话，并进入
+tmux new -s SessionName -d          ## 后台新打开一个名字为 SessionName 的会话，不进入
+
+## 断开 连接
+ctrl-q, d                           ## detached 当前会话，可重新 attach 进
+ctrl-q, &amp;                           ## 直接 exited 当前会话， `tmux ls`也找不到此会话
+ctrl-q, x                           ## 重复执行，依次关闭当前 pane、window、session (相当于exited) 
+
+## 重命名
+ctrl-q, $                           ## 重命名当前 session 的名字
+
+## 切换 session
+ctrl-q, s                           ## 在当前 pane 显示所有 session
+ctrl-q, s, hjkl, enter              ##  在当前 pane 显示所有 session， hjkl:左下右上选择 session，enter 进入 session 
+</code></pre>
+
+<h3 id="toc_4">window 操作</h3>
+
+<pre><code class="language-zsh">## 重命名
+ctrl-q, ,                           ## 重命名当前 window 的名字，显示在状态栏上
+
+## 切换 window(不可跨sesison)
+ctrl-1, 1~9                         ## 将窗口切换到 1~9 对应的窗口
+ctrl-q, &#39;, num, enter               ## 将窗口切换到 索引为 num 的窗口
+ctrl-q, n                           ## 将 窗口切换到 下一个窗口
+ctrl-q, ctrl-q                      ## 在最近使用的两个 window 中，来回切换
+
+## 切换 window(可跨session)
+ctrl-q, w                           ## 在当前 pane 查看 tmux 所有的 session，window，pane 
+ctrl-q, w, hjkl, enter              ## 查看所有 session、window、pane、 hjkl: 左下右上选择， enter:进入所选择项的窗口 
+ctrl-q, f, enter, hjkl              ## 进入所有 session、window、pane 面板，进行左下右上选择进入 
+</code></pre>
+
+<h3 id="toc_5">pane 操作</h3>
+
+<pre><code class="language-zsh">ctrl-q, i`                      ## 在状态栏中显示当前 pane 的信息
+ctrl-q, t`                      ## 在当前的 pane 中显示时间
+ctrl-q, q                       ## 显示当前 window 中 pane 的编号 
+
+## pane变window
+ctrl-q, !                       ## 将当前 pane 变为新窗口
+
+## 切换
+ctrl-q, hjkl                    ## 在当前 window 下的 pane 中，hjkl:左下右上进行切换 分屏
+ctrl-q, o                       ## 在当前 window 中，切换到下一个 pane
+ctrl-q, ;                       ## 在当前 window 中，切换到最近使用的两个 pane 中的另一个
+
+## 分屏
+ctrl-q, %                       ## 将当前 pane 左右分屏
+ctrl-q, &quot;                       ## 将当前 pane 上下分屏
+ctrl-q, z                       ## 多 pane 情况下，将当前所在的 pane 最大化显示，再执行一次，切换回之前的状态
+ctrl-q, m                       ## 多 pane 情况下，凸显当前所在的 pane，在执行一下，取消凸显状态
+</code></pre>
+
+<h3 id="toc_6">tmux 中 vim 操作</h3>
+
+<pre><code class="language-zsh">ctrl-q, [                       ## [: 进入 *vi* 状态
+ctrl-q, [, hjkl                 ## hjkl: 左下右上移动光标
+ctrl-q, [, v, hjkl, y           ## (tmux) [:进入 vi 状态，v:从当前光标位置进入*选取*模式， hjkl:移动选取位置，y:复制前面选取的内容(放入粘贴板)(注:可以多次进行选取，复制入粘贴板)
+ctrl-q, p                       ## 将粘贴板中的最新一条内容 粘贴出来
+ctrl-q, shift+p = ctrl-q, =     ## 进入粘贴板，查看所有粘贴内容
+ctrl-q, shift+p, hjkl, enter    ## 进入粘贴板，hjkl:左下右上选择粘贴记录，enter:选取当前记录粘贴到之前进入粘贴板的位置
+</code></pre>
 
 		</div>
 	</article>

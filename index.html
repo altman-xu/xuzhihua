@@ -117,13 +117,19 @@
 						
 						  <li id=""><a target="_self" href="Java.html">Java</a></li>
 						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
 						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
 						
 						  <li id=""><a target="_self" href="Read.html">Read</a></li>
 						
 						  <li id=""><a target="_self" href="Video.html">Video</a></li>
 						
 						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
 						
 						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
 						
@@ -162,69 +168,49 @@
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
-				<time datetime="2019-03-04T22:56:10+08:00" itemprop="datePublished">2019/3/4</time>
+				<time datetime="2019-04-26T09:20:52+08:00" itemprop="datePublished">2019/4/26</time>
 			</div>
 			<div class="tags">posted in 
 			
-			    <a class='category' href='MySQL.html'>MySQL</a>&nbsp;
+			    <a class='category' href='Terminal.html'>Terminal</a>&nbsp;
 			 
 			</div>
 		</div>
-		<h1 class="title" itemprop="name"><a href="15517113703339.html" itemprop="url">
-		组合索引的引导列</a></h1>
+		<h1 class="title" itemprop="name"><a href="15562416528982.html" itemprop="url">
+		space-vim 入门</a></h1>
 		<div class="entry-content" itemprop="articleBody">
 			
-			<blockquote>
-<p>组合索引的列顺序如何排列<br/>
-<code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code><br/>
-这种sql，t2上建立(id)索引，t1上建立组合索引(owner,id)<br/>
-尽量把join列放到组合索引最后面<br/>
-<code>INDEX FAST FULL SCAN</code> <strong>inx_id_owner</strong>  <code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code> <br/>
-<code>INDEX RANGE SCAN</code> <strong>inx_owner_id</strong>  <code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code><br/>
-<code>INDEX FULL SCAN</code> <strong>inx_id_owner</strong> <code>select /*+ index(t1 inx_id_owner) */ count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SYS&#39;;</code><br/>
-<code>INDEX SKIP SCAN</code> <strong>inx_id_owner</strong> <code>select /*+ index_ss(t1 inx_id_owner) */ count(*) from t1,t2 where t1.id=t2.id and t1.owner = &#39;SYS&#39;;</code></p>
+			<p><a href="http://liuchengxu.org/space-vim-doc/">space-vim-doc</a><br/>
+<a href="http://vim.liuchengxu.org/">space-vim 官网</a></p>
 
-<p><a href="https://blog.csdn.net/robinson1988/article/details/6663503">组合索引怎么应该怎么选取引导列？</a></p>
-</blockquote>
+<ul>
+<li>
+<a href="#toc_0">简介</a>
+</li>
+<li>
+<a href="#toc_1">安装 space-vim</a>
+</li>
+<li>
+<a href="#toc_2">项目结构</a>
+</li>
+<li>
+<a href="#toc_3">使用说明</a>
+<ul>
+<li>
+<a href="#toc_4">buffer</a>
+</li>
+<li>
+<a href="#toc_5">window</a>
+</li>
+</ul>
+</li>
+</ul>
 
-
-			
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2019-03-01T23:20:06+08:00" itemprop="datePublished">2019/3/1</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Case.html'>Case</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15514536068468.html" itemprop="url">
-		从ACID、FLP、CAP、BASE、到XA、2PC、3PC、TCC、Paxos、ZAB、RAFT</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>介绍分布式的一些原理 算法<br/>
-<a href="https://www.jianshu.com/p/6169ba76429e">分布式之【CAP理论、BASE理论 、FLP不可能定理】</a><br/>
-<a href="http://danielw.cn/FLP-proof">FLP Impossibility的证明</a><br/>
-<a href="https://blog.csdn.net/huaweitman/article/details/50758907">跟我学分布式事务之2PC和3PC</a><br/>
-<a href="https://www.cnblogs.com/wudimanong/p/10340948.html">分布式事务之深入理解什么是2PC、3PC及TCC协议？</a><br/>
-<a href="https://blog.csdn.net/u013679744/article/details/79188945">Zookeeper系列（2）--2PC、3PC及其应用</a><br/>
-<a href="http://www.cnblogs.com/hustcat/p/3577584.html">Mysql的2pc应用</a><br/>
-<a href="https://www.liangzl.com/get-article-detail-525.html">分布式事务之TCC事务</a><br/>
-<a href="https://blog.csdn.net/followmyinclinations/article/details/52870418">分布式事务与一致性算法Paxos &amp; raft &amp; zab</a></p>
-</blockquote>
 
 
 
 			 
-			<a href="15514536068468.html#more" class="more-link">Read on &rarr;</a>
+			<a href="15562416528982.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
@@ -234,31 +220,24 @@
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
-				<time datetime="2019-03-01T23:19:51+08:00" itemprop="datePublished">2019/3/1</time>
+				<time datetime="2019-04-25T15:20:13+08:00" itemprop="datePublished">2019/4/25</time>
 			</div>
 			<div class="tags">posted in 
 			
-			    <a class='category' href='MySQL.html'>MySQL</a>&nbsp;
-			
-			    <a class='category' href='Oracle.html'>Oracle</a>&nbsp;
+			    <a class='category' href='Idea.html'>Idea</a>&nbsp;
 			 
 			</div>
 		</div>
-		<h1 class="title" itemprop="name"><a href="15514535914974.html" itemprop="url">
-		数据库事务隔离级别 与 脏读、不可重复读、幻读</a></h1>
+		<h1 class="title" itemprop="name"><a href="15561768132643.html" itemprop="url">
+		idea 插件 IdeaVim</a></h1>
 		<div class="entry-content" itemprop="articleBody">
 			
-			<blockquote>
-<p><a href="https://blog.csdn.net/leozhou13/article/details/50449965">Oracle事务隔离级别</a><br/>
-<a href="https://www.cnblogs.com/huanongying/p/7021555.html">MySQL的四种事务隔离级别</a><br/>
-<a href="https://blog.csdn.net/su20145104009/article/details/72057700">数据库事务隔离级别-- 脏读、幻读、不可重复读（清晰解释）</a><br/>
-<a href="https://www.cnblogs.com/itcomputer/articles/5133254.html">不可重复读和幻读的区别</a></p>
-</blockquote>
+			<p><a href="https://www.cnblogs.com/zhaozihan/p/6297217.html">IdeaVim-常用操作</a></p>
 
 
 
 			 
-			<a href="15514535914974.html#more" class="more-link">Read on &rarr;</a>
+			<a href="15561768132643.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
@@ -268,27 +247,24 @@
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
-				<time datetime="2019-02-26T16:32:50+08:00" itemprop="datePublished">2019/2/26</time>
+				<time datetime="2019-04-25T14:34:27+08:00" itemprop="datePublished">2019/4/25</time>
 			</div>
 			<div class="tags">posted in 
 			
-			    <a class='category' href='NoSQL.html'>NoSQL</a>&nbsp;
+			    <a class='category' href='Idea.html'>Idea</a>&nbsp;
 			 
 			</div>
 		</div>
-		<h1 class="title" itemprop="name"><a href="15511699706118.html" itemprop="url">
-		分布式缓存架构之 JBoss Cache 与 Memcached</a></h1>
+		<h1 class="title" itemprop="name"><a href="15561740672540.html" itemprop="url">
+		idea 插件</a></h1>
 		<div class="entry-content" itemprop="articleBody">
 			
-			<blockquote>
-<p>JBoss Cache<br/>
-Memcached</p>
-</blockquote>
+			<p><a href="https://www.cnblogs.com/iathanasy/p/9262689.html">IDEA中Lombok插件的安装与使用</a></p>
 
 
 
 			 
-			<a href="15511699706118.html#more" class="more-link">Read on &rarr;</a>
+			<a href="15561740672540.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
@@ -298,27 +274,27 @@ Memcached</p>
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
-				<time datetime="2019-02-25T21:38:16+08:00" itemprop="datePublished">2019/2/25</time>
+				<time datetime="2019-04-25T14:02:21+08:00" itemprop="datePublished">2019/4/25</time>
 			</div>
 			<div class="tags">posted in 
 			
-			    <a class='category' href='Mybatis.html'>Mybatis</a>&nbsp;
+			    <a class='category' href='Idea.html'>Idea</a>&nbsp;
 			 
 			</div>
 		</div>
-		<h1 class="title" itemprop="name"><a href="15511018964222.html" itemprop="url">
-		Mybatis 占位符 #{} 和 ${} 的区别</a></h1>
+		<h1 class="title" itemprop="name"><a href="15561721419362.html" itemprop="url">
+		idea 插件 JRebel for IntelliJ</a></h1>
 		<div class="entry-content" itemprop="articleBody">
 			
-			<blockquote>
-<p><code>#{}</code> 占位符<br/>
-<code>${}</code> 占位符是字符串连接符</p>
-</blockquote>
+			<p><a href="https://blog.csdn.net/wei19880402/article/details/75529231">intelliJ Idea自带热部署和Jrebel实现热部署</a><br/>
+<a href="https://www.jianshu.com/p/19071815063a">Idea+JRebel全自动热部署</a><br/>
+<a href="http://blog.lanyus.com/archives/317.html">撸了个反代工具, 可用于激活JRebel</a><br/>
+<a href="http://blog.lanyus.com/archives/337.html">JRebel 2018.1使用反代失败解决</a></p>
 
 
 
 			 
-			<a href="15511018964222.html#more" class="more-link">Read on &rarr;</a>
+			<a href="15561721419362.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
@@ -328,27 +304,24 @@ Memcached</p>
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
-				<time datetime="2019-02-24T15:52:13+08:00" itemprop="datePublished">2019/2/24</time>
+				<time datetime="2019-04-25T11:23:35+08:00" itemprop="datePublished">2019/4/25</time>
 			</div>
 			<div class="tags">posted in 
 			
-			    <a class='category' href='Mac.html'>Mac</a>&nbsp;
+			    <a class='category' href='Idea.html'>Idea</a>&nbsp;
 			 
 			</div>
 		</div>
-		<h1 class="title" itemprop="name"><a href="15509947335395.html" itemprop="url">
-		brew 终端下显示电脑信息</a></h1>
+		<h1 class="title" itemprop="name"><a href="15561626150745.html" itemprop="url">
+		idea 插件 Alibaba Java Coding Guidelines</a></h1>
 		<div class="entry-content" itemprop="articleBody">
 			
-			<blockquote>
-<p><code>screenfetch</code><br/>
-<code>neofetch</code></p>
-</blockquote>
+			<p><a href="https://www.jianshu.com/p/19071815063a">Idea+JRebel全自动热部署</a></p>
 
 
 
 			 
-			<a href="15509947335395.html#more" class="more-link">Read on &rarr;</a>
+			<a href="15561626150745.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
@@ -358,26 +331,22 @@ Memcached</p>
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
-				<time datetime="2019-02-24T10:38:52+08:00" itemprop="datePublished">2019/2/24</time>
+				<time datetime="2019-04-23T17:02:57+08:00" itemprop="datePublished">2019/4/23</time>
 			</div>
 			<div class="tags">posted in 
 			
-			    <a class='category' href='Case.html'>Case</a>&nbsp;
+			    <a class='category' href='Fitness.html'>Fitness</a>&nbsp;
 			 
 			</div>
 		</div>
-		<h1 class="title" itemprop="name"><a href="15509759327484.html" itemprop="url">
-		案例：基于AQS的自定义同步组件</a></h1>
+		<h1 class="title" itemprop="name"><a href="15560101779414.html" itemprop="url">
+		Fitness 臂</a></h1>
 		<div class="entry-content" itemprop="articleBody">
 			
-			<blockquote>
-<p>AbstractQueuedSynchronizer</p>
-</blockquote>
-
-
+			
 
 			 
-			<a href="15509759327484.html#more" class="more-link">Read on &rarr;</a>
+			<a href="15560101779414.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
@@ -387,26 +356,47 @@ Memcached</p>
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
-				<time datetime="2019-02-23T12:47:25+08:00" itemprop="datePublished">2019/2/23</time>
+				<time datetime="2019-04-23T16:57:54+08:00" itemprop="datePublished">2019/4/23</time>
 			</div>
 			<div class="tags">posted in 
 			
-			    <a class='category' href='Case.html'>Case</a>&nbsp;
+			    <a class='category' href='Fitness.html'>Fitness</a>&nbsp;
 			 
 			</div>
 		</div>
-		<h1 class="title" itemprop="name"><a href="15508972452401.html" itemprop="url">
-		案例：基于线程池技术的简单Web服务器</a></h1>
+		<h1 class="title" itemprop="name"><a href="15560098746871.html" itemprop="url">
+		Fitness 背</a></h1>
 		<div class="entry-content" itemprop="articleBody">
 			
-			<blockquote>
-<p>线程池技术</p>
-</blockquote>
-
-
+			
 
 			 
-			<a href="15508972452401.html#more" class="more-link">Read on &rarr;</a>
+			<a href="15560098746871.html#more" class="more-link">Read on &rarr;</a>
+    		
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="2019-04-23T16:52:01+08:00" itemprop="datePublished">2019/4/23</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='Fitness.html'>Fitness</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="15560095211928.html" itemprop="url">
+		Fitness 肩</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			
+
+			 
+			<a href="15560095211928.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>
