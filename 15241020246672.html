@@ -169,6 +169,25 @@
 			<p><a href="https://www.cnblogs.com/quincyhu/p/5884390.html">shell编程之awk命令详解</a><br/>
 <a href="http://www.zsythink.net/archives/tag/awk/">awk从入门到放弃</a></p>
 
+<h2 id="toc_0">awk 去重 重复的数据只保留一条</h2>
+
+<pre><code class="language-zsh">##去重，重复的数据只保留一条
+##1. 内容输出到终端 (以下两个效果一样)
+cat test.sql | awk &#39;!a[$0]++{print}&#39;
+cat test.sql | awk &#39;!a[$1]++{print}&#39;
+##2. 内容输出到文件
+awk &#39;!a[$0]++&#39; test.sql &gt;&gt; test-1.sql
+</code></pre>
+
+<h2 id="toc_1">awk 去重 只显示重复行</h2>
+
+<pre><code class="language-zsh">##去重，只显示重复行
+##1. 内容输出到终端
+cat test.sql| awk &#39;a[$0]++{print}&#39;
+##2. 内容输出到文件
+awk &#39;a[$0]++&#39; test.sql &gt;&gt; test-2.sql
+</code></pre>
+
 		</div>
 	</article>
 	<div class="share-comment">
