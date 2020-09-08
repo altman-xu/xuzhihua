@@ -281,6 +281,8 @@ using default settings.</p>
 <li><p>将步骤5中修改的源码，重新打包生成镜像后 ，在 <code>/Users/xuzhihua/Workspace/0x04jdkCompile/openjdk11</code> 目录下执行 <code>make images</code>  (上面make all第一次执行是全量编译，比较慢，这次是增量编译，比较快, emmm 视频里比较快，我的电脑还是老老实实的慢 4min左右)，终端下编译成功后，切换到idea，他会自动重新扫描文件，扫描后再运行， 这次输出是成功的，带有定制化信息，断点也可以正常进入(如果断点不能进入，需要看一下上面关联的jdk和sourcepath是不是对的)<br/>
 <img src="media/15958507410251/15958719725243.jpg" alt=""/><br/>
 <img src="media/15958507410251/15958720382400.jpg" alt=""/></p></li>
+<li><p>这里的sdk名字，上面例子都是用 11(openJdk11Compile), 但是重新打开idea后，会提示 jdk is configured， 查看 这里会自动在11(openJdk11Compile)的基础上多一个11， 然后从方法点进去的源码内容也变了， 故这里名字改为11，不让他自动切换<br/>
+<img src="media/15958507410251/15959418478986.jpg" alt=""/></p></li>
 </ol>
 
 		</div>
