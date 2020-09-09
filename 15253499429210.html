@@ -232,7 +232,45 @@
 </ul>
 </li>
 <li>
-<a href="#toc_17">跳跃表 skiplist -&gt; zset</a>
+<a href="#toc_17">跳跃表 skiplist -&gt; 有序集合键(zset)、集群节点的内部数据结构</a>
+<ul>
+<li>
+<a href="#toc_18">数据结构</a>
+<ul>
+<li>
+<a href="#toc_19">遍历整个跳跃表</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_20">跳跃表API</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_21">整数集合intset --&gt; 集合键的底层实现之一</a>
+<ul>
+<li>
+<a href="#toc_22">数据结构</a>
+</li>
+<li>
+<a href="#toc_23">升级</a>
+<ul>
+<li>
+<a href="#toc_24">升级优点:</a>
+</li>
+<li>
+<a href="#toc_25">升级步骤:</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_26">整数集合API</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_27">压缩列表ziplist -&gt; 列表键、哈希键的底层实现之一</a>
 </li>
 </ul>
 
@@ -479,7 +517,431 @@ load_factor=ht[0].used/ht[0].size</p>
 
 <p><img src="media/15253499429210/15995838873155.jpg" alt=""/></p>
 
-<h2 id="toc_17">跳跃表 skiplist -&gt; zset</h2>
+<h2 id="toc_17">跳跃表 skiplist -&gt; 有序集合键(zset)、集群节点的内部数据结构</h2>
+
+<h3 id="toc_18">数据结构</h3>
+
+<pre><code class="language-c">// redis.h/zskiplistNode
+typedef struct zskiplistNode {
+    struct zskiplistLevel{
+        struct zskiplistNode *forward;  // 前进指针
+        unsigned int span;              // 跨度(记录两个节点之间的距离，用来计算排位:在查找某个节点的过程中，将沿途访问过的所有层的跨度累积起来，得到的结果就是目标节点在跳跃表中的排位)
+    } level[];                          // 层
+    struct zskiplistNode *backword;     // 后退指针
+    double score;                       // 分值
+    robj *obj;                          // 成员对象
+} zskiplistNode;
+
+// redis.h/zskiplist
+typedef struct zskiplist {
+    struct zskiplistNode *header, *tail;    // 表头节点和表尾节点
+    unsigned long length;                   // 表中节点数量(跳跃表的长度，表头节点不计算在内)
+    int level;                              // 表中层数最大的节点的层数
+} zskiplist;
+</code></pre>
+
+<p><img src="media/15253499429210/15996657391860.jpg" alt=""/></p>
+
+<h4 id="toc_19">遍历整个跳跃表</h4>
+
+<p><img src="media/15253499429210/15996658109417.jpg" alt=""/></p>
+
+<p>(如上图:跳跃表中节点排列是按照score从小到大排列， 如果score一样，则按照obj(o1,o2,o3)对象在字典序中的大小 从小到大排列)</p>
+
+<ol>
+<li>迭代程序首先访问跳跃表的第一个节点(表头节点)，然后从第四层的前进指针移动到表中的第二个节点</li>
+<li>在第二个节点时，程序沿着第二层的前进指针移动到表中的第三个节点</li>
+<li>在第三个节点时，程序沿着第二层的前进指针移动到表中的第四个节点</li>
+<li>当程序再次沿着第四个节点的前进指针移动时，他碰到一个null，程序知道这时已经达到了跳跃表的表尾，结束这次遍历</li>
+</ol>
+
+<h3 id="toc_20">跳跃表API</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left">函数</th>
+<th style="text-align: left">作用</th>
+<th style="text-align: left">时间复杂度</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: left">zslCreate</td>
+<td style="text-align: left">创建一个新的跳跃表</td>
+<td style="text-align: left">O(1)</td>
+</tr>
+<tr>
+<td style="text-align: left">zslFree</td>
+<td style="text-align: left">释放给定跳跃表，以及表中包含的所有节点</td>
+<td style="text-align: left">O(N), N为跳跃表长度</td>
+</tr>
+<tr>
+<td style="text-align: left">zslInsert</td>
+<td style="text-align: left">将包含给定成员和分值的新节点添加到跳跃表中</td>
+<td style="text-align: left">平均O(logN),最坏O(N), N为跳跃表长度</td>
+</tr>
+<tr>
+<td style="text-align: left">zslDelete</td>
+<td style="text-align: left">删除跳跃表中包含给定成员和分值的节点</td>
+<td style="text-align: left">平均O(logN),最坏O(N), N为跳跃表长度</td>
+</tr>
+<tr>
+<td style="text-align: left">zslGetRank</td>
+<td style="text-align: left">返回包含给定成员和分值的节点在跳跃表中的排位</td>
+<td style="text-align: left">平均O(logN),最坏O(N), N为跳跃表长度</td>
+</tr>
+<tr>
+<td style="text-align: left">zslGetElementByRank</td>
+<td style="text-align: left">返回跳跃表在给定排位的节点</td>
+<td style="text-align: left">平均O(logN),最坏O(N), N为跳跃表长度</td>
+</tr>
+<tr>
+<td style="text-align: left">zslIsInRange</td>
+<td style="text-align: left">给定一个分值范围(range),比如0到15，20到28，如果跳跃表中至少一个节点的分值在这个范围之内，那么返回1，否则返回0</td>
+<td style="text-align: left">通过跳跃表的表头结点和表尾节点，这个检测可以用O(1)复杂度完成</td>
+</tr>
+<tr>
+<td style="text-align: left">zslFirstInRange</td>
+<td style="text-align: left">给定一个分值范围，返回跳跃表中第一个符合这个范围的节点</td>
+<td style="text-align: left">平均O(logN),最坏O(N), N为跳跃表长度</td>
+</tr>
+<tr>
+<td style="text-align: left">zslLastInRange</td>
+<td style="text-align: left">给定一个分值范围，返回跳跃表中最后一个符合这个范围的节点</td>
+<td style="text-align: left">平均O(logN),最坏O(N), N为跳跃表长度</td>
+</tr>
+<tr>
+<td style="text-align: left">zslDeleteRangeByScore</td>
+<td style="text-align: left">给定一个分值范围，删除跳跃表中所有在这个范围之内的节点</td>
+<td style="text-align: left">O(N), N为被删除节点数量</td>
+</tr>
+<tr>
+<td style="text-align: left">zslDeleteRangeByRank</td>
+<td style="text-align: left">给定一个排位范围，删除跳跃表中所有在这个范围之内的节点</td>
+<td style="text-align: left">O(N), N为被删除节点数量</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_21">整数集合intset --&gt; 集合键的底层实现之一</h2>
+
+<h3 id="toc_22">数据结构</h3>
+
+<pre><code class="language-c">// intset.h/intset
+typedef struct intset {
+    unit32_t encoding;      // 编码方式   
+                                //  INTSET_ENC_INT16 则contents数组每一项是int16_t类型的整数值 范围[-32768,32767]
+                                //  INTSET_ENC_INT32 则contents数组每一项是int32_t类型的整数值 范围[-2147483648,2147483647]
+                                //  INTSET_ENC_INT64 则contents数组每一项是int64_t类型的整数值 范围[-9223372036854775808,9223372036854775807]
+    unit32_t length;        // 集合包含的元素数量
+    int8_t contents[];      // 保存元素的数组 (虽然定义为int8_t，但数组的真正类型取决于 encoding 属性)
+} intset;
+</code></pre>
+
+<p><img src="media/15253499429210/15996672506043.jpg" alt=""/></p>
+
+<h3 id="toc_23">升级</h3>
+
+<p>当我们要将一个新元素添加到整数集合里面，并且新元素的类型比整数集合现有所有元素的类型都要长时，整数集合需要先进行<strong>升级</strong>，然后才能将新元素添加到整数集合里</p>
+
+<p>注: 整数集合不支持降级操作，一旦对数组进行了升级，编码就会一直保持升级后的状态</p>
+
+<h4 id="toc_24">升级优点:</h4>
+
+<ol>
+<li>提升灵活性: 可以随意将int16_t,int32_t,int64_t类型的整数添加到集合中，程序会自动升级底层数组来适应新元素</li>
+<li>节约内存: 整数集合既可以让集合同事保存3中不同类型的值，又可以确保升级操作只会在需要的时候进行， 尽量节省内存</li>
+</ol>
+
+<h4 id="toc_25">升级步骤:</h4>
+
+<ol>
+<li>根据新元素的类型，扩展整数集合底层数组的空间大小，并为新元素分配空间</li>
+<li>将底层数组现有的所有元素转换成与新元素相同的类型，并将转换后的元素放到正确的位置上，并且在防止元素的过程中，需要维持底层数组的有序性质不变</li>
+<li>将新元素添加到底层数组里面</li>
+</ol>
+
+<p>升级变化图解<br/>
+<img src="media/15253499429210/15996685934040.jpg" alt=""/></p>
+
+<p>在一个INTSET_ENC_INT16编码的整数集合，content集合中包含3个int16_t类型的元素，每个元素占用16位，故contents数组大小3*16=48</p>
+
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>0至15位</th>
+<th>16至31位</th>
+<th>32至47位</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>元素</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+
+<p>现 添加一个int32_t类型的整数值 65535<br/>
+现根据新类型的长度(int32_t 是32位空间)，以及集合元素的数量，对底层数据进行空间分配 = 32*4 = 128</p>
+
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>0至15位</th>
+<th>16至31位</th>
+<th>32至47位</th>
+<th>48至127位</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>元素</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>(新分配空间)</td>
+</tr>
+</tbody>
+</table>
+
+<ol>
+<li><p>元素3在1、2、3、65535中排名第三，将其类型从int16_t转成int32_t,并移动到contents数组的索引2位置上</p>
+
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>0至15位</th>
+<th>16至31位</th>
+<th>32至47位</th>
+<th>48至63位</th>
+<th>64至95位</th>
+<th>48至63位</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>元素</td>
+<td>1</td>
+<td>2</td>
+<td><del>3</del></td>
+<td>(新分配空间)</td>
+<td><strong>3</strong></td>
+<td>(新分配空间)</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>元素2在1、2、3、65535中排名第二，将其类型从int16_t转成int32_t,并移动到contents数组的索引1位置上</p>
+
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>0至15位</th>
+<th>16至31位</th>
+<th>32至63位</th>
+<th>64至95位</th>
+<th>48至63位</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>元素</td>
+<td>1</td>
+<td><del>2</del></td>
+<td><strong>2</strong></td>
+<td>3</td>
+<td>(新分配空间)</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>元素1在1、2、3、65535中排名第一，将其类型从int16_t转成int32_t,并移动到contents数组的索引0位置上</p>
+
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>0至31位</th>
+<th>32至63位</th>
+<th>64至95位</th>
+<th>48至63位</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>元素</td>
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+<td>(新分配空间)</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>元素65535在1、2、3、65535中排名第四，将其类型从int16_t转成int32_t,并移动到contents数组的索引3位置上</p>
+
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>0至31位</th>
+<th>32至63位</th>
+<th>64至95位</th>
+<th>48至63位</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>元素</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td><strong>65535</strong></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>程序将整数集合的encoding从INTSET_ENC_INT16 -&gt; INTSET_ENC_INT32, 并将length属性从3改4，最终效果如上图变化</p></li>
+</ol>
+
+<h3 id="toc_26">整数集合API</h3>
+
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+<th>时间复杂度</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>intsetNew</td>
+<td>创建一个新的整数集合</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>intsetAdd</td>
+<td>将给定元素添加到集合里面</td>
+<td>O(N)</td>
+</tr>
+<tr>
+<td>intsetRemove</td>
+<td>从集合中移除给定元素</td>
+<td>O(N)</td>
+</tr>
+<tr>
+<td>intsetFind</td>
+<td>检查给定值是否存在于集合</td>
+<td>O(logN) 数组有序 二分查找</td>
+</tr>
+<tr>
+<td>intsetRandom</td>
+<td>从集合中随即返回一个元素</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>intsetGet</td>
+<td>取出底层数组在给定索引上的元素</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>intsetLen</td>
+<td>返回集合包含的元素个数</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>intsetBlobLen</td>
+<td>返回集合占用的内存字节数</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_27">压缩列表ziplist -&gt; 列表键、哈希键的底层实现之一</h2>
+
+<p>当一个列表建质保函少量列表值，且每个列表项要么是小整数值，要么是长度较短的字符串， 则redis会用ziplist作为列表键的底层实现</p>
+
+<p>ziplist是redis为节约内存而开发的，是由一系列特殊编码的<strong>连续内存块</strong>组成的<strong>顺序型</strong>数据结构<br/>
+一个ziplist可以包含任意多个节点(entry),每个节点可以保存一个字节数组或一个整数值</p>
+
+<p>压缩列表例子(各个组成部分):</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center">zlbytes</th>
+<th style="text-align: center">zltail</th>
+<th style="text-align: center">zllen</th>
+<th style="text-align: center">entry1</th>
+<th style="text-align: center">entry2</th>
+<th style="text-align: center">…</th>
+<th style="text-align: center">entryN</th>
+<th style="text-align: center">zlend</th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+</table>
+
+<p>压缩列表各个组成部分的详细说明</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left">属性</th>
+<th style="text-align: left">类型</th>
+<th style="text-align: left">长度</th>
+<th style="text-align: left">用途</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: left">zlbytes</td>
+<td style="text-align: left">uint32_t</td>
+<td style="text-align: left">4字节</td>
+<td style="text-align: left">记录整个列表占用的内存字节数: 在对列表进行内存重分配或计算zlend的位置时使用</td>
+</tr>
+<tr>
+<td style="text-align: left">zltail</td>
+<td style="text-align: left">uint32_t</td>
+<td style="text-align: left">4字节</td>
+<td style="text-align: left">记录列表表尾节点距离列表的起始地址有多少字节: 通过这个偏移量，程序无需遍历整个列表就可以确定表尾节点的地址</td>
+</tr>
+<tr>
+<td style="text-align: left">zllen</td>
+<td style="text-align: left">unit16_t</td>
+<td style="text-align: left">2字节</td>
+<td style="text-align: left">记录列表包含的节点数量: 当这个属性值小于UNIT16_MAX(65535)时这个属性值就是列表包含节点数量；当这个值等于UNIT16_MAX是，节点的真实数量需要遍历列表才能计算得到</td>
+</tr>
+<tr>
+<td style="text-align: left">entryX</td>
+<td style="text-align: left">列表节点</td>
+<td style="text-align: left">不定</td>
+<td style="text-align: left">节点的长度由节点保存的内容决定</td>
+</tr>
+<tr>
+<td style="text-align: left">zlend</td>
+<td style="text-align: left">unit8_t</td>
+<td style="text-align: left">1字节</td>
+<td style="text-align: left">特殊值0xFE(十进制255),用于标记列表的末端</td>
+</tr>
+</tbody>
+</table>
 
 		</div>
 	</article>
