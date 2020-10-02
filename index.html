@@ -168,6 +168,102 @@
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
+				<time datetime="2020-09-25T14:36:04+08:00" itemprop="datePublished">2020/9/25</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='Java.html'>Java</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="16010157641306.html" itemprop="url">
+		并发值 有序性、可见性、原子性</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<blockquote>
+<p><a href="https://www.cnblogs.com/paddix/p/5428507.html">Java 并发编程：volatile的使用及其原理</a><br/>
+<a href="https://www.cnblogs.com/z00377750/p/9180644.html">【并发编程】MESI--CPU缓存一致性协议</a><br/>
+&lt;!-- more --&gt;</p>
+</blockquote>
+
+<ul>
+<li>
+<a href="#toc_0">volatile: 有序性、可见性</a>
+<ul>
+<li>
+<a href="#toc_1">有序性----指令重排序</a>
+</li>
+<li>
+<a href="#toc_2">可见性----MESI(伊利诺伊州协议)</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_3">cas: 原子性</a>
+</li>
+</ul>
+
+
+<h3 id="toc_0">volatile: 有序性、可见性</h3>
+
+<h4 id="toc_1">有序性----指令重排序</h4>
+
+<p>volatile 防止指令重排序</p>
+
+<p>对象构造的流程</p>
+
+<ol>
+<li>分配内存空间</li>
+<li>初始化对象</li>
+<li>将内存空间的地址赋值给对应的引用</li>
+</ol>
+
+<p>但是由于操作系统可以对指令进行重排序，所以构造流程可能变成</p>
+
+<ol>
+<li>分配内存空间</li>
+<li>将内存空间的地址赋值给对应的引用</li>
+<li>初始化对象</li>
+</ol>
+
+<p>如果是上面这个流程，在多线程情况下，可能将一个未初始化的对象引用暴露出来，导致</p>
+
+<p>以下面这<strong>单例模式-双重检查锁</strong>为例说明</p>
+
+<pre><code class="language-java">//// 双重检查加锁
+public class DoubleCheckSingleton{
+    // volatile 防止指令重排序
+    public static volatile DoubleCheckSingleton doubleCheckSingleton;
+    // 私有构造函数，禁止外部实例化
+    private DoubleCheckSingleton(){};
+    public static DoubleCheckSingleton getInstance() {
+        if(doubleCheckSingleton == null) {
+            synchronized(doubleCheckSingleton) {
+                if(doubleCheckSingleton == null) {
+                    doubleCheckSingleton = new DoubleCheckSingleton;();
+                }
+            }
+        }
+        return doubleCheckSingleton;
+    }
+    
+}
+</code></pre>
+
+<h4 id="toc_2">可见性----MESI(伊利诺伊州协议)</h4>
+
+<h3 id="toc_3">cas: 原子性</h3>
+
+
+			
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
 				<time datetime="2020-09-01T22:15:13+08:00" itemprop="datePublished">2020/9/1</time>
 			</div>
 			<div class="tags">posted in 
@@ -559,33 +655,6 @@ CopyOnWriteArraySet.java</p>
 
 			 
 			<a href="15573901667283.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2019-05-08T15:23:55+08:00" itemprop="datePublished">2019/5/8</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Idea.html'>Idea</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15573002359634.html" itemprop="url">
-		idea 插件 VisualVM Launcher</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<p><a href="https://blog.csdn.net/u011863951/article/details/81589423">Java虚拟机 优化实战 使用VisualVM监控和加速Intellij Idea启动</a></p>
-
-
-
-			 
-			<a href="15573002359634.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>

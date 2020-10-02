@@ -203,74 +203,93 @@
 <li>
 <a href="#toc_8">链表特性</a>
 </li>
+<li>
+<a href="#toc_9">链表 链表节点 API</a>
+</li>
 </ul>
 </li>
 <li>
-<a href="#toc_9">字典 dict   --&gt; redis的数据库底层实现、 哈希键的底层实现之一</a>
+<a href="#toc_10">字典 dict   --&gt; redis的数据库底层实现、 哈希键的底层实现之一</a>
 <ul>
 <li>
-<a href="#toc_10">数据结构</a>
+<a href="#toc_11">数据结构</a>
 </li>
 <li>
-<a href="#toc_11">哈希算法</a>
+<a href="#toc_12">哈希算法</a>
 </li>
 <li>
-<a href="#toc_12">哈希冲突 链地址法</a>
+<a href="#toc_13">哈希冲突 链地址法</a>
 </li>
 <li>
-<a href="#toc_13">rehash过程</a>
+<a href="#toc_14">rehash过程</a>
 </li>
 <li>
-<a href="#toc_14">rehash时机</a>
+<a href="#toc_15">rehash时机</a>
 </li>
 <li>
-<a href="#toc_15">渐进式hash</a>
+<a href="#toc_16">渐进式hash</a>
 </li>
 <li>
-<a href="#toc_16">字典 API</a>
+<a href="#toc_17">字典 API</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_17">跳跃表 skiplist -&gt; 有序集合键(zset)、集群节点的内部数据结构</a>
+<a href="#toc_18">跳跃表 skiplist -&gt; 有序集合键(zset)、集群节点的内部数据结构</a>
 <ul>
 <li>
-<a href="#toc_18">数据结构</a>
+<a href="#toc_19">数据结构</a>
 <ul>
 <li>
-<a href="#toc_19">遍历整个跳跃表</a>
+<a href="#toc_20">遍历整个跳跃表</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_20">跳跃表API</a>
+<a href="#toc_21">跳跃表API</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_21">整数集合intset --&gt; 集合键的底层实现之一</a>
+<a href="#toc_22">整数集合intset --&gt; 集合键的底层实现之一</a>
 <ul>
 <li>
-<a href="#toc_22">数据结构</a>
+<a href="#toc_23">数据结构</a>
 </li>
 <li>
-<a href="#toc_23">升级</a>
+<a href="#toc_24">升级</a>
 <ul>
 <li>
-<a href="#toc_24">升级优点:</a>
+<a href="#toc_25">升级优点:</a>
 </li>
 <li>
-<a href="#toc_25">升级步骤:</a>
+<a href="#toc_26">升级步骤:</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_26">整数集合API</a>
+<a href="#toc_27">整数集合API</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_27">压缩列表ziplist -&gt; 列表键、哈希键的底层实现之一</a>
+<a href="#toc_28">压缩列表ziplist -&gt; 列表键、哈希键的底层实现之一</a>
+<ul>
+<li>
+<a href="#toc_29">连锁更新</a>
+<ul>
+<li>
+<a href="#toc_30">连锁更新时间复杂度</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_31">压缩列表API</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_32">对象</a>
 </li>
 </ul>
 
@@ -383,17 +402,19 @@ typedef struct list {
 <li>无环: 表头结点的prev指针和表尾节点的next指针都指向null，对链表的访问以null为终点</li>
 <li>带表头指针和表尾指针: 通过list结构的head指针和tail指针，程序获取链表的表头节点和表尾节点的复杂度为O(1)</li>
 <li>带链表长度计数器: 通过list结构的len属性来对len持有的链表节点进行计数，程序获取链表中节点数量的复杂度为O(1)</li>
-<li>多台: 链表节点使用void*指针来保存节点值，并且可以通过list结构的dup、free、match三个属性为节点值设置类型特定函数，故链表可以用于保存各种不同的数据类型
-### 链表 链表节点 API
-<img src="media/15253499429210/15253527846665.jpg" alt=""/>
-<img src="media/15253499429210/15253528078911.jpg" alt=""/></li>
+<li>多态: 链表节点使用void*指针来保存节点值，并且可以通过list结构的dup、free、match三个属性为节点值设置类型特定函数，故链表可以用于保存各种不同的数据类型</li>
 </ol>
 
-<h2 id="toc_9">字典 dict   --&gt; redis的数据库底层实现、 哈希键的底层实现之一</h2>
+<h3 id="toc_9">链表 链表节点 API</h3>
+
+<p><img src="media/15253499429210/15253527846665.jpg" alt=""/><br/>
+<img src="media/15253499429210/15253528078911.jpg" alt=""/></p>
+
+<h2 id="toc_10">字典 dict   --&gt; redis的数据库底层实现、 哈希键的底层实现之一</h2>
 
 <p>字典，又称为符号表(symbol table)、关联数组(associative array)或映射(map)，是一种用于保存键值对(key-value pair) 的抽象数据结构</p>
 
-<h3 id="toc_10">数据结构</h3>
+<h3 id="toc_11">数据结构</h3>
 
 <pre><code class="language-c"> // dict.h/dictht       哈希表 每个字典都使用两个哈希表，从而实现渐进式 rehash 。
 typedef struct dictht {
@@ -441,7 +462,7 @@ typedef struct dictType {
 
 <p><img src="media/15253499429210/15253535601291.jpg" alt=""/></p>
 
-<h3 id="toc_11">哈希算法</h3>
+<h3 id="toc_12">哈希算法</h3>
 
 <p>当要将一个新的键值对添加到字典里面时，程序需要先根据键值对的键计算出哈希值和索引值，然后在根据索引值，将包含新键值对的哈希表节点放到哈希表数组的指定索引上面</p>
 
@@ -454,7 +475,7 @@ index = hash &amp; dict-&gt;ht[x].sizemask;
 
 <p>当字典被用作数据库的底层实现，或者哈希键的底层实现时，Redis使用 MurmurHash2 算法来计算键的 哈希值</p>
 
-<h3 id="toc_12">哈希冲突 链地址法</h3>
+<h3 id="toc_13">哈希冲突 链地址法</h3>
 
 <p>当有两个或以上数量的键被分配到了哈希表数组的同一个索引上时，我们称这些键发生了冲突(collision)</p>
 
@@ -462,7 +483,7 @@ index = hash &amp; dict-&gt;ht[x].sizemask;
 
 <p><img src="media/15253499429210/15253560946904.jpg" alt=""/></p>
 
-<h3 id="toc_13">rehash过程</h3>
+<h3 id="toc_14">rehash过程</h3>
 
 <p>rehash过程</p>
 
@@ -480,7 +501,7 @@ index = hash &amp; dict-&gt;ht[x].sizemask;
 <p>rehash过程图例<br/>
 <img src="media/15253499429210/11.png" alt="11"/></p>
 
-<h3 id="toc_14">rehash时机</h3>
+<h3 id="toc_15">rehash时机</h3>
 
 <p>当一下条件中的任意一个被满足，会触发rehash</p>
 
@@ -497,7 +518,7 @@ load_factor=ht[0].used/ht[0].size</p>
 
 <p>因为在执行<code>bgsave</code>或<code>bgrewriteaof</code>命令的过程中，redis需要创建当前服务器进程的子进程，而大多数系统都采用写时复制(copy-on-write)技术来优化子进程的使用效率，所以在子进程存在期间，服务器会提高执行扩展操作所需的负载因子</p>
 
-<h3 id="toc_15">渐进式hash</h3>
+<h3 id="toc_16">渐进式hash</h3>
 
 <p>rehash的详细步骤:</p>
 
@@ -513,13 +534,13 @@ load_factor=ht[0].used/ht[0].size</p>
 <p>rehash详细过程图例<br/>
 <img src="media/15253499429210/12.png" alt="12"/></p>
 
-<h3 id="toc_16">字典 API</h3>
+<h3 id="toc_17">字典 API</h3>
 
 <p><img src="media/15253499429210/15995838873155.jpg" alt=""/></p>
 
-<h2 id="toc_17">跳跃表 skiplist -&gt; 有序集合键(zset)、集群节点的内部数据结构</h2>
+<h2 id="toc_18">跳跃表 skiplist -&gt; 有序集合键(zset)、集群节点的内部数据结构</h2>
 
-<h3 id="toc_18">数据结构</h3>
+<h3 id="toc_19">数据结构</h3>
 
 <pre><code class="language-c">// redis.h/zskiplistNode
 typedef struct zskiplistNode {
@@ -542,7 +563,7 @@ typedef struct zskiplist {
 
 <p><img src="media/15253499429210/15996657391860.jpg" alt=""/></p>
 
-<h4 id="toc_19">遍历整个跳跃表</h4>
+<h4 id="toc_20">遍历整个跳跃表</h4>
 
 <p><img src="media/15253499429210/15996658109417.jpg" alt=""/></p>
 
@@ -555,7 +576,7 @@ typedef struct zskiplist {
 <li>当程序再次沿着第四个节点的前进指针移动时，他碰到一个null，程序知道这时已经达到了跳跃表的表尾，结束这次遍历</li>
 </ol>
 
-<h3 id="toc_20">跳跃表API</h3>
+<h3 id="toc_21">跳跃表API</h3>
 
 <table>
 <thead>
@@ -625,9 +646,9 @@ typedef struct zskiplist {
 </tbody>
 </table>
 
-<h2 id="toc_21">整数集合intset --&gt; 集合键的底层实现之一</h2>
+<h2 id="toc_22">整数集合intset --&gt; 集合键的底层实现之一</h2>
 
-<h3 id="toc_22">数据结构</h3>
+<h3 id="toc_23">数据结构</h3>
 
 <pre><code class="language-c">// intset.h/intset
 typedef struct intset {
@@ -642,20 +663,20 @@ typedef struct intset {
 
 <p><img src="media/15253499429210/15996672506043.jpg" alt=""/></p>
 
-<h3 id="toc_23">升级</h3>
+<h3 id="toc_24">升级</h3>
 
 <p>当我们要将一个新元素添加到整数集合里面，并且新元素的类型比整数集合现有所有元素的类型都要长时，整数集合需要先进行<strong>升级</strong>，然后才能将新元素添加到整数集合里</p>
 
 <p>注: 整数集合不支持降级操作，一旦对数组进行了升级，编码就会一直保持升级后的状态</p>
 
-<h4 id="toc_24">升级优点:</h4>
+<h4 id="toc_25">升级优点:</h4>
 
 <ol>
 <li>提升灵活性: 可以随意将int16_t,int32_t,int64_t类型的整数添加到集合中，程序会自动升级底层数组来适应新元素</li>
 <li>节约内存: 整数集合既可以让集合同事保存3中不同类型的值，又可以确保升级操作只会在需要的时候进行， 尽量节省内存</li>
 </ol>
 
-<h4 id="toc_25">升级步骤:</h4>
+<h4 id="toc_26">升级步骤:</h4>
 
 <ol>
 <li>根据新元素的类型，扩展整数集合底层数组的空间大小，并为新元素分配空间</li>
@@ -815,7 +836,7 @@ typedef struct intset {
 <li><p>程序将整数集合的encoding从INTSET_ENC_INT16 -&gt; INTSET_ENC_INT32, 并将length属性从3改4，最终效果如上图变化</p></li>
 </ol>
 
-<h3 id="toc_26">整数集合API</h3>
+<h3 id="toc_27">整数集合API</h3>
 
 <table>
 <thead>
@@ -870,9 +891,13 @@ typedef struct intset {
 </tbody>
 </table>
 
-<h2 id="toc_27">压缩列表ziplist -&gt; 列表键、哈希键的底层实现之一</h2>
+<h2 id="toc_28">压缩列表ziplist -&gt; 列表键、哈希键的底层实现之一</h2>
 
 <p>当一个列表建质保函少量列表值，且每个列表项要么是小整数值，要么是长度较短的字符串， 则redis会用ziplist作为列表键的底层实现</p>
+
+<blockquote>
+<p>当一个哈希键只包含少量键值对，并且每个键值对的键和值要么是小整数，要不是长度较短的字符串，那么redis会用压缩列表作为哈希键的底层数实现</p>
+</blockquote>
 
 <p>ziplist是redis为节约内存而开发的，是由一系列特殊编码的<strong>连续内存块</strong>组成的<strong>顺序型</strong>数据结构<br/>
 一个ziplist可以包含任意多个节点(entry),每个节点可以保存一个字节数组或一个整数值</p>
@@ -896,6 +921,45 @@ typedef struct intset {
 <tbody>
 </tbody>
 </table>
+
+<p>每个压缩列表结点entry 可以保存字节数组或则一个整数</p>
+
+<p>entry节点结构如下</p>
+
+<table>
+<thead>
+<tr>
+<th>previous_entry_length</th>
+<th>encoding</th>
+<th>content</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>记录压缩列表中见一个节点的长度，该属性长度为1字节(前一个节点长度小于254字节)或5字节(前一节点长度大于等于254字节)(由于与前一节点相关，故插入或删除节点可能会引起后续节点的连锁更新)</td>
+<td>记录节点content属性所保存数据的类型和长度。 1字节或2字节或5字节</td>
+<td>记录节点的值(字节数组整数)</td>
+</tr>
+</tbody>
+</table>
+
+<p>content字节数组长度有3种:</p>
+
+<pre><code>1. &lt;=63(2^6 -1)字节
+2. &lt;=16383(2^14 -1)字节
+3. &lt;=4294967295(2^32 -1)字节
+</code></pre>
+
+<p>整数长度有6中:</p>
+
+<pre><code>1. 4位长，介于0至12的无符号整数
+2. 1字节的有符号整数
+3. 3字节的有符号整数
+4. int16_t类型整数
+5. int32_t类型整数
+6. int64_t类型整数
+</code></pre>
 
 <p>压缩列表各个组成部分的详细说明</p>
 
@@ -942,6 +1006,129 @@ typedef struct intset {
 </tr>
 </tbody>
 </table>
+
+<h3 id="toc_29">连锁更新</h3>
+
+<p>由于压缩列表中节点  previous_entry_length 的长度(1字节或5字节)是与前一个节点相关的，故新增节点或删除节点时候，后引起后续节点的<strong>连锁更新</strong><br/>
+<img src="media/15253499429210/15999118510405.jpg" alt=""/></p>
+
+<h4 id="toc_30">连锁更新时间复杂度</h4>
+
+<p>连锁更新在最坏情况下需要对压缩列表执行N次空间重分配，而每次空间重分配的最坏复杂度为O(N)<br/>
+故连锁更新的最坏复杂度为O(N<sup>2)</sup></p>
+
+<p>尽管复杂度高，但它真正造成性能问题的几率很低 原因:</p>
+
+<ol>
+<li>压缩列表里桥好友多个连续的、长度介于250至253字节质检的节点，连锁更新才有可能被引发，实际中并不多见</li>
+<li>即使出现连锁更新，但只要被更新的节点数量不多，就不会对性能造成任何影响。比如对三五个节点进行连锁更新是不会影响性能</li>
+</ol>
+
+<p>所以ziplistPush等命令的平均复杂度仅为 O(N)</p>
+
+<h3 id="toc_31">压缩列表API</h3>
+
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+<th style="text-align: left">算法复杂度</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ziplistNew</td>
+<td>创建一个新的压缩列表</td>
+<td style="text-align: left">O(1)</td>
+</tr>
+<tr>
+<td>ziplistPush</td>
+<td>创建一个包含给定值的新节点，并将这个新节点添加到列表的表头或表尾</td>
+<td style="text-align: left">平均O(N),最坏O(N<sup>2)</sup></td>
+</tr>
+<tr>
+<td>ziplistInsert</td>
+<td>将包含给定的新节点插入到给定节点之后</td>
+<td style="text-align: left">平均O(N),最坏O(N<sup>2)</sup></td>
+</tr>
+<tr>
+<td>ziplistIndex</td>
+<td>返回压缩列表给定索引上的节点</td>
+<td style="text-align: left">O(N)</td>
+</tr>
+<tr>
+<td>ziplistFind</td>
+<td>在压缩列表中查找并返回包含了给定值的节点</td>
+<td style="text-align: left">检查节点值和给定值是否相同的福再度是O(N),查找整个列表的复杂度为O(N<sup>2)</sup></td>
+</tr>
+<tr>
+<td>ziplistNext</td>
+<td>返回给定节点的下一个节点</td>
+<td style="text-align: left">O(1)</td>
+</tr>
+<tr>
+<td>ziplistPrev</td>
+<td>返回给定节点的前一个节点</td>
+<td style="text-align: left">O(1)</td>
+</tr>
+<tr>
+<td>ziplistGet</td>
+<td>获取给定节点所保存的值</td>
+<td style="text-align: left">O(1)</td>
+</tr>
+<tr>
+<td>ziplistDelete</td>
+<td>从列表中删除给定的节点</td>
+<td style="text-align: left">平均O(N),最坏O(N<sup>2)</sup></td>
+</tr>
+<tr>
+<td>ziplistDeleteRange</td>
+<td>删除压缩列表在给定索引上的连续多个节点</td>
+<td style="text-align: left">平均O(N),最坏O(N<sup>2)</sup></td>
+</tr>
+<tr>
+<td>ziplistBloblen</td>
+<td>返回列表目前占用的内存字节数</td>
+<td style="text-align: left">O(1)</td>
+</tr>
+<tr>
+<td>ziplistLen</td>
+<td>返回列表目前包含的节点数量</td>
+<td style="text-align: left">及诶单数量小于65535时为O(1),大于65535时为O(N)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_32">对象</h2>
+
+<p>redis 的数据结构:  </p>
+
+<pre><code>1. 简单动态字符串(simple dynamic string SDS)
+2. 双端链表(list)
+3. 字典(dict)
+4. 跳跃表(skiplist)
+5. 整数集合(intset)
+6. 压缩列表(ziplist)
+</code></pre>
+
+<p>redis的对象类型: </p>
+
+<pre><code>1. 字符串对象 String
+2. 列表对象 list
+3. 哈希对象 hash
+4. 集合对象 set
+5. 有序集合对象 zset
+</code></pre>
+
+<p>redis基于这6种数据结构创建了一个对象系统，这个对象系统包含5种类型的对象，每种对象都用到了至少一种上面的数据结构</p>
+
+<p>redis对象系统还实现了 <strong>基于引用计数技术</strong> 的内存回收机制</p>
+
+<p>redis的 <strong>引用计数技术</strong> 实现了 <strong>对象共享机制</strong>，这一机制可以在适当条件下，通过让多个数据库键共享同一个对象来节约内存</p>
+
+<p>redis的对象带有<strong>访问时间</strong>记录信息，这些信息用于计算数据库键的空转时长，在服务器启用 maxmemory (对象删除策略) 功能时，空转时长较大的那些键可能会优先被服务器删除</p>
 
 		</div>
 	</article>

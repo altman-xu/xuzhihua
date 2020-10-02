@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>  
 	  
-  	Video - xuzhihua blog
+  	并发值 有序性、可见性、原子性 - xuzhihua blog
   	
 	</title>
 
@@ -164,49 +164,81 @@
 			<div class="mid-col-container"> <div id="content" class="inner">
 
 	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-		<h1 class="title" itemprop="name">Video</h1>
+		<h1 class="title" itemprop="name">并发值 有序性、可见性、原子性</h1>
 		<div class="entry-content" itemprop="articleBody">
 			<blockquote>
-<p>介绍一下有趣好用的视频网站</p>
+<p><a href="https://www.cnblogs.com/paddix/p/5428507.html">Java 并发编程：volatile的使用及其原理</a><br/>
+<a href="https://www.cnblogs.com/z00377750/p/9180644.html">【并发编程】MESI--CPU缓存一致性协议</a><br/>
+&lt;!-- more --&gt;</p>
 </blockquote>
 
-<span id="more"></span><!-- more -->
-
 <ul>
 <li>
-<a href="#toc_0">Happy Video</a>
+<a href="#toc_0">volatile: 有序性、可见性</a>
 <ul>
 <li>
-<a href="#toc_1">Fuck The Great Wall</a>
+<a href="#toc_1">有序性----指令重排序</a>
 </li>
 <li>
-<a href="#toc_2">Hello The Great Wall</a>
+<a href="#toc_2">可见性----MESI(伊利诺伊州协议)</a>
 </li>
 </ul>
 </li>
+<li>
+<a href="#toc_3">cas: 原子性</a>
+</li>
 </ul>
 
 
-<h2 id="toc_0">Happy Video</h2>
+<h3 id="toc_0">volatile: 有序性、可见性</h3>
 
-<h3 id="toc_1">Fuck The Great Wall</h3>
+<h4 id="toc_1">有序性----指令重排序</h4>
 
-<p><a href="https://rarbg.to/torrents.php">rarbg Movie Download</a><br/>
-<a href="http://www.whichav.net">whichav</a><br/>
-<a href="http://18rock.com/cate/1">18rock</a><br/>
-<a href="https://www.85porn.com/videos">85pron</a><br/>
-<a href="https://www.buzzav.com">buzzav</a><br/>
-<a href="http://letfap.com/">HD letfap</a><br/>
-<a href="http://javhihi.in/">HD javhihi</a><br/>
-<a href="http://141jj.com">YellowPage 141jj</a><br/>
-<a href="https://www.sgzhan.com">YellowPage sgzhan</a></p>
+<p>volatile 防止指令重排序</p>
 
-<h3 id="toc_2">Hello The Great Wall</h3>
+<p>对象构造的流程</p>
 
-<p><a href="http://show.taoyin666.com/forum.php">taoyin</a><br/>
-<a href="http://91porn.com/">91porn</a><br/>
-<a href="http://y3.vtx9c.net/pw/">1024</a><br/>
-<a href="http://t66y.com/">cao6</a></p>
+<ol>
+<li>分配内存空间</li>
+<li>初始化对象</li>
+<li>将内存空间的地址赋值给对应的引用</li>
+</ol>
+
+<p>但是由于操作系统可以对指令进行重排序，所以构造流程可能变成</p>
+
+<ol>
+<li>分配内存空间</li>
+<li>将内存空间的地址赋值给对应的引用</li>
+<li>初始化对象</li>
+</ol>
+
+<p>如果是上面这个流程，在多线程情况下，可能将一个未初始化的对象引用暴露出来，导致</p>
+
+<p>以下面这<strong>单例模式-双重检查锁</strong>为例说明</p>
+
+<pre><code class="language-java">//// 双重检查加锁
+public class DoubleCheckSingleton{
+    // volatile 防止指令重排序
+    public static volatile DoubleCheckSingleton doubleCheckSingleton;
+    // 私有构造函数，禁止外部实例化
+    private DoubleCheckSingleton(){};
+    public static DoubleCheckSingleton getInstance() {
+        if(doubleCheckSingleton == null) {
+            synchronized(doubleCheckSingleton) {
+                if(doubleCheckSingleton == null) {
+                    doubleCheckSingleton = new DoubleCheckSingleton;();
+                }
+            }
+        }
+        return doubleCheckSingleton;
+    }
+    
+}
+</code></pre>
+
+<h4 id="toc_2">可见性----MESI(伊利诺伊州协议)</h4>
+
+<h3 id="toc_3">cas: 原子性</h3>
 
 		</div>
 	</article>
