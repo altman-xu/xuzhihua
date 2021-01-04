@@ -1,0 +1,921 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	vim命令 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">vim命令</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p><a href="https://www.cnblogs.com/markleaf/p/7808817.html">VIM常用快捷键</a></p>
+</blockquote>
+
+<ul>
+<li>
+<a href="#toc_0">移动光标</a>
+</li>
+<li>
+<a href="#toc_1">删除复制</a>
+</li>
+<li>
+<a href="#toc_2">插入模式</a>
+</li>
+<li>
+<a href="#toc_3">编辑</a>
+</li>
+<li>
+<a href="#toc_4">编辑</a>
+</li>
+<li>
+<a href="#toc_5">多文件编辑</a>
+</li>
+<li>
+<a href="#toc_6">多标签编辑</a>
+</li>
+<li>
+<a href="#toc_7">执行 shell 命令</a>
+</li>
+<li>
+<a href="#toc_8">vim 启动项</a>
+</li>
+<li>
+<a href="#toc_9">自动排版</a>
+</li>
+<li>
+<a href="#toc_10">如何在 vim 中编译程序</a>
+</li>
+<li>
+<a href="#toc_11">buffer 操作</a>
+</li>
+<li>
+<a href="#toc_12">vim 操作目录</a>
+</li>
+</ul>
+
+
+<span id="more"></span><!-- more -->
+
+<h2 id="toc_0">移动光标</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>h j k l</code></td>
+<td>上下左右</td>
+</tr>
+<tr>
+<td><code>ctrl + e</code></td>
+<td>移动页面</td>
+</tr>
+<tr>
+<td><code>ctrl + f</code></td>
+<td>forward 往前翻一页</td>
+</tr>
+<tr>
+<td><code>ctrl + b</code></td>
+<td>back 往后翻一页</td>
+</tr>
+<tr>
+<td><code>ctrl + d</code></td>
+<td>往前翻半页</td>
+</tr>
+<tr>
+<td><code>ctrl + u</code></td>
+<td>往后翻半页</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>word 跳到下一个字首，按标点或单词分割</td>
+</tr>
+<tr>
+<td><code>W</code></td>
+<td>Word 跳到下一个字首，长跳，如 end-of-line 被认为是一个字</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>end 跳到下一个字尾</td>
+</tr>
+<tr>
+<td><code>E</code></td>
+<td>end 跳到下一个字尾，长跳</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>begin 跳到上一个字首</td>
+</tr>
+<tr>
+<td><code>B</code></td>
+<td>Begin 跳到上一个字首，长跳</td>
+</tr>
+<tr>
+<td><code>eg</code></td>
+<td>跳到上一个字尾</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>跳至行首，不管有无缩进，就是跳到第0个字符</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>跳至行首的第一个字符</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>跳至行尾</td>
+</tr>
+<tr>
+<td><code>gg</code></td>
+<td>跳至文首</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td>跳至文尾</td>
+</tr>
+<tr>
+<td><code>5gg/5G</code></td>
+<td>跳至第5行</td>
+</tr>
+<tr>
+<td><code>gd</code></td>
+<td>跳至当前光标所在的变量的声明处</td>
+</tr>
+<tr>
+<td><code>fx</code></td>
+<td>在当前行中找x字符，找到了就跳转至</td>
+</tr>
+<tr>
+<td><code>;</code></td>
+<td>重复上一个命令，而不用重复输入 fx</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>查找光标所在处的单词，向上查找</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>查找光标所在处的单词，向下查找</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_1">删除复制</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>dd</td>
+<td>删除光标所在行</td>
+</tr>
+<tr>
+<td>dw</td>
+<td>删除一个字(word)</td>
+</tr>
+<tr>
+<td>D</td>
+<td>删除到行末</td>
+</tr>
+<tr>
+<td>x</td>
+<td>删除当前字符</td>
+</tr>
+<tr>
+<td>X</td>
+<td>删除前一个字符</td>
+</tr>
+<tr>
+<td>yy</td>
+<td>复制一行</td>
+</tr>
+<tr>
+<td>yw</td>
+<td>复制一个字</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>复到到行末</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_2">插入模式</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>i</td>
+<td>从当前光标出进入插入模式</td>
+</tr>
+<tr>
+<td>I</td>
+<td>进入插入模式，并置光标于行首</td>
+</tr>
+<tr>
+<td>a</td>
+<td>追加模式，置光标于当前光标之后</td>
+</tr>
+<tr>
+<td>A</td>
+<td>追加模式，置光标于行末</td>
+</tr>
+<tr>
+<td>o</td>
+<td>在当前行之下新加一行，并进入插入模式</td>
+</tr>
+<tr>
+<td>O</td>
+<td>在当前行之上新加一行，并进入插入模式</td>
+</tr>
+<tr>
+<td>Esc</td>
+<td>退出插入模式</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_3">编辑</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>J</td>
+<td>将下一行和当前行连接为一行</td>
+</tr>
+<tr>
+<td>cc</td>
+<td>删除当前行并进入编辑模式</td>
+</tr>
+<tr>
+<td>cw</td>
+<td>删除当前自并进入编辑模式</td>
+</tr>
+<tr>
+<td>c$</td>
+<td>擦除从当前位置至行末的内容，并进入编辑模式</td>
+</tr>
+<tr>
+<td>s</td>
+<td>删除当前字符 并进入编辑模式</td>
+</tr>
+<tr>
+<td>S</td>
+<td>删除光标所在行 并进入编辑模式</td>
+</tr>
+<tr>
+<td>xp</td>
+<td>交换当前字符和下一个字符</td>
+</tr>
+<tr>
+<td>u</td>
+<td>撤销</td>
+</tr>
+<tr>
+<td>ctrl + r</td>
+<td>重做</td>
+</tr>
+<tr>
+<td>~</td>
+<td>切换大小写，当前字符</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>将当前行右移一个单位(一个tab符)</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>将当前行左移一个单位</td>
+</tr>
+<tr>
+<td>==</td>
+<td>自动缩进当前行</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_4">编辑</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>:w</td>
+<td>将缓冲区写入文件，即保存修改</td>
+</tr>
+<tr>
+<td>:wq</td>
+<td>保存修改并退出</td>
+</tr>
+<tr>
+<td>:x</td>
+<td>保存修改并退出</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>退出，如果对缓冲区进行过修改，则会提示</td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>强制退出，放弃修改</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_5">多文件编辑</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>vim file1 file2</td>
+<td>同时打开多个文件</td>
+</tr>
+<tr>
+<td>:args</td>
+<td>显示当前编辑文件</td>
+</tr>
+<tr>
+<td>:next</td>
+<td>切换到下个文件</td>
+</tr>
+<tr>
+<td>:prev</td>
+<td>切换到前个文件</td>
+</tr>
+<tr>
+<td>:next!</td>
+<td>不保存当前编辑文件并切换到下个文件</td>
+</tr>
+<tr>
+<td>:prev!</td>
+<td>不保存当前编辑文件并切换到上个文件</td>
+</tr>
+<tr>
+<td>:wnext</td>
+<td>保存当前编辑文件并切换到下个文件</td>
+</tr>
+<tr>
+<td>:wprev</td>
+<td>保存当前文件并切换到上个文件</td>
+</tr>
+<tr>
+<td>:first</td>
+<td>定位首文件</td>
+</tr>
+<tr>
+<td>:last</td>
+<td>定位尾文件</td>
+</tr>
+<tr>
+<td>ctrl + ^</td>
+<td>快速在最近打卡窗两个文件间切换</td>
+</tr>
+<tr>
+<td>:split[sp]</td>
+<td>把当前文件水平分割</td>
+</tr>
+<tr>
+<td>:split file</td>
+<td>把当前窗口是水平分割，file</td>
+</tr>
+<tr>
+<td>:vsplit[vsp]</td>
+<td>把当前文件垂直分割</td>
+</tr>
+<tr>
+<td>:vsplit file</td>
+<td>把当前窗口垂直分割，file</td>
+</tr>
+<tr>
+<td>:new file</td>
+<td>同 split file</td>
+</tr>
+<tr>
+<td>close</td>
+<td>关闭当前窗口</td>
+</tr>
+<tr>
+<td>:only</td>
+<td>只显示当前窗口，关闭所有其他的窗口</td>
+</tr>
+<tr>
+<td>:all</td>
+<td>打开所有的窗口</td>
+</tr>
+<tr>
+<td>:vertical all</td>
+<td>打开所有的窗口，垂直打开</td>
+</tr>
+<tr>
+<td>:qall</td>
+<td>对所有窗口执行: q操作</td>
+</tr>
+<tr>
+<td>:qall!</td>
+<td>对所有窗口执行: q!操作</td>
+</tr>
+<tr>
+<td>:wall</td>
+<td>对所有窗口执行: w操作</td>
+</tr>
+<tr>
+<td>:wqall</td>
+<td>对所有窗口执行: wq 操作</td>
+</tr>
+<tr>
+<td>ctrl-w h</td>
+<td>跳转到左边的窗口</td>
+</tr>
+<tr>
+<td>ctrl-w j</td>
+<td>跳转到下面的窗口</td>
+</tr>
+<tr>
+<td>ctrl-w k</td>
+<td>跳转到上面的窗口</td>
+</tr>
+<tr>
+<td>ctrl-w l</td>
+<td>跳转到右面的窗口</td>
+</tr>
+<tr>
+<td>ctrl-w t</td>
+<td>条撞到最顶上的窗口</td>
+</tr>
+<tr>
+<td>ctrl-w b</td>
+<td>跳转到最底下的窗口</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_6">多标签编辑</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>:tabedit file</td>
+<td>在新标签中打开文件 file</td>
+</tr>
+<tr>
+<td>:tab split file</td>
+<td>在新标签中打开文件 file</td>
+</tr>
+<tr>
+<td>:tabp</td>
+<td>切换到前一个标签</td>
+</tr>
+<tr>
+<td>:tabn</td>
+<td>切换到后一个标签</td>
+</tr>
+<tr>
+<td>:tabc</td>
+<td>关闭当前标签</td>
+</tr>
+<tr>
+<td>:tabo</td>
+<td>关闭其他标签</td>
+</tr>
+<tr>
+<td>gt</td>
+<td>到下一个 tab</td>
+</tr>
+<tr>
+<td>gT</td>
+<td>到上一个 tab</td>
+</tr>
+<tr>
+<td>0gt</td>
+<td>跳到第一个tab</td>
+</tr>
+<tr>
+<td>5gt</td>
+<td>跳到第五个 tab</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_7">执行 shell 命令</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>命令模式下输入 :sh</td>
+<td>可以运行相当于在字符模式下，到输入结束想要回到 vim 编辑器中用 exit，ctrl+D 返回 vim 编辑器</td>
+</tr>
+<tr>
+<td>!command</td>
+<td>运行结束后自动回到 vim 编辑器中</td>
+</tr>
+<tr>
+<td>ctrl+z</td>
+<td>回到 shell，用 fg 返回编辑</td>
+</tr>
+<tr>
+<td>:!make -&gt;</td>
+<td>直接在当前目录下运行 make 指令</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_8">vim 启动项</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>-o[n]</td>
+<td>以水平分屏的方式打开多个文件</td>
+</tr>
+<tr>
+<td>-O[n]</td>
+<td>以垂直分屏的方式打开多个文件</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_9">自动排版</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>gg=G</td>
+<td>在黏贴了一些代码后，vim 变得比较乱，只要执行 gg=G 就能搞定</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_10">如何在 vim 中编译程序</h2>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>:copen :make</td>
+<td>在 vim 藏爱过你可以完成 make，并且可以将编译的结果也显示在 vim 里，先执行 :copen 命令，将结果输出的窗口打开，然后执行 :make 编译后的结果就显示在了 copen 打开的小窗口里了，而且用鼠标双击错误信息，就会跳转到错误发生的行</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_11">buffer 操作</h2>
+
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>buffer 状态</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>-</td>
+<td>非活动的缓冲区</td>
+</tr>
+<tr>
+<td>a</td>
+<td>当前被集火缓冲区</td>
+</tr>
+<tr>
+<td>h</td>
+<td>隐藏的缓冲区</td>
+</tr>
+<tr>
+<td>%</td>
+<td>当前的缓冲区</td>
+</tr>
+<tr>
+<td>#</td>
+<td>交换缓冲区</td>
+</tr>
+<tr>
+<td>=</td>
+<td>只读缓冲区</td>
+</tr>
+<tr>
+<td>+</td>
+<td>已经更改的缓冲区</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_12">vim 操作目录</h2>
+
+<p>1.打开目录<br/>
+vim .<br/>
+vim a-path/</p>
+
+<p>2.以下操作在操作目录时生效<br/>
+p,P,t,u,U,x,v,o,r,s</p>
+
+<p>c 使当前打开的目录成为当前目录<br/>
+d 创建目录<br/>
+% 创建文件<br/>
+D 删除文件/目录<br/>
+- 转到上层目录<br/>
+gb 转到上一个 bookmarked directory<br/>
+i 改变目录文件列表方式<br/>
+<sup>l</sup> 刷新当前打开的目录</p>
+
+<p>mf - 标记文件<br/>
+mu - unmark all marked files<br/>
+mz - Compress/decompress marked files<br/>
+gh 显示/不显示隐藏文件( dot-files)<br/>
+<sup>h</sup> 编辑隐藏文件列表<br/>
+a 转换显示模式, all - hide - unhide<br/>
+qf diplay infomation about file<br/>
+qb list the bookmarked directories and directory traversal history<br/>
+gi Display information on file</p>
+
+<p>mb<br/>
+mc<br/>
+md - 将标记的文件(mf标记文件)使用 diff 模式<br/>
+me - 编辑标记的文件,只显示一个，其余放入 buffer 中<br/>
+mh<br/>
+mm - move marked files to marked-file target directory<br/>
+mc - copy<br/>
+mp<br/>
+mr<br/>
+mt</p>
+
+<p>vim 中复制,移动文件<br/>
+1, mt - 移动到的目录<br/>
+2, mf - 标记要移动的文件<br/>
+3, mc - 移动/复制</p>
+
+<p>R 移动文件</p>
+
+<p>打开当前编辑文件的目录<br/>
+:Explore<br/>
+:Hexplore<br/>
+:Nexplore<br/>
+:Pexplore<br/>
+:Sexplore<br/>
+:Texplore<br/>
+:Vexplore</p>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

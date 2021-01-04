@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	oracle中date与string互换 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">oracle中date与string互换</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>oracle中date与string互换<br/>
+Dual伪列介绍</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">1. date -&gt; string</a>
+</li>
+<li>
+<a href="#toc_1">2. string -&gt; date</a>
+</li>
+<li>
+<a href="#toc_2">转换格式</a>
+</li>
+<li>
+<a href="#toc_3">补充</a>
+</li>
+<li>
+<a href="#toc_4">Dual伪列</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">1. date -&gt; string</h2>
+
+<p><code>to_char(日期,&quot;转换格式&quot;)</code> 即把给定的日期按照&quot;转换格式&quot;转换</p>
+
+<pre><code class="language-sql">//显示：08-11-07 13:22:42
+select to_char(sysdate,&#39;yy-mm-dd hh24:mi:ss&#39;) from dual
+</code></pre>
+
+<h2 id="toc_1">2. string -&gt; date</h2>
+
+<p><code>to_date(&quot;要转换的字符串&quot;,&quot;转换的格式&quot;)</code>两个参数的格式必须匹配，否则会报错</p>
+
+<pre><code class="language-sql">-- 显示：2005-12-25 13:25:59
+select to_date(&#39;2005-12-25,13:25:59&#39;,&#39;yyyy-mm-dd,hh24:mi:ss&#39;) from dual 
+
+--则会报错，因为小时hh是12进制，13为非法输入，不能匹配。
+select to_date(&#39;2005-12-25,13:25:59&#39;,&#39;yyyy-mm-dd,hh:mi:ss&#39;) from dual 
+</code></pre>
+
+<h2 id="toc_2">转换格式</h2>
+
+<p>转换的格式</p>
+
+<blockquote>
+<p>表示year的：</p>
+
+<ol>
+<li>y  表示年的最后一位 </li>
+<li>yy 表示年的最后2位 </li>
+<li>yyy 表示年的最后3位 </li>
+<li>yyyy 用4位数表示年</li>
+</ol>
+
+<p>表示month的：</p>
+
+<ol>
+<li>mm 用2位数字表示月；</li>
+<li>mon 用简写形式 比如11月或者nov ；</li>
+<li>month 用全称 比如11月或者november</li>
+</ol>
+
+<p>表示day的：</p>
+
+<ol>
+<li>dd 表示当月第几天；</li>
+<li>ddd表示当年第几天；</li>
+<li>dy 当周第几天 简写  比如星期五或者fri；</li>
+<li>day当周第几天 全写 比如星期五或者friday</li>
+</ol>
+
+<p>表示hour的：</p>
+
+<ol>
+<li>hh 2位数表示小时 12进制；</li>
+<li>hh24 2位数表示小时 24小时</li>
+</ol>
+
+<p>表示minute的：mi 2位数表示分钟</p>
+
+<p>表示second的：ss 2位数表示秒 60进制</p>
+
+<p>表示季度的：q 一位数 表示季度 （1-4）</p>
+
+<p>表示周的：</p>
+
+<ol>
+<li>ww 用来表示当年第几周 </li>
+<li>w 用来表示当月第几周</li>
+</ol>
+
+<p>24小时制下的时间范围：00：00：00-23：59：59<br/>
+12小时制下的时间范围：1：00：00-12：59：59</p>
+</blockquote>
+
+<h2 id="toc_3">补充</h2>
+
+<blockquote>
+<p>当前时间减去7分钟的时间 <br/>
+<code>select sysdate,sysdate - interval &#39;7&#39; MINUTE from dual</code><br/>
+当前时间减去7小时的时间 <br/>
+<code>select sysdate - interval &#39;7&#39; hour from dual</code><br/>
+当前时间减去7天的时间 <br/>
+<code>select sysdate - interval ’7’ day from dual</code><br/>
+当前时间减去7月的时间 <br/>
+<code>select sysdate,sysdate - interval &#39;7&#39; month from dual</code><br/>
+当前时间减去7年的时间 <br/>
+<code>select sysdate,sysdate - interval &#39;7&#39; year from dual</code><br/>
+时间间隔乘以一个数字 <br/>
+<code>select sysdate,sysdate - 8*interval &#39;7&#39; hour from dual</code></p>
+</blockquote>
+
+<h2 id="toc_4">Dual伪列</h2>
+
+<p>含义解释</p>
+
+<blockquote>
+<p>Dual 是 Oracle中的一个实际存在的表，任何用户均可读取，常用在没有目标表的select语句块中<br/>
+比如，<br/>
+<code>select SYSDATE from dual</code> 则返回系统当前的时间：2008-11-07 9:32:49 不同系统可能返回日期的格式不一样<br/>
+<code>select user from dual</code> 则返回当前连接的用户<br/>
+<code>select 1+2 from dual</code> 则返回结果：3</p>
+</blockquote>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

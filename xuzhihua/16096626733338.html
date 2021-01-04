@@ -1,0 +1,574 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	计算机网络 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">计算机网络</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<p><a href="https://www.bilibili.com/video/BV19E411D78Q">王道考研 计算机网络</a></p>
+
+<h2 id="toc_0">计算机网络的概念</h2>
+
+<p>计算机网络是互连(互联互通)的、自治(无主从关系)的计算机集合</p>
+
+<blockquote>
+<p>计算机网络:是一个将分散的、具有独立功能的计算机系统，通过通信设备与线路连接起来，由功能完善的软件实现的资源共享和信息传递的系统</p>
+</blockquote>
+
+<h2 id="toc_1">计算机网络功能</h2>
+
+<ol>
+<li>数据通信(连通性)</li>
+<li>资源共享(硬件:打印机；软件:;数据:百度网盘)</li>
+<li>分布式处理(hadoop)</li>
+<li>提高可靠性(高可用)</li>
+<li>负载均衡</li>
+</ol>
+
+<h2 id="toc_2">计算机网络的组成</h2>
+
+<ol>
+<li>组成部分: 硬件、软件、协议</li>
+<li>工作方式: 边缘部分(用户直接使用 c/s、p/p 方式)、核心部分(为边缘部分服务 如路由器)</li>
+<li>功能组成: 通信子网(数据通信)、资源子网(资源共享)</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th>子网</th>
+<th>计算机7层模型</th>
+<th>设备</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>资源子网(实现资源共享功能的设备和软件的集合)</td>
+<td>应用层</td>
+<td></td>
+</tr>
+<tr>
+<td>资源子网</td>
+<td>表示层</td>
+<td></td>
+</tr>
+<tr>
+<td>资源子网</td>
+<td>会话层</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>传输层</td>
+<td></td>
+</tr>
+<tr>
+<td>通信子网(各种传输介质、通信设备和相应的网络协议组成)</td>
+<td>网络层</td>
+<td>路由器</td>
+</tr>
+<tr>
+<td>通信子网</td>
+<td>数据链路层</td>
+<td>交换机，网桥</td>
+</tr>
+<tr>
+<td>通信子网</td>
+<td>物理层</td>
+<td>集线器，中继器</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_3">计算机网络的分类</h2>
+
+<ol>
+<li>按照分布范围分: 广域网WAN(跨国)、城域网MAN(城市内)、局域网WAN、个人区域网PAN</li>
+<li>按使用者分: 公用网(中国电信、中国移动等)、专用网(军队、政府、银行内部网等)</li>
+<li>按交换技术分: 电路交换、报文交换、分组交换</li>
+<li>按拓扑结构分: 总线型、星型、环型、网状型(常用于广域网)</li>
+<li>按传输技术分: 广播式网络(共享公共通信信道)、点对点网络(使用分组存储转发和路由选择机制)</li>
+</ol>
+
+<h2 id="toc_4">标准化工作</h2>
+
+<p>标准的分类:</p>
+
+<pre><code>1. 法定标准:由权威机构指定的正式的合法的标准。如OSI
+2. 事实标准:某些公司的产品在竞争中占据主流，时间长了，这些产品中的协议和技术就成了标准。如TCP/IP、nano SIM卡
+</code></pre>
+
+<p>RFC(Request For Comments)  -- 因特网标准的形式<br/>
+RFC要上升为因特网正式标准的四个阶段:</p>
+
+<pre><code>1. 因特网草案(Internet Draft) 这个阶段还不是RFC文档
+2. 建议标准(Proposed Standard) 从这个阶段开始成为RFC文档
+3. 草案标准(Draft Standard) 将草案放到网络上，供他们comment，拿给IETF、IAB审核
+4. 因特网标准(Internet Standard) IETF、IAB审核通过
+</code></pre>
+
+<p>标准化工作的相关组织</p>
+
+<pre><code>1. 国际标准化组织ISO  (建立了OSI模型、HDLC协议)
+2. 国际电信联盟ITU    (制定通信规则)
+3. 国际电气电子工程师协会IEEE (学术机构、IEEE802系列标准、5G)
+4. Internet工程任务组IETF (负责因特网相关标准的制定 RFC ****数字编号)
+</code></pre>
+
+<h2 id="toc_5">计算机网络性能指标</h2>
+
+<h3 id="toc_6">速率</h3>
+
+<p>速率即数据率或数据传输率或比特率<br/>
+连接在计算机网络上的主机在数字信道上传送数据位数(比特位)的速率<br/>
+单位: b/s,kb/s,Mb/s,Gb/s,Tb/s<br/>
+1Tb/s = 10<sup>3</sup> Gb/s = 10<sup>6</sup> Mb/s = 10<sup>9</sup> kb/s = 10<sup>12</sup> b/s <br/>
+(注: 在速率上转换时 10<sup>3，</sup> 在存储上就是 2<sup>*</sup> 写法)<br/>
+1Byte(字节) = 8bit(比特)<br/>
+1kb = 2<sup>10</sup> B = 1024 B(字节) = 1024 * 8 b(比特)</p>
+
+<h3 id="toc_7">带宽</h3>
+
+<p>过去: <code>带宽</code>原本指某个信号具有的频道宽度，即最高频率和最低频率之差，单位是<code>赫兹(Hz)</code></p>
+
+<blockquote>
+<p>在过去，通信的主干线路传送的都是<code>模拟信号</code>，而不是现在这样0101的<code>数字信号</code>，所以表示通信线路允许通过的信带范围就叫带宽。</p>
+</blockquote>
+
+<p>现在: <code>带宽</code>用来表示网络的通信线路传送数据的能力，通常是指单位时间内从网络中的某一个点到另一个点所能通过的&quot;最高数据率&quot;，单位是<code>比特每秒</code>，b/s,kb/s,Mb/s,Gb/s</p>
+
+<p>带宽: 网络设备所支持的最高速度</p>
+
+<p><img src="media/16096626733338/16096660029235.jpg" alt=""/></p>
+
+<h3 id="toc_8">吞吐量</h3>
+
+<p>吞吐量:表示在单位时间内通过某个网络(或信道、接口)的数据量。单位b/s,kb/s,Mb/s<br/>
+吞吐量受网络的带宽或网络的额定速率的限制<br/>
+<img src="media/16096626733338/16096662053975.jpg" alt=""/></p>
+
+<h3 id="toc_9">时延</h3>
+
+<p>时延 指数据(报文/分组/比特流)从网络(或链路)的一端传送到另一端所需的时间。也叫做延迟或迟延。单位是s</p>
+
+<ol>
+<li>传输时延(发送时延): 从发送分组的第一个比特算起，到该分组的最后一个比特发送完毕所需的时间</li>
+<li>传播时延: 取决于电磁波传播速度和链路长度</li>
+<li>排队时延: 等待 输出/输入 链路可用(路由器)</li>
+<li>处理时延: 检错、找出口(路由器)</li>
+</ol>
+
+<p><img src="media/16096626733338/16096666736627.jpg" alt=""/></p>
+
+<h3 id="toc_10">时延带宽积</h3>
+
+<p>时延带宽积 = 传播时延 * 带宽 <br/>
+时延带宽积又称为以比特为单位的链路长度。即&quot;某段链路现在有多少比特&quot;</p>
+
+<h3 id="toc_11">往返时间RTT</h3>
+
+<p>往返时延RTT是指 从发送方发送数据开始，到发送方收到接收方的确认(接收方收到数据后立即发送确认)总共经历的时延 </p>
+
+<p>有一个说法: RTT越大，在收到确认之前，可以发送的数据越多</p>
+
+<p>RTT包括:</p>
+
+<pre><code>1. 往返传播时延 = 传播时延\*2
+2. 末端处理时间 (末端处理完发出ACK)
+</code></pre>
+
+<p>查看RTT:<br/>
+<img src="media/16096626733338/16096676478331.jpg" alt=""/></p>
+
+<h3 id="toc_12">利用率</h3>
+
+<p>利用率分为:</p>
+
+<pre><code>1. 信道利用率 = (有数据通过时间 / (有+无)数据通过时间)
+2. 网络利用率 = 所有信道利用率加权平均值
+
+![](media/16096626733338/16096678888280.jpg)
+</code></pre>
+
+<h2 id="toc_13">计算机网络分层结构</h2>
+
+<p><img src="media/16096626733338/16096782787937.jpg" alt=""/></p>
+
+<p>概念总结:</p>
+
+<ol>
+<li>网络体系结构是从<code>功能</code>上描述计算机网络结构</li>
+<li>计算机网络体系结构简称网络体系结构是<code>分层结构</code></li>
+<li>每层遵循某个/些<code>网络协议</code>以完成本层功能</li>
+<li><code>计算机网络体系结构</code>是计算机网络的<code>各层及其协议</code>的集合</li>
+<li>第n层在向n+1层提供服务时，此服务不仅包含第n层本身的功能，还包含由下层服务提供的功能</li>
+<li>仅仅在<code>相邻层间有接口</code>，且所提供服务的具体实现细节对上一层完全屏蔽</li>
+<li>体系结构是<code>抽象</code>的，而实现是指运行的一些软件和硬件</li>
+</ol>
+
+<h2 id="toc_14">OSI 参考模型</h2>
+
+<p>计算机网络分层结构:</p>
+
+<pre><code>1. 7层OSI参考模型(法定标准)
+2. 4层TCP/IP参考模型(事实标准)
+3. 从1、2中得出 5层的体系结构
+</code></pre>
+
+<p>为了解决计算机网络复杂的大问题,各个公司提出了自己的解决方案</p>
+
+<ol>
+<li>IBM提出SNA结构</li>
+<li>DEC提出NDA结构</li>
+<li>美国国防部提出TCP/IP结构</li>
+</ol>
+
+<p>目的:为了支持<code>异构网络系统</code>的互联互通<br/>
+<code>国际标准化组织(ISO)</code>在1984年提出<code>开放系统互联(OSI)</code>参考模型</p>
+
+<blockquote>
+<p>但是，OSI 理论成功， 市场失败。<br/><br/>
+失败原因:</p>
+</blockquote>
+
+<ol>
+<li>OSI缺乏实际经验，类似乌邦托</li>
+<li>OSI实现起来较复杂，且运行效率低</li>
+<li>OSI制定周期太长，故osi出来的时候没有办法及时进入市场。而且当时市场已经有了运行良好的TCP/IP</li>
+<li>OSI层次划分不合理，有些功能会在多个层次中出现有些弊端，不适应市场取消</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th style="text-align: left">说明</th>
+<th style="text-align: left">子网</th>
+<th style="text-align: left">设备</th>
+<th style="text-align: left"></th>
+<th style="text-align: left">协议</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>7</td>
+<td style="text-align: left">应用层</td>
+<td style="text-align: left">资源子网(数据处理)</td>
+<td style="text-align: left"></td>
+<td style="text-align: left">所有能和用户加护产生网络流量的程序</td>
+<td style="text-align: left">FTP、SMTP、HTTP</td>
+</tr>
+<tr>
+<td>6</td>
+<td style="text-align: left">表示层</td>
+<td style="text-align: left">资源子网</td>
+<td style="text-align: left"></td>
+<td style="text-align: left">用户处理在两个通信系统中交换信息的表示方式(语法和语义)。功能:1数据格式变换 比特到图片;2数据加密解密; 3数据压缩和恢复</td>
+<td style="text-align: left">JPEG、ASCII</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align: left">会话层</td>
+<td style="text-align: left">资源子网</td>
+<td style="text-align: left"></td>
+<td style="text-align: left">向表示层实体/用户进程提供建立连接并在连接上有序地传输数据。功能:1建立、管理、终止会话;2使用校验点可使会话在通信失效时从校验点/同步点继续恢复通信，实现数据同步</td>
+<td style="text-align: left">ADSP、ASP</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align: left">传输层</td>
+<td style="text-align: left"></td>
+<td style="text-align: left"></td>
+<td style="text-align: left">负责主机中两个进程的通信，即端到端的通信，传输单位是报文或用户数据报。功能:1可靠传输、不可靠传输;2差错控制;3流量控制;4复用分用</td>
+<td style="text-align: left">TCP、UDP</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: left">网络层</td>
+<td style="text-align: left">通信子网(数据通信)</td>
+<td style="text-align: left">路由器</td>
+<td style="text-align: left">主要任务是把分组从源端传到目的端，为分组交换网上的不同主机提供通信服务，传输单位是数据报。功能:1路由选择(最佳路径);2流量控制;3差错控制;4拥塞控制</td>
+<td style="text-align: left">IP、IPX、ICMP、IGMP、ARP、RARP、OSPF</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: left">数据链路层</td>
+<td style="text-align: left">通信子网</td>
+<td style="text-align: left">交换机，网桥</td>
+<td style="text-align: left">主要任务是吧网络层传下来的数据报组装成帧，数据链路层传输单位是帧。功能:1成帧(定义帧的开始和结束);2差错控制 帧错+位错;3流量控制;4访问(接入)控制 控制对信道的访问;</td>
+<td style="text-align: left">SDLC、HDLC、PPP、STP</td>
+</tr>
+<tr>
+<td>1</td>
+<td style="text-align: left">物理层</td>
+<td style="text-align: left">通信子网</td>
+<td style="text-align: left">集线器，中继器</td>
+<td style="text-align: left">主要任务是在物理媒体上实现比特流的<code>透明传输</code>(不管所传数据是什么样的比特组合，都应当能够在链路上传送)，传输单位是比特。功能:1定义接口特性;2定义传输模式(单工、半双工、双工);3定义传输速率;4比特同步;5比特编码;</td>
+<td style="text-align: left">Rj45、802.3</td>
+</tr>
+</tbody>
+</table>
+
+<p><img src="media/16096626733338/16096814302760.jpg" alt=""/><br/>
+<img src="media/16096626733338/16096816222351.jpg" alt=""/></p>
+
+<h2 id="toc_15">TCP/IP模型</h2>
+
+<blockquote>
+<p>先有TCP/IP协议栈，后面才有TCP/IP参考模型</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>OSI参考木星</th>
+<th>TCP/IP参考木星</th>
+<th>TCP/IP协议栈</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>应用层</td>
+<td>应用层</td>
+<td>HTTP/FTP/DNS</td>
+</tr>
+<tr>
+<td>表示层</td>
+<td>应用层</td>
+<td>HTTP/FTP/DNS</td>
+</tr>
+<tr>
+<td>会话层</td>
+<td>应用层</td>
+<td>HTTP/FTP/DNS</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>传输层</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>网际层</td>
+<td>IP</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td>网络接口层</td>
+<td>Ethernet/ATM/Frame Relay</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>网络接口层</td>
+<td>Ethernet/ATM/Frame Relay</td>
+</tr>
+</tbody>
+</table>
+
+<p>OSI和 TCP/IP 相同点:</p>
+
+<pre><code>1. 都分层
+2. 基于独立的协议栈的概念
+3. 可以实现异构网络互连
+</code></pre>
+
+<p><img src="media/16096626733338/16096845091127.jpg" alt=""/></p>
+
+<p>OSI和 TCP/IP 不通点:</p>
+
+<p><img src="media/16096626733338/16096844753061.jpg" alt=""/></p>
+
+<h2 id="toc_16">5层参考模型</h2>
+
+<p><img src="media/16096626733338/16096845958051.jpg" alt=""/><br/>
+<img src="media/16096626733338/16096847078462.jpg" alt=""/></p>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

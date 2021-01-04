@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	java.util.concurrent.atomic.AtomicBoolean - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">java.util.concurrent.atomic.AtomicBoolean</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>jdk1.6类 java.util.concurrent.atomic.AtomicBoolean</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">java.util.concurrent.atomic.AtomicBoolean</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">java.util.concurrent.atomic.AtomicBoolean</h2>
+
+<ol>
+<li>public AtomicBoolean(boolean initialValue)</li>
+<li>public AtomicBoolean()</li>
+<li>public final boolean get()</li>
+<li>public final boolean compareAndSet(boolean expect, boolean update)</li>
+<li>public boolean weakCompareAndSet(boolean expect, boolean update)</li>
+<li>public final void set(boolean newValue)</li>
+<li>public final void lazySet(boolean newValue)</li>
+<li>public final boolean getAndSet(boolean newValue)</li>
+<li>public String toString()</li>
+</ol>
+
+<pre><code class="language-java">/*
+ * %W% %E%
+ *
+ * Copyright (c) 2006, Oracle and/or its affiliates. All rights reserved.
+ * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+package java.util.concurrent.atomic;
+import sun.misc.Unsafe;
+
+/**
+ * A {@code boolean} value that may be updated atomically. See the
+ * {@link java.util.concurrent.atomic} package specification for
+ * description of the properties of atomic variables. An
+ * {@code AtomicBoolean} is used in applications such as atomically
+ * updated flags, and cannot be used as a replacement for a
+ * {@link java.lang.Boolean}.
+ *
+ * @since 1.5
+ * @author Doug Lea
+ */
+/**
+ * 可以用原子方式更新的 boolean 值。有关原子变量属性的描述，请参阅 
+ * java.util.concurrent.atomic 包规范。AtomicBoolean 可用在应用程序中
+ * （如以原子方式更新的标志），但不能用于替换 Boolean。
+ */
+public class AtomicBoolean implements java.io.Serializable {
+    private static final long serialVersionUID = 4654671469794556979L;
+    // setup to use Unsafe.compareAndSwapInt for updates
+    private static final Unsafe unsafe = Unsafe.getUnsafe();
+    private static final long valueOffset;
+
+    static {
+      try {
+        valueOffset = unsafe.objectFieldOffset
+            (AtomicBoolean.class.getDeclaredField(&quot;value&quot;));
+      } catch (Exception ex) { throw new Error(ex); }
+    }
+
+    private volatile int value;
+
+    /**
+     * Creates a new {@code AtomicBoolean} with the given initial value.
+     *
+     * @param initialValue the initial value
+     */
+    /**
+     * 使用给定的初始值创建新的 AtomicBoolean。
+     * @param  initialValue [初始值]
+     * @return              
+     */
+    public AtomicBoolean(boolean initialValue) {
+        value = initialValue ? 1 : 0;
+    }
+
+    /**
+     * Creates a new {@code AtomicBoolean} with initial value {@code false}.
+     */
+    /**
+     * 使用初始值 false 创建新的 AtomicBoolean
+     */
+    public AtomicBoolean() {
+    }
+
+    /**
+     * Returns the current value.
+     *
+     * @return the current value
+     */
+    /**
+     * 返回当前值。
+     * @return [当前值]
+     */
+    public final boolean get() {
+        return value != 0;
+    }
+
+    /**
+     * Atomically sets the value to the given updated value
+     * if the current value {@code ==} the expected value.
+     *
+     * @param expect the expected value
+     * @param update the new value
+     * @return true if successful. False return indicates that
+     * the actual value was not equal to the expected value.
+     */
+    /**
+     * 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
+     * @param  expect 预期值
+     * @param  update 新值
+     * @return        如果成功，则返回 true。返回 False 指示实际值与预期值不相等。
+     */
+    public final boolean compareAndSet(boolean expect, boolean update) {
+        int e = expect ? 1 : 0;
+        int u = update ? 1 : 0;
+        return unsafe.compareAndSwapInt(this, valueOffset, e, u);
+    }
+
+    /**
+     * Atomically sets the value to the given updated value
+     * if the current value {@code ==} the expected value.
+     *
+     * &lt;p&gt;May &lt;a href=&quot;package-summary.html#Spurious&quot;&gt;fail spuriously&lt;/a&gt;
+     * and does not provide ordering guarantees, so is only rarely an
+     * appropriate alternative to {@code compareAndSet}.
+     *
+     * @param expect the expected value
+     * @param update the new value
+     * @return true if successful.
+     */
+    /**
+     * 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
+     * 可能意外失败并且不提供排序保证，因此几乎只是 compareAndSet 的适当替代方法。
+     * @param  expect [预期值]
+     * @param  update [新值]
+     * @return        如果成功，则返回 true。
+     */
+    public boolean weakCompareAndSet(boolean expect, boolean update) {
+        int e = expect ? 1 : 0;
+        int u = update ? 1 : 0;
+        return unsafe.compareAndSwapInt(this, valueOffset, e, u);
+    }
+
+    /**
+     * Unconditionally sets to the given value.
+     *
+     * @param newValue the new value
+     */
+    /**
+     * 无条件地设置为给定值。
+     * @param newValue 新值
+     */
+    public final void set(boolean newValue) {
+        value = newValue ? 1 : 0;
+    }
+
+    /**
+     * Eventually sets to the given value.
+     *
+     * @param newValue the new value
+     * @since 1.6
+     */
+    /**
+     * 最终设置为给定值。
+     * @param newValue 新值
+     */
+    public final void lazySet(boolean newValue) {
+        int v = newValue ? 1 : 0;
+        unsafe.putOrderedInt(this, valueOffset, v);
+    }
+
+    /**
+     * Atomically sets to the given value and returns the previous value.
+     *
+     * @param newValue the new value
+     * @return the previous value
+     */
+    /**
+     * 以原子方式设置为给定值，并返回以前的值。
+     * @param  newValue 新值
+     * @return          以前的值
+     */
+    public final boolean getAndSet(boolean newValue) {
+        for (;;) {
+            boolean current = get();
+            if (compareAndSet(current, newValue))
+                return current;
+        }
+    }
+
+    /**
+     * Returns the String representation of the current value.
+     * @return the String representation of the current value.
+     */
+    /**
+     * 返回当前值的字符串表示形式。
+     * @return 当前值的字符串表示形式。
+     */
+    public String toString() {
+        return Boolean.toString(get());
+    }
+
+}
+
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

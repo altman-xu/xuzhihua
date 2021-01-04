@@ -1,0 +1,526 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	案例：基于线程池技术的简单Web服务器 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">案例：基于线程池技术的简单Web服务器</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>线程池技术</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">ThreadPool (接口类)</a>
+</li>
+<li>
+<a href="#toc_1">DefaultThreadPool (实现类)</a>
+</li>
+<li>
+<a href="#toc_2">SimpleHttpServer (Web服务器)</a>
+</li>
+<li>
+<a href="#toc_3">测试方法</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">ThreadPool (接口类)</h2>
+
+<ul>
+<li>客户端可以通过execute(Job)将Job提交入线程池执行，而客户端自身不用等待Job的执行完成</li>
+<li>这里的工作者线程代表一个重复执行Job的线程</li>
+<li>而每个客户端提交的Job豆浆进入到一个工作队列中等待工作者线程的处理</li>
+</ul>
+
+<pre><code class="language-java">package test.ThreadPoolDemo;
+
+/**
+ * @author xuzhihua
+ * @date 2019/2/23 11:58 AM
+ * 简单的线程池接口定义
+ */
+public interface ThreadPool&lt;Job extends Runnable&gt; {
+    // 执行一个job，这个job需要实现Runnable
+    void execute(Job job);
+    // 关闭线程池
+    void shutDown();
+    // 增加工作组线程
+    void addWorker(int num);
+    // 减少工作组线程
+    void removeWorker(int num);
+    // 得到正在等待执行的任务数量
+    int getJobSize();
+}
+</code></pre>
+
+<h2 id="toc_1">DefaultThreadPool (实现类)</h2>
+
+<pre><code class="language-java">package test.ThreadPoolDemo;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+
+/**
+ * @author xuzhihua
+ * @date 2019/2/23 12:02 PM
+ */
+public class DefaultThreadPool&lt;Job extends Runnable&gt; implements ThreadPool&lt;Job&gt; {
+
+    // 线程池最大限制数
+    private static final int MAX_WORKER_NUMBERS = 10;
+    // 线程池默认的数量
+    private static final int DEFAULT_WORKER_NUMBERS = 5;
+    // 线程池最小的数量
+    private static final int MIN_WORKER_NUMBERS = 1;
+    // 这是一个工作列表，将会向里面插入工作
+    private final LinkedList&lt;Job&gt; jobs = new LinkedList&lt;Job&gt;();
+    // 工作者列表
+    private final List&lt;Worker&gt; workers = Collections.synchronizedList(new ArrayList&lt;Worker&gt;());
+    // 工作者线程的数量
+    private int workerNum = DEFAULT_WORKER_NUMBERS;
+    // 线程编号生成
+    private AtomicLong threadNum = new AtomicLong();
+
+    public DefaultThreadPool() {
+        initializeWorkers(DEFAULT_WORKER_NUMBERS);
+    }
+
+    public DefaultThreadPool(int num) {
+        workerNum = num &gt; MAX_WORKER_NUMBERS ? MAX_WORKER_NUMBERS : (num &lt; MIN_WORKER_NUMBERS ? MIN_WORKER_NUMBERS : num);
+        initializeWorkers(workerNum);
+    }
+
+    @Override
+    public void execute(Job job) {
+        if (job != null) {
+            // 添加一个工作者，然后进行通知
+            synchronized (job) {
+                jobs.addLast(job);
+                jobs.notify();
+            }
+        }
+    }
+
+    @Override
+    public void shutDown() {
+        for (Worker worker:workers) {
+            worker.shutDown();
+        }
+    }
+
+    @Override
+    public void addWorker(int num) {
+        synchronized (jobs) {
+            // 限制新增的Worker数量不能超过最大值
+            if (num + this.workerNum &gt; MAX_WORKER_NUMBERS) {
+                num = MAX_WORKER_NUMBERS - this.workerNum;
+            }
+            initializeWorkers(num);
+            this.workerNum += num;
+        }
+    }
+
+    @Override
+    public void removeWorker(int num) {
+        synchronized (jobs) {
+            if (num &gt;= this.workerNum)
+                throw new IllegalArgumentException(&quot;beyond workNum&quot;);
+            // 按照给定的数量停止Worker
+            int count = 0;
+            while (count &lt; num) {
+                Worker worker = workers.get(count);
+                if (workers.remove(worker)) {
+                    worker.shutDown();
+                    count ++;
+                }
+            }
+            this.workerNum -= count;
+        }
+    }
+
+    @Override
+    public int getJobSize() {
+        return jobs.size();
+    }
+
+
+    // 初始化线程工作者
+    private void initializeWorkers(int num) {
+        for (int i = 0; i &lt; num; i++) {
+            Worker worker = new Worker();
+            workers.add(worker);
+            Thread thread = new Thread(worker, &quot;ThreadPool-Worker-&quot; + threadNum.incrementAndGet());
+            thread.start();
+        }
+    }
+
+    // 工作者，负责消费任务
+    class Worker implements Runnable {
+        // 是否工作
+        private volatile boolean running = true;
+        @Override
+        public void run() {
+            while (running) {
+                Job job = null;
+                synchronized (jobs) {
+                    // 如果工作者列表是空的，那么就wait
+                    while (jobs.isEmpty()) {
+                        try {
+                            jobs.wait();
+                        } catch (InterruptedException e) {
+                            // 感知到我补对WorkerThread的终端操作，返回
+                            Thread.currentThread().interrupt();
+                            return;
+                        }
+                    }
+                    // 取出一个Job
+                    job = jobs.removeFirst();
+                }
+                if (job != null) {
+                    try {
+                        job.run();
+                    } catch (Exception e) {
+                        // 忽略Job执行中的Exception
+                    }
+                }
+            }
+        }
+        public void shutDown() {
+            running = false;
+        }
+    }
+}
+</code></pre>
+
+<h2 id="toc_2">SimpleHttpServer (Web服务器)</h2>
+
+<p>SimpleHttpServer 时序图<br/>
+<img src="media/15508972452401/15508975198193.jpg" alt=""/></p>
+
+<pre><code class="language-java">package test.ThreadPoolDemo;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+/**
+ * @author xuzhihua
+ * @date 2019/2/23 12:23 PM
+ * 基于线程池技术的简单Web服务器
+ */
+public class SimpleHttpServer {
+    // 处理HttpRequest的线程池
+    static ThreadPool&lt;HttpRequestHandler&gt; threadPool = new DefaultThreadPool&lt;&gt;(1);
+    // SimpleHttpServer的根路径
+    static String basePath;
+    static ServerSocket serverSocket;
+    static int port = 8080;
+    public static void setPort(int port) {
+        if (port &gt; 0) {
+            SimpleHttpServer.port = port;
+        }
+    }
+    public static void setBasePath(String basePath) {
+        if (basePath != null &amp;&amp; new File(basePath).exists() &amp;&amp; new File(basePath).isDirectory())
+            SimpleHttpServer.basePath = basePath;
+    }
+
+    // 启动SimpleHttpServer
+    public static void start() throws Exception {
+        serverSocket = new ServerSocket(port);
+        Socket socket = null;
+        while ((socket = serverSocket.accept()) != null) {
+            // 接收一个客户端Socket，生成一个 HttpRequestHandler， 放入线程池执行
+            threadPool.execute(new HttpRequestHandler(socket));
+        }
+        serverSocket.close();
+    }
+
+
+
+    static class HttpRequestHandler implements Runnable {
+        private Socket socket;
+
+        public HttpRequestHandler(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            String line = null;
+            BufferedReader br = null;
+            BufferedReader reader = null;
+            PrintWriter out = null;
+            InputStream in = null;
+            try {
+                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String header = reader.readLine();
+                // 由相对路径计算出绝对路径
+                String filePath = basePath + header.split(&quot; &quot;)[1];
+                out = new PrintWriter(socket.getOutputStream());
+                // 如果请求资源的后缀为jpg或ico，则读取资源并输出
+                if (filePath.endsWith(&quot;jpg&quot;) || filePath.endsWith(&quot;ico&quot;)) {
+                    in = new FileInputStream(filePath);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    int i = 0;
+                    while ((i = in.read()) != -1) {
+                        baos.write(i);
+                    }
+                    byte[] array = baos.toByteArray();
+                    out.println(&quot;HTTP/1.1 200 OK&quot;);
+                    out.println(&quot;Server: molly&quot;);
+                    out.println(&quot;Content-Type: image/jpeg&quot;);
+                    out.println(&quot;Content-length: &quot; + array.length);
+                    out.println(&quot; &quot;);
+                    socket.getOutputStream().write(array, 0, array.length);
+                } else {
+                    br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
+                    out = new PrintWriter(socket.getOutputStream());
+                    out.println(&quot;HTTP/1.1 200 OK&quot;);
+                    out.println(&quot;Server: molly&quot;);
+                    out.println(&quot;Content-Type: text/html; charset=UTF-8&quot;);
+                    out.println(&quot; &quot;);
+                    while ((line = br.readLine()) != null) {
+                        out.println(line);
+                    }
+                }
+                out.flush();
+            } catch (Exception e) {
+                out.println(&quot;HTTP/1.1 500&quot;);
+                out.println(&quot; &quot;);
+                out.flush();
+            } finally {
+                close(br, in, reader, out, socket);
+            }
+        }
+    }
+    // 关闭流或者Socket
+    private static void close(Closeable... closeables) {
+        if (closeables != null) {
+            for (Closeable closeable : closeables) {
+                try {
+                    closeable.getClass();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+</code></pre>
+
+<h2 id="toc_3">测试方法</h2>
+
+<ol>
+<li><p>准备一个html文件</p>
+
+<pre><code class="language-html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;测试页面&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;第一张图片&lt;/h1&gt;
+        &lt;img src=&quot;1.jpg&quot; /&gt;
+        &lt;h1&gt;第二张图片&lt;/h1&gt;
+        &lt;img src=&quot;2.jpg&quot; /&gt;
+        &lt;h1&gt;第三张图片&lt;/h1&gt;
+        &lt;img src=&quot;3.jpg&quot; /&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre></li>
+<li><p>将SimpleHttpServer的根目录设置到该HTML页面所在目录，并启动SimpleHttpServer</p></li>
+<li><p>通过 ab(Apache HTTP Server benchmarking tool) 来测试不同线程数下， SimpleHttpServer的吞吐量表现</p></li>
+</ol>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

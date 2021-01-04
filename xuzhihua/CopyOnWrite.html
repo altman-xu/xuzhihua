@@ -1,0 +1,407 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	Linux的Copy On Write机制 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">Linux的Copy On Write机制</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p><a href="https://www.cnblogs.com/Java3y/p/9884583.html">COW奶牛！Copy On Write机制了解一下</a><br/>
+<a href="https://blog.csdn.net/bad_good_man/article/details/49364947">程序员必备知识——fork和exec函数详解</a><br/>
+<a href="https://blog.csdn.net/jason314/article/details/5640969">linux中fork（）函数详解（原创！！实例讲解）</a><br/>
+<a href="https://blog.csdn.net/nvd11/article/details/8856278">linux c语言 fork() 和 exec 函数的简介和用法</a><br/>
+<a href="https://www.cnblogs.com/hicjiajia/archive/2011/01/20/1940154.html">Linux下Fork与Exec使用</a><br/>
+<a href="https://blog.csdn.net/chen892704067/article/details/76596225">Linux 系统调用 —— fork()内核源码剖析</a><br/>
+<a href="http://www.cnblogs.com/vamei/archive/2012/09/20/2694466.html">Linux进程基础：</a><br/>
+<a href="http://www.cnblogs.com/biyeymyhjob/archive/2012/07/20/2601655.html">Linux写时拷贝技术(copy-on-write)</a><br/>
+<a href="https://zhuanlan.zhihu.com/p/33159508">当你在 Linux 上启动一个进程时会发生什么？</a><br/>
+<a href="https://www.zhihu.com/question/265400460">Linux fork()所谓的写时复制(COW)到最后还是要先复制再写吗？</a><br/>
+<a href="https://blog.csdn.net/u012333003/article/details/25117457">写时拷贝（copy－on－write） COW技术</a><br/>
+<a href="https://blog.csdn.net/ppppppppp2009/article/details/22750939">Copy-On-Write 写时复制原理</a><br/>
+<a href="https://www.zhihu.com/question/19782224/answers/created">文件系统中的 copy-on-write 模式有什么具体的好处？</a><br/>
+<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-btrfs/">新一代 Linux 文件系统 btrfs 简介:</a><br/>
+<a href="http://ifeve.com/java-copy-on-write/">聊聊并发-Java中的Copy-On-Write容器</a><br/>
+&lt;!-- more --&gt;</p>
+</blockquote>
+
+<ul>
+<li>
+<a href="#toc_0">Linux下的copy-on-write</a>
+<ul>
+<li>
+<a href="#toc_1">1.1 fork</a>
+</li>
+<li>
+<a href="#toc_2">1.2 exec</a>
+</li>
+<li>
+<a href="#toc_3">1.3 copyOnWrite</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_4">Redis的COW</a>
+</li>
+<li>
+<a href="#toc_5">文件系统的COW</a>
+</li>
+<li>
+<a href="#toc_6">java中COW</a>
+</li>
+<li>
+<a href="#toc_7">维基百科中COW</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">Linux下的copy-on-write</h2>
+
+<p>在说明Linux下的copy-on-write机制前，我们首先要知道两个函数：<code>fork()</code>和<code>exec()</code>。需要注意的是<code>exec()</code>并不是一个特定的函数, 它是一组函数的统称, 它包括了<code>execl()</code>、<code>execlp()</code>、<code>execv()</code>、<code>execle()</code>、<code>execve()</code>、<code>execvp()</code></p>
+
+<h3 id="toc_1">1.1 fork</h3>
+
+<blockquote>
+<p>fork is operation whereby a process creates a copy of itself</p>
+</blockquote>
+
+<p>fork是类Unix操作系统上创建进程的主要方法。fork用于创建子进程(相当于当前进程的副本)</p>
+
+<blockquote>
+<p>新的进程主要通过老单进程复制自身得到，这就是fork<br/>
+linxu下init进程是所有进程的爹(相当于java中的Object对象)<br/>
+Linux进程都是通过init进程或init的子进程fork(vfork)出来的</p>
+</blockquote>
+
+<pre><code class="language-c">#include &lt;unistd.h&gt;  
+#include &lt;stdio.h&gt;  
+int main ()   
+{   
+    pid_t fpid; //fpid表示fork函数返回的值  
+    int count=0;
+    
+    // 调用fork，创建出子进程  
+    fpid=fork();
+
+    // 所以下面的代码有两个进程执行！
+    if (fpid &lt; 0)   
+        printf(&quot;创建进程失败!/n&quot;);   
+    else if (fpid == 0) {  
+        printf(&quot;我是子进程，由父进程fork出来/n&quot;);   
+        count++;  
+    }  
+    else {  
+        printf(&quot;我是父进程/n&quot;);   
+        count++;  
+    }  
+    printf(&quot;统计结果是: %d/n&quot;,count);  
+    return 0;  
+}
+
+/////// 输出结果
+我是子进程，由父进程fork出来
+
+统计结果是: 1
+
+我是父进程
+
+统计结果是: 1
+</code></pre>
+
+<blockquote>
+<p>fork作为一个函数被调用。这个函数会有两次返回，将子进程的pid返回给父进程，0返回给子进程。(小于0，则说明创建子进程异常)<br/>
+再次说明:当前进程调用<code>fork()</code>，<strong>会创建一个跟当前进程完全相同的子进程(除了pid)，所以子进程同样会执行<code>fork()</code>之后的代码</strong></p>
+</blockquote>
+
+<h3 id="toc_2">1.2 exec</h3>
+
+<p>从上面我们已经知道了fork会创建一个子进程。子进程是父进程的副本。<br/>
+exec函数的作用是:装在一个新的程序(可执行映像_覆盖当前内存空间中的映像，从而执行不同的任务</p>
+
+<blockquote>
+<p>exec系列函数在执行时会直接替换掉当前进程的地址空间</p>
+</blockquote>
+
+<p><img src="media/15989697131862/15989703870611.jpg" alt=""/></p>
+
+<h3 id="toc_3">1.3 copyOnWrite</h3>
+
+<blockquote>
+<p>fork()会产生一个和父进程完全相同的子进程(除了pid)</p>
+</blockquote>
+
+<p>如果按照传统的做法，会直接将父进程的数据拷贝到子进程中，拷贝完之后，父进程和子进程质检的数据段和栈段是互相独立的<br/>
+<img src="media/15989697131862/15989705725236.jpg" alt=""/></p>
+
+<p>但是，以我们的使用经验来说:往往子进程都会执行<code>exec()</code>来做自己想要实现的功能</p>
+
+<blockquote>
+<p>所以，如果按照上面的做法的话，创建子进程时复制过去的数据是没用的(因为子进程执行<code>exec()</code>，原有的数据会被清空)</p>
+</blockquote>
+
+<p>既然很多时候复制给子进程的数据是无效的，于是就有了 Copy On Write 这项技术了， 原理也很简单:</p>
+
+<blockquote>
+<p>fork创建出的子进程，与父进程共享内存空间。也就是说，如果子进程不对内存空间进行写入操作的话，内存空间的数据并不会复制给子进程，这样创建子进程的速度就很快了(不用复制，直接引用父进程的物理空间)<br/>
+并且如果在fork函数返回之后，子进程第一时间exec一个新的可执行映像，那么也不会浪费时间和内存空间了。</p>
+</blockquote>
+
+<p>另外的表达方式:</p>
+
+<blockquote>
+<p>在fork之后exec之前两个进程用的相同的物理空间(内存区)，子进程的代码段、数据段、栈段都是指向父进程的物理空间，也就是说，两者的虚拟空间不同，但其对应的物理空间是同一个。<br/>
+当父子进程中有更改相应段的行为发生时，再为子进程相应的段分配物理空间<br/>
+如果不是exec，内核会给子进程的数据段、栈段分配相应的物理空间(至此两者有各自的进程空间，互补影像)代码段继续共享父进程的物理空间(两者的代码完全相同)<br/>
+而如果因为exec，由于两者执行的代码不同，子进程的代码段也会分配单独的物理空间</p>
+</blockquote>
+
+<p>Copy On Write 技术实现原理:</p>
+
+<blockquote>
+<p>fork()之后，kernel将父进程中所有的内存页的权限都设为read-only，然后子进程的地址空间指向父进程。当父子进程都只读内存时，相安无事。当其中某个进程写内存时，CPU硬件检测到内存页是read-only的，于是触发页异常中断(page-fault)，陷入kernel的一个中断例程。中断例程中，kernel会把触发的异常的页复制一份，于是父子进程各自持有独立的一份</p>
+</blockquote>
+
+<p>Copy On Write 技术有点:</p>
+
+<blockquote>
+<p>COW技术可减少分配和复制大量资源时带来的瞬间延时。<br/>
+COW技术可减少不必要的资源分配。比如fork进程时，并不是所有的页面都需要复制，父进程的代码段和只读数据段都不被允许修改，所以无需复制。</p>
+</blockquote>
+
+<p>Copy On Write 技术缺点:</p>
+
+<blockquote>
+<p>如果在fork()之后，父子进程都还需要继续进行写操作，那么会产生大量的分页错误(页异常中断page-fault)，这样就得不偿失。</p>
+</blockquote>
+
+<p>几句话总结Linux的Copy On Write技术:</p>
+
+<blockquote>
+<p>fork出的子进程共享父进程的物理空间，当父子进程有内存写入操作时，read-only内存页发生中断，将触发的异常的内存页复制一份(其余的页还是共享父进程的)。<br/>
+fork出的子进程功能实现和父进程是一样的。如果有需要，我们会用exec()把当前进程映像替换成新的进程文件，完成自己想要实现的功能。</p>
+</blockquote>
+
+<h2 id="toc_4">Redis的COW</h2>
+
+<blockquote>
+<p>《Redis设计与实现》：<br/>
+执行BGSAVE命令或者BGREWRITEAOF命令的过程中，Redis需要创建当前服务器进程的子进程，而大多数操作系统都采用写时复制（copy-on-write）来优化子进程的使用效率，所以在子进程存在期间，服务器会提高负载因子的阈值，从而避免在子进程存在期间进行哈希表扩展操作，避免不必要的内存写入操作，最大限度地节约内存。</p>
+</blockquote>
+
+<p>理解:</p>
+
+<blockquote>
+<p>Redis在持久化时，如果是采用BGSAVE命令或者BGREWRITEAOF的方式，那Redis会fork出一个子进程来读取数据，从而写到磁盘中。<br/>
+总体来看，Redis还是读操作比较多。如果子进程存在期间，发生了大量的写操作，那可能就会出现很多的分页错误(页异常中断page-fault)，这样就得耗费不少性能在复制上。<br/>
+而在rehash阶段上，写操作是无法避免的。所以Redis在fork出子进程之后，将负载因子阈值提高，尽量减少写操作，避免不必要的内存写入操作，最大限度地节约内存。</p>
+</blockquote>
+
+<h2 id="toc_5">文件系统的COW</h2>
+
+<p>Copy-on-write在对数据进行修改的时候，不会直接在原来的数据位置上进行操作，而是重新找个位置修改，这样的好处是一旦系统突然断电，重启之后不需要做Fsck。好处就是能保证数据的完整性，掉电的话容易恢复。</p>
+
+<p>比如说：要修改数据块A的内容，先把A读出来，写到B块里面去。如果这时候断电了，原来A的内容还在！</p>
+
+<h2 id="toc_6">java中COW</h2>
+
+<p>CopyOnWriteArrayList.java<br/>
+CopyOnWriteArraySet.java</p>
+
+<h2 id="toc_7">维基百科中COW</h2>
+
+<blockquote>
+<p>写入时复制（英语：Copy-on-write，简称COW）是一种计算机程序设计领域的优化策略。其核心思想是，如果有多个调用者（callers）同时请求相同资源（如内存或磁盘上的数据存储），他们会共同获取相同的指针指向相同的资源，直到某个调用者试图修改资源的内容时，系统才会真正复制一份专用副本（private copy）给该调用者，而其他调用者所见到的最初的资源仍然保持不变。这过程对其他的调用者都是透明的（transparently）。此作法主要的优点是如果调用者没有修改该资源，就不会有副本（private copy）被建立，因此多个调用者只是读取操作时可以共享同一份资源。</p>
+</blockquote>
+
+<p>至少从本文我们可以总结出：</p>
+
+<blockquote>
+<p>Linux通过Copy On Write技术极大地减少了Fork的开销。<br/>
+文件系统通过Copy On Write技术一定程度上保证数据的完整性。</p>
+</blockquote>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

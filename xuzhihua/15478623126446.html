@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	RocketMQ 术语 与 集群方式 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">RocketMQ 术语 与 集群方式</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">RocketMQ 术语</a>
+</li>
+<li>
+<a href="#toc_1">Rocket 集群方式</a>
+<ul>
+<li>
+<a href="#toc_2">1. 单个 Master 模式</a>
+</li>
+<li>
+<a href="#toc_3">2. 多 Master 模式</a>
+</li>
+<li>
+<a href="#toc_4">3. 多 Master 多 Slave 模式，异步复制</a>
+</li>
+<li>
+<a href="#toc_5">4. 多 Master 多 Slave 模式，同步双写</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="toc_0">RocketMQ 术语</h2>
+
+<pre><code class="language-java">Producer : 消息生产者，负责生产熊希，一般由业务系统负责生产消息
+Consumer : 消息消费者，负责消费消息，一般是后台系统负责异步消费
+Push Consumer : Consumer 的一种，应用通常向 Consumer 对象注册一个 Listener 接口，一旦受到消息，Consumer 对象立刻回调 Listener 接口方法  
+Pull Consumer : Consumer 的一种，应用通常主动调用 Consumer 的拉消息方法从 broker 拉消息，主动权由应用控制
+Producer Group : 一类 Producer 的集合名称，这类 Producer 通常发送一类消息，且发送逻辑一致
+Consumer Group : 一类 Consumer 的集合名称，这类 Consumer 通常消费一类消息，且消费逻辑一致
+Broker : 消息中转角色，负责存储消息，一般也称为 Server，在 JMS 规范中称为 Provider
+广播消费 : 一条消息被多个 Consumer 消费，即使这些 Consumer 属于同一个 Consumer Group， 消息也会被 Consumer Group 中的每个 Consumer 都消费一次，广播消费中的 Consumer Group 概念可以认为在消息划分方面无意义
+集群消费 : 一个 Consumer Group 中的 Consumer 实例平均分摊消费消息。例如某个 Topic 有9条消息，其中一个 Consumer Group 有3个实例(可能是3个进程，或3台机器)，那么没听歌实例只消费其中的3条消息 
+顺序消费 : 消费消息的顺序要同步发送消息的顺序一致，在 RocketMQ 中，主要指的是局部顺序，即一类消息为满足顺序性，必须 Producer 单线程顺序发送，且发送到同一个队列，这样 Consumer 就可以按照 Producer 发送的顺序去消费消息
+普通顺序消息 : 顺序消息的一种，正常情况下可以保证完全的顺序消息，但是一旦发生通信异常，Broker 重启，由于队列总数发生变化，哈希取模后定位的队列会变化，产生的消息顺序不一致
+严格顺序消息 : 顺序消息的一种，无论正常异常情况都能保证顺序，但是牺牲了分布式 Fallower 特性，即 Broker 集群中只要有一台消息不可用，则整个集群都不可用，服务可用性大大降低
+</code></pre>
+
+<h2 id="toc_1">Rocket 集群方式</h2>
+
+<h3 id="toc_2">1. 单个 Master 模式</h3>
+
+<blockquote>
+<p>这种方式风险较大， 一旦 Broker 重启或者宕机，会导致整个服务不可用，不建议线上环境使用</p>
+</blockquote>
+
+<h3 id="toc_3">2. 多 Master 模式</h3>
+
+<blockquote>
+<p>一个集群无 Slave， 全是 Master，如2个 Master 或3个 Master</p>
+</blockquote>
+
+<ol>
+<li>优点： 配置简单，单个 Master 宕机或重启维护对应用无影响，在磁盘配置为 RAID10 时，及时机器宕机不可恢复情况下，由于 RAID10 非常可靠，消息也不会丢(异步刷盘丢失少量数据，同步刷盘一条不丢)，性能最高</li>
+<li>缺点: 但台机器宕机期间，这台机器上未被消费的消息在及其恢复之前不可订阅， 消息实时性会受到影响</li>
+<li><p>操作顺序：</p>
+
+<ol>
+<li>先启动 NameServer</li>
+<li>在机器 A， 启动第一个 Master</li>
+<li>在机器 B， 启动第二个 Master</li>
+</ol></li>
+</ol>
+
+<h3 id="toc_4">3. 多 Master 多 Slave 模式，异步复制</h3>
+
+<blockquote>
+<p>每个 Master 配置一个 Slave，有多对 Master-Slave， HA 采用异步复制方式，主备有短暂消息延迟，毫秒级</p>
+</blockquote>
+
+<ol>
+<li>优点： 及时磁盘损坏，消息丢失的非常少，且消息实时性不会受影响，因为 Master 当即后，消费者仍然可以从 Slave 消费，此过程对应用透明，不需要人工干预，性能同多 Master 模式几乎一样</li>
+<li>缺点 ： Master 宕机，磁盘损坏情况，会丢失少量消息</li>
+<li><p>操作顺序： </p>
+
+<ol>
+<li>先启动 NameServer</li>
+<li>在机器 A，启动第一个 Master</li>
+<li>在机器 B，启动第二个 Master</li>
+<li>在机器 C，启动第一个 Slave</li>
+<li>在机器 D，启动第二个 Slave</li>
+</ol></li>
+</ol>
+
+<h3 id="toc_5">4. 多 Master 多 Slave 模式，同步双写</h3>
+
+<blockquote>
+<p>每个 Master 配置一个 Slave，有多对 Master-Slave，HA采用同步双鞋方式，主备都写成功，向应用返回成功</p>
+</blockquote>
+
+<ol>
+<li>优点： 数据与服务都无单点，Master 当激情开下，消息无延迟，服务可用性与数据可用性都非常高</li>
+<li>性能比异步复制模式略低，大约低10%左右，发送大哥熊希的 RT (realtime) 会略高。目前主宕机后，备机不能自动切换为主机，后续会支持自动切换功能</li>
+<li><p>操作顺序： </p>
+
+<ol>
+<li>先启动 NameServer</li>
+<li>在机器 A，启动第一个 Master</li>
+<li>在机器 B，启动第二个 Master</li>
+<li>在机器 C，启动第一个 Slave</li>
+<li>在机器 D，启动第二个 Slave </li>
+</ol></li>
+</ol>
+
+<blockquote>
+<p>以上 Broker 与 Slave 配对是通过指定相同的 brokerName 参数来配对， Master 的 BrokerId 必须是0， Slave 的 BrokerId 必须是大于 0 的树，另外一个 Master下面可以挂载多个 Slave，同一个 Master 下的多个 Slave 通过制定不同的 BrokerId 来区分</p>
+</blockquote>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

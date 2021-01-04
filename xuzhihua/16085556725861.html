@@ -1,0 +1,731 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	深入理解计算机系统 CSAPP - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">深入理解计算机系统 CSAPP</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<p>20201221-</p>
+
+<h2 id="toc_0">从hello.c源文件 到 hello 可执行文件过程</h2>
+
+<pre><code class="language-c">// hello.c
+#include &lt;stdio.h&gt;
+int main() 
+{
+    printf(&quot;hello, world\n&quot;);
+    return 0;
+}
+</code></pre>
+
+<p>linux&gt;gcc -Og -o hello hello.c  ## -0g 表示优化等级(生成符合原始C代码整体结构的机器代码的优化等级)，还有-O1 -O2 <br/>
+执行这个命令，gcc编译器读取源文件hello.c并将它翻译成一个可执行目标文件hello过程:</p>
+
+<p><img src="media/16085556725861/16085558608774.jpg" alt=""/></p>
+
+<ol>
+<li><code>预处理阶段</code> 预处理器(cpp)根据以字符#开头的命令，修改原始的C程序。比如hello.c中第一行的#include <stdio.h> 命令告诉预处理器读取系统头文件stdio.h的内容，并把它直接插入程序文本中；并扩展所有用#define声明指定的宏，结果就得到了另一个C程序，通常是以.i作为文件扩展名</li>
+<li><p><code>编译阶段</code> 编译器(ccl)将文本文件hello.i文件翻译成文本文件hello.s，它包含一个汇编语言程序，程序里面的低级机器语言指令。函数main的定义如下</p>
+
+<pre><code>main
+    subq    $8,%rsp
+    movl    $.LCO,%edi
+    call    puts
+    movl    $0,%eax
+    addq    $8,%rsp
+    ret
+</code></pre></li>
+<li><p><code>汇编阶段</code> 汇编器(as)将hello.s翻译成机器语言指令，把这些指令打包成一种叫 <code>可重定位目标程序(relocatable object program)</code> 的格式，并将结果保存在目标文件hello.o中。hello.o是一个二进制文件，它包含的17个字节是函数main的指令编码</p></li>
+<li><p><code>链接阶段</code> hello程序调用了printf函数，他是每个c编译器都提供的标准C库中的一个函数。printf函数存在于一个名为printf.o的单独的预编译号的目标文件中，而这个文件必须以某种方式合并到我们的hello.o程序中。链接器(ld)就负责这种合并。结果就得到hello文件，他是一个可执行目标文件(简称可执行文件)，可以被加载到内存中，由系统执行</p></li>
+</ol>
+
+<h2 id="toc_1">操作系统</h2>
+
+<p>操作系统的两个基本功能</p>
+
+<ol>
+<li>防止硬件被时空的应用程序滥用</li>
+<li>向应用程序提供简单一致的机制来控制复杂而又通常大不相同的低级硬件设备</li>
+</ol>
+
+<p>操作系统通过几个基本的抽象概念(进程、虚拟内存和文件)来实现这两个功能<br/>
+<code>文件</code>是对I/O设备的抽象表示<br/>
+<code>虚拟内存</code>是对主存和磁盘I/O设备的抽象表示<br/>
+<code>进程</code>是对处理器、主存和I/O设备的抽象表示</p>
+
+<h2 id="toc_2">Amdahl定律</h2>
+
+<p><img src="media/16085556725861/16085591034625.jpg" alt=""/></p>
+
+<h2 id="toc_3">第一章问题解答</h2>
+
+<p>Told = 2500/100 = 25<br/>
+Tnew = (2500-1500)/100 + 1500/150 = 10+10 = 20<br/>
+25/20 = 1.25</p>
+
+<p>25/(10 + 1500/x) = 1.67<br/>
+10+1500/x = 14.97<br/>
+1500/x=4.97<br/>
+x=300</p>
+
+<p>1/((1-0.8) + 0.8/k) = 2<br/>
+0.5=0.2+0.8/k<br/>
+0.8/k = 0.3<br/>
+k = 2.67</p>
+
+<h2 id="toc_4">数字表示</h2>
+
+<p><code>无符号(unsigned)</code>编码基于传统的二进制表示法，表示大于或等于0的数字<br/>
+<code>补码(two&#39;s--complement)</code>编码是表示有符号整数的最常见的方式，有符号整数就是可以为正或为负的数字<br/>
+<code>浮点数(floating-point)</code>编码是表示实数的科学计数法的以2为基数的版本</p>
+
+<p>由于表示的精度优先，浮点运算时不可结合的。例如在大多数机器上，C表达式<br/>
+(3.14+1e20)-1e20的值会是0.0，而<br/>
+3.14+(1e20-1e20)的值会是3.14. 整数预算和浮点数运算会有不同的数学属性是因为他们处理数字表示有限性的方式不同:<br/>
+整数的表示虽然只能编码一个相对娇小的数值方位，但这种表示是精确的<br/>
+浮点数虽然可以编码一个较大的数值方位，但这种表示只是近似的</p>
+
+<h2 id="toc_5">大端法 小端法</h2>
+
+<p><img src="media/16085556725861/16086060176245.jpg" alt=""/></p>
+
+<p>逻辑右移:在左端补k个0<br/>
+算数右移:在左端补k个最高有效位的值</p>
+
+<blockquote>
+<p>C语音没明确定义有符号数应该使用哪种类型的右移<br/>
+但几乎所有的编译器对有符号数使用算数右移，对无符号数，使用逻辑右移<br/>
+java明确定义了， x&gt;&gt;K(将x算数右移k个位置)   x&gt;&gt;&gt;k(将x逻辑右移k个位置)</p>
+
+<p>C语言标准没有指定有符号数要采用某种表示，但是几乎所有机器都默认采用补码，通常大多数数字都默认认为是有符号的。<br/><br/>
+x=12345 或 y=0x1A2B, 这两个值就被认为是有符号的<br/>
+x=12345U 或 y=0x1A2Bu, 这两个值就被认为是无符号的。 加上后缀字符&#39;U&#39;或&#39;u&#39;</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>全称</th>
+<th>含义</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>B2Tw</td>
+<td>Binary to Two&#39;s-complement</td>
+<td>二进制转补码</td>
+</tr>
+<tr>
+<td>B2Uw</td>
+<td>Binary to Unsigned</td>
+<td>二进制转无符号数</td>
+</tr>
+<tr>
+<td>U2Bw</td>
+<td></td>
+<td>无符号数转二进制</td>
+</tr>
+<tr>
+<td>U2Tw</td>
+<td></td>
+<td>无符号转补码</td>
+</tr>
+<tr>
+<td>T2Bw</td>
+<td></td>
+<td>补码转二进制</td>
+</tr>
+<tr>
+<td>T2Uw</td>
+<td></td>
+<td>补码转无符号数</td>
+</tr>
+<tr>
+<td>TMinw</td>
+<td></td>
+<td>最小补码值</td>
+</tr>
+<tr>
+<td>TMaxw</td>
+<td></td>
+<td>最大补码值</td>
+</tr>
+<tr>
+<td>UMaxw</td>
+<td></td>
+<td>最大无符号数</td>
+</tr>
+</tbody>
+</table>
+
+<p>原码: sing-magnitude<br/>
+反码: one&#39;s-complement<br/>
+补码: two&#39;s-complement</p>
+
+<p><img src="media/16085556725861/16089085691919.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089085862469.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089086040229.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089086520086.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089087085709.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089087843149.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089092518939.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089092720360.jpg" alt=""/></p>
+
+<p><img src="media/16085556725861/16089435760663.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089435931550.jpg" alt=""/></p>
+
+<p><img src="media/16085556725861/16089099568496.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089099718129.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089103534577.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089104090128.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089435417980.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089438379281.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089440275229.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089441137626.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089442155888.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089444189059.jpg" alt=""/><br/>
+<img src="media/16085556725861/16089445366644.jpg" alt=""/><br/>
+<img src="media/16085556725861/16090324406580.jpg" alt=""/><br/>
+<img src="media/16085556725861/16090344768616.jpg" alt=""/></p>
+
+<h2 id="toc_6">乘法 除法</h2>
+
+<p>在大多数机器上<br/>
+整数乘法需要10个或更多的时钟周期， Inter Core i7 Haswell 上整数乘法需要3个时钟周期<br/>
+整数除法需要30个或更多的时钟周期</p>
+
+<p>故乘法转为 位移(左移)、加法、减法组合代替(编译器优化)<br/>
+例如: x*14  14 = 2<sup>3</sup> + 2<sup>2</sup> + 2<sup>1</sup>  故 x*14 = (x&lt;&lt;3)+(x&lt;&lt;2)+(x&lt;&lt;1)</p>
+
+<p>除法转为 位移(右移)、加法、减法组合代替(编译器优化)</p>
+
+<h2 id="toc_7">浮点数</h2>
+
+<p>IEEE浮点数标准 下面形式来表示一个数<br/>
+V=(-1)<sup>s</sup> *M * 2<sup>E</sup> </p>
+
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>符号(sign)</td>
+<td>s决定这数是负数(s=1)还是正数(s=0)，而这对于数值0的符号位解释做特殊处理</td>
+</tr>
+<tr>
+<td>尾数(significand)</td>
+<td>M是一个二进制小数，它的范围是 1~2-e,或 0~1-e</td>
+</tr>
+<tr>
+<td>阶码(exponent)</td>
+<td>E的作用是对浮点数加权，这个权重是2的E次幂(可能是负数)</td>
+</tr>
+</tbody>
+</table>
+
+<p>将浮点数的位表示划分为3个字段，分别对这些值进行编码:</p>
+
+<ol>
+<li>一个单独的符号位s直接编码符号s</li>
+<li>k位的阶码字段 exp=e(k-1)......e1e0 编码阶码E</li>
+<li>n为小数字段 frac=f(n01)......f1f0 编码尾数M，但是编码出来的值也依赖与阶码字段的值是否等于0</li>
+</ol>
+
+<h2 id="toc_8">gcc</h2>
+
+<pre><code class="language-c">// mstore.c
+long mult2(long, long)
+void multstore(long x, long y, long *dest) {
+    long t = mult2(x, y)
+    *dest = t;
+}
+</code></pre>
+
+<p>终端执行</p>
+
+<ol>
+<li><p><code>gcc -Og -S mstore.c</code> gcc运行编译器，产生 ATT(根据AT&amp;T命名) 格式的汇编代码汇编文件 mstore.s，但不做其他进一步工作(通常情况，他还会继续调用汇编器生成目标代码文件)，<code>vi mstore.s</code>截图如下(所有已 . 开头的行都是指导汇编器和链接器工作的伪指令，通常忽略掉)  (<code>gcc -Og -S -masm=intel mstore.c</code> gcc将产生Intel格式的代码)</p>
+
+<p><img src="media/16085556725861/16090721358564.jpg" alt=""/></p></li>
+<li><p><code>gcc -Og -c mstore.c</code> gcc会变异并汇编该代码，产生目标代码文件 mstore.o，文件里是字节序列，对应一些列指令的编码， <code>vi mstore.o</code>截图如下</p>
+
+<p><img src="media/16085556725861/16090722509505.jpg" alt=""/></p></li>
+<li><p><code>objdump -d mstore.o</code> 反汇编器(objdump -d可以充当反汇编器) mstore.o文件，并输出到屏幕(如下图，左边是指令，右边是等价的汇编意愿)</p>
+
+<p><img src="media/16085556725861/16090707918246.jpg" alt=""/></p></li>
+<li><p>为mstore.c 添加一个 main.c 主函数，代码如下</p>
+
+<pre><code class="language-c">// main.c
+#include &lt;stdio.h&gt;
+void multstore(long , long, long *);
+int main() {
+    long d;
+    multstore(2, 3, &amp;d);
+    printf(&quot;2 * 3 --&gt; %ld\n&quot;, d);
+    return 0;
+}
+long mult2(long a, long b) {
+    long s = a * b;
+    return s;
+}
+</code></pre></li>
+<li><p><code>gcc -Og -o prog main.c mstore.c</code> 编译main.c mstore.c，产生可执行文件 prog，反汇编prog，结果如下图</p>
+
+<p><img src="media/16085556725861/16090715901955.jpg" alt=""/></p></li>
+<li><p>对面 mstore.o 和 prog 反汇编出来的，主要区别</p>
+
+<ol>
+<li>prog左边列出的地址不同：连接器将这段代码的地址移到了一段不同的地址范围中</li>
+<li>prog中链接器天数了callq指令调用函数mult2需要使用的地址：链接器的任务之一就是为函数调用找到匹配的函数的可执行代码的位置</li>
+<li>prog最后多了 nop 指令：这指令对程序没有影响，因为他们出现在返回指令<code>retq</code>后面，插入这个指令是为了使函数代码变为16字节的整数倍，使得就存储器系统性能而言，能更好的放置下一个代码块</li>
+</ol></li>
+<li><p>1</p></li>
+</ol>
+
+<p>在c程序中插入汇编代码的方法(注这些汇编代码与某类特殊机器(例如x86-64)有关,所以只应该在想要的特性只能以此种方式才能访问到时才使用它):</p>
+
+<ol>
+<li>编写完整的函数，放进一个独立的汇编代码文件中，让汇编器和链接器把它和用C语言书写的代码合并起来</li>
+<li>使用GCC的内联汇编特性。用asm伪指令可以在c程序中包含简短的汇编代码，这种方法好处是减少了与机器相关的代码量</li>
+</ol>
+
+<h2 id="toc_9">数据格式</h2>
+
+<p>Inter用术语<br/>
+&quot;字(word)&quot;:表示16位数据类型<br/>
+&quot;双字(double worlds)&quot;:表示32位数据类型<br/>
+&quot;四字(quad worlds)&quot;:表示64位数据类型</p>
+
+<table>
+<thead>
+<tr>
+<th>C声明</th>
+<th>Intel数据类型</th>
+<th>汇编代码后缀</th>
+<th>大小(字节)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>char </td>
+<td>字节</td>
+<td>b</td>
+<td>1</td>
+</tr>
+<tr>
+<td>short</td>
+<td>字</td>
+<td>w</td>
+<td>2</td>
+</tr>
+<tr>
+<td>int</td>
+<td>双字</td>
+<td>l</td>
+<td>4</td>
+</tr>
+<tr>
+<td>long</td>
+<td>四字</td>
+<td>q</td>
+<td>8</td>
+</tr>
+<tr>
+<td>char*</td>
+<td>四字</td>
+<td>q</td>
+<td>8</td>
+</tr>
+<tr>
+<td>float</td>
+<td>单精度</td>
+<td>s</td>
+<td>4</td>
+</tr>
+<tr>
+<td>double</td>
+<td>双精度</td>
+<td>l</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+
+<p>大多数gcc生成的汇编代码指令都有一个字符的后缀，表明操作数的大小:<br/>
+movb(传送字节)<br/>
+movw(传送字)<br/>
+movl(传送双字)   !!!<br/>
+movq(传送四字)</p>
+
+<blockquote>
+<p>注:::<br/>
+l表示双字，因为32位数被看做长字(long word).<br/>
+l也表示双精度浮点数，这两个不会产生歧义，因为浮点数使用的是一组完全不同的指令和寄存器</p>
+</blockquote>
+
+<h2 id="toc_10">16个寄存器</h2>
+
+<p>一个x86-64的cpu办好一组16个存储64位值的通用目的寄存器(用来存储证书数据和指针)，名字都是以%r开头</p>
+
+<ol>
+<li>8086时，有8个16位的寄存器，即%ax到%bp</li>
+<li>IA32时，寄存器从16位扩展成32位，标号从%eax到%ebp</li>
+<li>x86-64时，寄存器从32位扩张到64位，标号从%rax到%rbp
+<img src="media/16085556725861/16090736732778.jpg" alt=""/></li>
+</ol>
+
+<h2 id="toc_11">操作数指示符</h2>
+
+<p>大多数指令有一个或多个操作数，指示出执行一个操作中要使用的源数据，以及放置结果的目的位置</p>
+
+<p>x86-64支持多种操作数格式</p>
+
+<p>操作数可被分成3中类型:</p>
+
+<ol>
+<li>立即数(immediate):用来表示常数值。 ATT格式的汇编代码中，书写方式是$后跟一个C语言表示的整数，例如$0x1F</li>
+<li>寄存器(register):表示某个寄存器的内容。16个寄存器的低位1字节、2字节、4字节或8字节中的一个作为操作数，用ra表示任意寄存器a，用引用R[ra]来表示它的值，这时将寄存器集合看成一个数组R，用寄存器标识符作为索引</li>
+<li><p>内存引用:根据计算出来的地址(通常称为有效地址)访问某个内存位置，用符号Mb[Addr]表示对存储在内存中从地址Addr开始的b个字节值的引用，为了简便，通常省去下标b</p>
+
+<p><img src="media/16085556725861/16090751929634.jpg" alt=""/></p></li>
+</ol>
+
+<h2 id="toc_12">数据传送指令 mov</h2>
+
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>效果</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>MOV   S,D</td>
+<td>D&lt;-S</td>
+<td>传送</td>
+</tr>
+<tr>
+<td>movb</td>
+<td></td>
+<td>传送字节</td>
+</tr>
+<tr>
+<td>movw</td>
+<td></td>
+<td>传送字</td>
+</tr>
+<tr>
+<td>movl</td>
+<td></td>
+<td>传送双字</td>
+</tr>
+<tr>
+<td>movq</td>
+<td></td>
+<td>传送四字</td>
+</tr>
+<tr>
+<td>movabsq I,R</td>
+<td>R&lt;-I</td>
+<td>传送绝对的四字</td>
+</tr>
+</tbody>
+</table>
+
+<p>将娇小的源值复制到较大的目的时使用 <br/>
+MOVZ: 把目的中剩余的字节填充为0<br/>
+MOVS: 通过符号扩展来填充，把源操作的最高位进行复制</p>
+
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>效果</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>MOVZ S,R</td>
+<td>R&lt;-零扩展(S)</td>
+<td>以零扩展进行传送</td>
+</tr>
+<tr>
+<td>movzbw</td>
+<td></td>
+<td>将做了零扩展的字节传送到字</td>
+</tr>
+<tr>
+<td>movzbl</td>
+<td></td>
+<td>将做了零扩展的字节传送到双字</td>
+</tr>
+<tr>
+<td>movzwl</td>
+<td></td>
+<td>将做了零扩展的字传送到双字</td>
+</tr>
+<tr>
+<td>movzbq</td>
+<td></td>
+<td>将做了零扩展的字节传送到四字</td>
+</tr>
+<tr>
+<td>movzwq</td>
+<td></td>
+<td>将做了零扩展的字传送到四字</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>效果</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>MOVS S,R</td>
+<td>R&lt;-符号扩展(S)</td>
+<td>以符号扩展进行传送</td>
+</tr>
+<tr>
+<td>movsbw</td>
+<td></td>
+<td>将做了符号扩展的字节传送到字</td>
+</tr>
+<tr>
+<td>movsbl</td>
+<td></td>
+<td>将做了符号扩展的字节传送到双字</td>
+</tr>
+<tr>
+<td>movswl</td>
+<td></td>
+<td>将做了符号扩展的字传送到双字</td>
+</tr>
+<tr>
+<td>movsbq</td>
+<td></td>
+<td>将做了符号扩展的字节传送到四字</td>
+</tr>
+<tr>
+<td>movswq</td>
+<td></td>
+<td>将做了符号扩展的字传送到四字</td>
+</tr>
+<tr>
+<td>movslq</td>
+<td></td>
+<td>将做了符号扩展的双字传送到四字</td>
+</tr>
+<tr>
+<td>cltq</td>
+<td>%rax&lt;-符号扩展(%eax)</td>
+<td>把%eax符号扩展到%rax</td>
+</tr>
+</tbody>
+</table>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	搭建 RocketMQ 双 Master 模式集群例子 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">搭建 RocketMQ 双 Master 模式集群例子</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">搭建 RocketMQ 双 Master 模式集群例子</a>
+<ul>
+<li>
+<a href="#toc_1">1. 规划</a>
+</li>
+<li>
+<a href="#toc_2">2. Hosts添加信息</a>
+</li>
+<li>
+<a href="#toc_3">3. 下载解压 rocketmq (两台机器)</a>
+</li>
+<li>
+<a href="#toc_4">4. 创建存储路径(两台机器)</a>
+</li>
+<li>
+<a href="#toc_5">5. ROcketMQ 配置文件(两台机器)</a>
+</li>
+<li>
+<a href="#toc_6">6. 修改日志配置文件(两台机器)</a>
+</li>
+<li>
+<a href="#toc_7">7. 修改启动脚本参数(两台机器)</a>
+</li>
+<li>
+<a href="#toc_8">8. 启动 NameServer (两台机器)</a>
+</li>
+<li>
+<a href="#toc_9">9. 启动 BrokerServerA (192.168.1.121)</a>
+</li>
+<li>
+<a href="#toc_10">10. 启动 BrokerServerB (192.168.1.122)</a>
+</li>
+<li>
+<a href="#toc_11">11. RocketMQ Console</a>
+</li>
+<li>
+<a href="#toc_12">12. 停止 RocketMQ 集群</a>
+</li>
+<li>
+<a href="#toc_13">13. 数据清理</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="toc_0">搭建 RocketMQ 双 Master 模式集群例子</h2>
+
+<p>以 root 用户执行下面操作</p>
+
+<h3 id="toc_1">1. 规划</h3>
+
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>IP</th>
+<th>角色</th>
+<th>模式</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>192.168.1.121</td>
+<td>NameServer1, brokerServer1</td>
+<td>Master1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>192.168.1.122</td>
+<td>NameServer2, brokerServer2</td>
+<td>Master2</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="toc_2">2. Hosts添加信息</h3>
+
+<p><code>vi /etc/hosts</code></p>
+
+<pre><code class="language-zsh">## 在两台 hosts 中添加下面四行内容
+192.168.1.121 rocketmq-nameserver1
+192.168.1.121 rocketmq-master1
+192.168.1.122 rocketmq-nameserver2
+192.168.1.122 rocketmq-master2
+</code></pre>
+
+<pre><code class="language-zsh">## 然后使其生效
+service network restart
+## 验证是否生效
+#### 分别在 192.168.1.121，192.168.1.122 上执行下面命令，验证是否 ping 通
+ping 192.168.1.121
+ping 192.168.1.122
+ping rocketmq-nameserver1
+ping rocketmq-master1
+ping rocketmq-nameserver2
+ping rocketmq-master2
+</code></pre>
+
+<h3 id="toc_3">3. 下载解压 rocketmq (两台机器)</h3>
+
+<pre><code class="language-zsh">tar -zxvf alibaba-rocketmq-3.2.6.tar.gz -C /usr/local
+mv alibaba-rocketmq alibaba-rocketmq-3.2.6
+ln -s alibaba-rocketmq-3.2.6 rocketmq
+</code></pre>
+
+<h3 id="toc_4">4. 创建存储路径(两台机器)</h3>
+
+<pre><code class="language-zsh">mkdir /usr/local/rocketmq/store
+mkdir /usr/local/rocketmq/commitlog
+mkdir /usr/local/rocketmq/consumequeue
+mkdir /usr/local/rocketmq/index
+</code></pre>
+
+<h3 id="toc_5">5. ROcketMQ 配置文件(两台机器)</h3>
+
+<pre><code class="language-zsh">vim /usr/local/rocketmq/conf/2m-noslave/broker-a.properties
+    
+vim /usr/local/rocketmq/conf/2m-noslave/broker-b.properties
+    
+## 将两个文件中的默认配置全部清掉，然后改成下面的内容
+    
+# 所属集群名字
+brokerClusterName=rocketmq-cluster
+#### broker 名字，注意此处不同的配置文件填写不一样 broker-a broker-b
+brokerName=broker-a
+# 0 表示 Master， 大于 0 表示 Slave
+brokerId=0
+# nameServer 地址，分号分割
+nameservAddr=rocketmq-nameserver1:9876;rocketmq-nameserver2:9876
+#在发送消息时，自动创建服务器不存在的topic，默认创建的队列数
+defaultTopicQueueNums=4
+#是否允许 Broker 自动创建Topic，建议线下开启，线上关闭
+autoCreateTopicEnable=true
+#是否允许 Broker 自动创建订阅组，建议线下开启，线上关闭
+autoCreateSubscriptionGroup=true
+#Broker 对外服务的监听端口
+listenPort=10911
+#删除文件时间点，默认凌晨 4点
+deleteWhen=04
+#文件保留时间，默认 48 小时
+fileReservedTime=120
+#commitLog每个文件的大小默认1G
+mapedFileSizeCommitLog=1073741824
+#ConsumeQueue每个文件默认存30W条，根据业务情况调整
+mapedFileSizeConsumeQueue=300000
+#destroyMapedFileIntervalForcibly=120000
+#redeleteHangedFileInterval=120000
+#检测物理文件磁盘空间
+diskMaxUsedSpaceRatio=88
+# 存储路径
+storePathRootDir=/usr/local/rocketmq/store
+# commitLog 存储路径
+storePathCommitLog=/usr/local/rocketmq/store/commitlog
+# 消费队列存储路径
+storePathConsumeQueue=/usr/local/rocketmq/store/consumequeue
+# 消息索引存储路径
+storePathIndex=/usr/local/rocketmq/store/index
+# checkpoint 文件存储路径
+storeCheckpoint=/usr/local/rocketmq/store/checkpoint
+# abort 文件存储路径
+abortFile=/usr/local/rocketmq/store/abort
+#限制的消息大小
+maxMessageSize=65536
+#flushCommitLogLeastPages=4
+#flushConsumeQueueLeastPages=2
+#flushCommitLogThoroughInterval=10000
+#flushConsumeQueueThoroughInterval=60000
+    
+# Broker 的角色
+#- ASYNC_MASTER 异步复制Master
+#- SYNC_MASTER 同步双写Master
+#- SLAVE
+brokerRole=ASYNC_MASTER
+#刷盘方式
+#- ASYNC_FLUSH 异步刷盘
+#- SYNC_FLUSH 同步刷盘
+flushDiskType=ASYNC_FLUSH
+#checkTransactionMessageEnable=false
+    
+#发消息线程池数量
+#sendMessageThreadPoolNums=128
+#拉消息线程池数量
+#pullMessageThreadPoolNums=128
+</code></pre>
+
+<h3 id="toc_6">6. 修改日志配置文件(两台机器)</h3>
+
+<pre><code class="language-zsh">mkdir -p /usr/local/rocketmq/logs
+cd /usr/local/rocketmq/conf &amp;&amp; sed -i &#39;s#${user.home}#/usr/local/rocketmq#g&#39; *.xml
+</code></pre>
+
+<h3 id="toc_7">7. 修改启动脚本参数(两台机器)</h3>
+
+<pre><code class="language-zsh">## 生产环境使用默认即可
+## 开发环境调整 Xms Xmx Xmn 大小 (xms最小1g，不然启不起来)
+    
+vi /usr/local/rocketmq/bin/runbroker.sh
+    
+JAVA_OPT=&quot;${JAVA_OPT} -server -Xms1g -Xmx1g -Xmn512 -XX:PermSize=128m -XX:MaxPermSize=320m&quot;
+    
+    
+vi /usr/local/rocketmq/bin/runserver.sh
+    
+JAVA_OPT=&quot;${JAVA_OPT} -server -Xms1g -Xmx1g -Xmn512 -XX:PermSize=128m -XX:MaxPermSize=320m&quot;
+</code></pre>
+
+<h3 id="toc_8">8. 启动 NameServer (两台机器)</h3>
+
+<pre><code class="language-zsh">cd /usr/local/rocketmq/bin
+nohup sh mqnamesrv &amp;
+    
+    
+## 验证命令 
+jps       ## 多了一个 NamesrvStartup 进程
+tail -f -n 500 /usr/local/rocketmq/logs/rocketmqlogs/namesrv.log
+</code></pre>
+
+<h3 id="toc_9">9. 启动 BrokerServerA (192.168.1.121)</h3>
+
+<pre><code class="language-zsh">cd /usr/local/rocketmq/bin
+nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-noslave/broker-a.properties &gt;/dev/null 2&gt;&amp;1 &amp;
+    
+## 验证命令
+netstat -ntlp
+jps  ## 多了一个 BrokerStartup 进程
+tail -f -n 500 /usr/local/rocketmq/logs/rocketmqlogs/broker.log  
+</code></pre>
+
+<h3 id="toc_10">10. 启动 BrokerServerB (192.168.1.122)</h3>
+
+<pre><code class="language-zsh">cd /usr/local/rocketmq/bin
+nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-noslave/broker-b.properties &gt;/dev/null 2&gt;&amp;1 &amp;
+    
+## 验证命令
+netstat -ntlp
+jps  ## 多了一个 BrokerStartup 进程
+tail -f -n 500 /usr/local/rocketmq/logs/rocketmqlogs/broker.log
+</code></pre>
+
+<h3 id="toc_11">11. RocketMQ Console</h3>
+
+<p>RocketMQ 管控台</p>
+
+<pre><code class="language-zsh">## 机器上已安装tomcat，目录位于 usr/local/apache-tomcat-7.0.29/
+## 将 [rocketmq-console](media/15478638398938/rocketmq-console.war) 放到192.168.1.121 /usr/local/apache-tomcat-7.0.29/webapps/ 目录下
+cd /usr/local/apache-tomcat-7.0.29/webapps/
+mkdir rocketmq-console
+unzip rocketmq-consolerocketmq-console.war -d rocketmq-console
+rm rocketmq-console.war
+cd rocketmq-console/WEB-INF/classes/
+## 修改 config.properties 文件内容的 nameserver 服务器地址
+vim config.properties
+    
+rocketmq.namesrv.addr=192.168.1.121:9876;192.168.1.121:9876
+    
+## 启动 tomcat
+/usr/local/apache-tomcat-7.0.29/bin/startup.sh
+    
+## 验证 tomcat 是否启动
+jps  ## 多了一个Bootstrap 进程
+    
+    
+## 浏览器访问  输入下面网址即可访问 RocketMQ 管控台 
+192.178.1.121:8080/rocketmq-console/
+</code></pre>
+
+<h3 id="toc_12">12. 停止 RocketMQ 集群</h3>
+
+<pre><code class="language-zsh">## 两台机器都操作
+## 注意 启动时先启动 namesrv， 后启动 broker
+##     关闭是先关闭 broker， 后关闭 namesrv
+cd /usr/local/rocketmq/bin
+sh mqshutdown broker
+sh mqshutdown namesrv
+</code></pre>
+
+<h3 id="toc_13">13. 数据清理</h3>
+
+<pre><code class="language-zsh">## 两台机器都操作
+## 等待 nameserver/broker 停止后
+    
+rm -rf /usr/local/rocketmq/store
+mkdir /usr/local/rocketmq/store
+mkdir /usr/local/rocketmq/store/commitlog
+mkdir /usr/local/rocketmq/store/consumequeue
+mkdir /usr/local/rocketmq/store/index
+
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

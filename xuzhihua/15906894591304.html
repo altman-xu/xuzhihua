@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	jvm 垃圾回收算法 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">jvm 垃圾回收算法</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p><a href="https://www.cnblogs.com/cielosun/p/6674431.html">Java基础：JVM垃圾回收算法</a></p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">1. 如何确定某个对象是垃圾</a>
+<ul>
+<li>
+<a href="#toc_1">1.1. 引用计数法</a>
+</li>
+<li>
+<a href="#toc_2">1.2. 可达性分析</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_3">2. 典型的垃圾回收算法</a>
+<ul>
+<li>
+<a href="#toc_4">2.1. 标记-清除算法(Mark-Sweep)</a>
+</li>
+<li>
+<a href="#toc_5">2.2. 复制算法(Copying)</a>
+</li>
+<li>
+<a href="#toc_6">2.3. 标记-整理算法(Mark-Compact)</a>
+</li>
+<li>
+<a href="#toc_7">2.4. 分代收集算法(Generational Collection)</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_8">3. 典型的垃圾收集器</a>
+<ul>
+<li>
+<a href="#toc_9">3.1. Serial/Serial Old      -- 使用Copying算法</a>
+</li>
+<li>
+<a href="#toc_10">3.2. ParNew</a>
+</li>
+<li>
+<a href="#toc_11">3.3. Parallel Scavenge</a>
+</li>
+<li>
+<a href="#toc_12">3.4. Parallel Old</a>
+</li>
+<li>
+<a href="#toc_13">3.5. CMS</a>
+</li>
+<li>
+<a href="#toc_14">3.6. G1</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>众所周知，Java的垃圾回收是不需要程序员去手动操控的，而是由JVM去完成。本文介绍JVM进行垃圾回收的各种算法。</p>
+
+<h2 id="toc_0">1. 如何确定某个对象是垃圾</h2>
+
+<h3 id="toc_1">1.1. 引用计数法</h3>
+
+<p>在Java中，引用和对象是有关联的。如果要操作对象则必须用引用进行。因此，很显然一个简单的办法是通过引用计数来判断一个对象是否可以回收。简单说，即一个对象如果没有任何与之关联的引用，则说明对象不太可能再被用到，那么这个对象就是可回收对象。这种方式即是引用计数法。这种方式的问题是无法解决循环引用的问题，举个例子：</p>
+
+<pre><code class="language-java">public static void main(String[] args){
+    Object object1=new Object();
+    Object object2=new Object();
+    object1.object=object2;
+    object2.object=object1;
+    object1=null;
+    object2=null;
+}
+</code></pre>
+
+<p>显然，在最后，object1和object2的内存块都不能再被访问到了，但他们的引用计数都不为0，这就会使他们永远不会被清除。</p>
+
+<h3 id="toc_2">1.2. 可达性分析</h3>
+
+<p>为了解决引用计数法的循环引用问题，Java使用了可达性分析的方法。通过一系列的“GC roots”对象作为起点搜索。如果在“GC roots”和一个对象之间没有可达路径，则称该对象是不可达的。要注意的是，不可达对象不等价于可回收对象，不可达对象变为可回收对象至少要经过两次标记过程。两次标记后仍然是可回收对象，则将面临回收。</p>
+
+<p>所谓“GC roots”，或者说tracing GC的“根集合”，就是一组必须活跃的引用。例如说，这些引用可能包括：</p>
+
+<p>所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用；换句话说，当前所有正在被调用的方法的引用类型的参数/局部变量/临时值。<br/>
+VM的一些静态数据结构里指向GC堆里的对象的引用，例如说HotSpot VM里的Universe里有很多这样的引用。<br/>
+JNI handles，包括global handles和local handles（看情况）<br/>
+所有当前被加载的Java类（看情况）<br/>
+Java类的引用类型静态变量（看情况）<br/>
+Java类的运行时常量池里的引用类型常量（String或Class类型）（看情况）<br/>
+String常量池（StringTable）里的引用<br/>
+比较常见的将对象视为可回收对象的原因：</p>
+
+<p>显式地将对象的唯一强引用指向新的对象。<br/>
+显式地将对象的唯一强引用赋值为Null。<br/>
+局部引用所指向的对象（如，方法内对象）。<br/>
+下述代码中，每次循环结束，object都会被视为可回收对象。</p>
+
+<pre><code class="language-java">void fun() {
+ 
+.....
+    for(int i=0;i&lt;10;i++) {
+        Object obj = new Object();
+        System.out.println(obj.getClass());
+    }   
+}
+</code></pre>
+
+<p>只有弱引用与其关联的对象</p>
+
+<h2 id="toc_3">2. 典型的垃圾回收算法</h2>
+
+<p>在JVM规范中并没有明确GC的运作方式，各个厂商可以采用不同的方式去实现垃圾回收器。这里讨论几种常见的GC算法。</p>
+
+<h3 id="toc_4">2.1. 标记-清除算法(Mark-Sweep)</h3>
+
+<p>最基础的垃圾回收算法，分为两个阶段，标注和清除。标记阶段标记出所有需要回收的对象，清除阶段回收被标记的对象所占用的空间。如图：<br/>
+<img src="media/15906894591304/15906896745032.jpg" alt=""/></p>
+
+<p>缺点: 该算法最大的问题是内存碎片化严重，后续可能发生大对象不能找到可利用空间的问题。</p>
+
+<h3 id="toc_5">2.2. 复制算法(Copying)</h3>
+
+<p>为了解决Mark-Sweep算法内存碎片化的缺陷而被提出的算法。按内存容量将内存划分为等大小的两块。每次只使用其中一块，当这一块内存满后将尚存活的对象复制到另一块上去，把已使用的内存清掉，如图：<br/>
+<img src="media/15906894591304/15906897055718.jpg" alt=""/></p>
+
+<p>优点: 算法实现简单，内存效率高，不易产生碎片<br/>
+缺点: 可用内存被压缩到了原本的一半。且存活对象增多的话，Copying算法的效率会大大降低</p>
+
+<h3 id="toc_6">2.3. 标记-整理算法(Mark-Compact)</h3>
+
+<p>结合了以上两个算法，为了避免缺陷而提出。标记阶段和Mark-Sweep算法相同，标记后不是清理对象，而是将存活对象移向内存的一端。然后清除端边界外的对象。如图：</p>
+
+<p><img src="media/15906894591304/15906897436710.jpg" alt=""/></p>
+
+<h3 id="toc_7">2.4. 分代收集算法(Generational Collection)</h3>
+
+<p>新生代--使用Copying算法<br/>
+老年代--使用Mark-Compact算法</p>
+
+<p>分代收集法是目前大部分JVM所采用的方法，其核心思想是根据对象存活的不同生命周期将内存划分为不同的域，一般情况下将GC堆划分为老生代(Tenured/Old Generation)和新生代(Young Generation)。老生代的特点是每次垃圾回收时只有少量对象需要被回收，新生代的特点是每次垃圾回收时都有大量垃圾需要被回收，因此可以根据不同区域选择不同的算法。</p>
+
+<p>目前大部分JVM的GC对于<code>新生代</code>都采取<code>Copying算法</code>，因为新生代中每次垃圾回收都要回收大部分对象，即要复制的操作比较少，但通常并不是按照1：1来划分新生代。一般将新生代划分为一块较大的Eden空间和两个较小的Survivor空间(From Space, To Space)，每次使用Eden空间和其中的一块Survivor空间，当进行回收时，将该两块空间中还存活的对象复制到另一块Survivor空间中。</p>
+
+<p><img src="media/15906894591304/15906897701470.jpg" alt=""/></p>
+
+<p>而<code>老生代</code>因为每次只回收少量对象，因而采用<code>Mark-Compact</code>算法。</p>
+
+<p>另外，处于方法区的永生代(Permanet Generation)。它用来存储class类，常量，方法描述等。对永生代的回收主要包括废弃常量和无用的类。</p>
+
+<p>对象的内存分配主要在新生代的Eden Space和Survivor Space的From Space(Survivor目前存放对象的那一块)，少数情况会直接分配到老生代。当新生代的Eden Space和From Space空间不足时就会发生一次GC，进行GC后，Eden Space和From Space区的存活对象会被挪到To Space，然后将Eden Space和From Space进行清理。如果To Space无法足够存储某个对象，则将这个对象存储到老生代。在进行GC后，使用的便是Eden Space和To Space了，如此反复循环。当对象在Survivor区躲过一次GC后，其年龄就会+1。默认情况下年龄到达15的对象会被移到老生代中。</p>
+
+<h2 id="toc_8">3. 典型的垃圾收集器</h2>
+
+<p>垃圾收集算法是垃圾收集器的理论基础，而垃圾收集器就是其具体实现。下面介绍HotSpot虚拟机提供的几种垃圾收集器。</p>
+
+<h3 id="toc_9">3.1. Serial/Serial Old      -- 使用Copying算法</h3>
+
+<p>最古老的收集器，是一个单线程收集器，用它进行垃圾回收时，必须暂停所有用户线程。Serial是针对新生代的收集器，采用Copying算法；而Serial Old是针对老生代的收集器，采用Mark-Compact算法。优点是简单高效，缺点是需要暂停用户线程。</p>
+
+<h3 id="toc_10">3.2. ParNew</h3>
+
+<p>Seral/Serial Old的多线程版本，使用多个线程进行垃圾收集。</p>
+
+<h3 id="toc_11">3.3. Parallel Scavenge</h3>
+
+<p>新生代的并行收集器，回收期间不需要暂停其他线程，采用Copying算法。该收集器与前两个收集器不同，主要为了达到一个可控的吞吐量。</p>
+
+<h3 id="toc_12">3.4. Parallel Old</h3>
+
+<p>Parallel Scavenge的老生代版本，采用Mark-Compact算法和多线程。</p>
+
+<h3 id="toc_13">3.5. CMS</h3>
+
+<p>Current Mark Sweep收集器是一种以最小回收时间停顿为目标的并发回收器，因而采用Mark-Sweep算法。</p>
+
+<h3 id="toc_14">3.6. G1</h3>
+
+<p>G1(Garbage First)收集器技术的前沿成果，是面向服务端的收集器，能充分利用CPU和多核环境。是一款并行与并发收集器，它能够建立可预测的停顿时间模型。</p>
+
+<ol>
+<li>参考文章
+Java垃圾回收机制
+java的gc为什么要分代？ - RednaxelaFX的回答 - 知乎</li>
+</ol>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>

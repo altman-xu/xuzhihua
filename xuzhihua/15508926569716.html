@@ -1,0 +1,411 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	案例：简单数据库连接池代码实现 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">案例：简单数据库连接池代码实现</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p>java 实现 数据库连接池<br/>
+使用到 代理模式、LinkedList、await、notifyAll、CountDownLatch</p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">ConnectionDriver (jdbc驱动器)</a>
+</li>
+<li>
+<a href="#toc_1">ConnectionPool (连接池类)</a>
+</li>
+<li>
+<a href="#toc_2">MainTest (测试类)</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">ConnectionDriver (jdbc驱动器)</h2>
+
+<p><code>代理模式</code>使用</p>
+
+<ul>
+<li>java.sql.Connection是一个接口，最终的实现是由数据库驱动提供方来实现的，</li>
+<li>本类模拟数据库驱动，通过动态代理构造一个Connection，</li>
+<li>该Connection的代理实现仅仅是在commit()方法调用休眠100毫秒</li>
+</ul>
+
+<pre><code class="language-java">package test.connectPoolDemo;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.sql.Connection;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @author xuzhihua
+ * @date 2019/2/23 11:01 AM
+ */
+public class ConnectionDriver {
+    static class ConnectionHandler implements InvocationHandler {
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            if (&quot;commit&quot;.equals(method.getName())){
+                TimeUnit.MILLISECONDS.sleep(100);
+            }
+            return null;
+        }
+    }
+
+    // 创建一个Connection的代理，在commit时休眠100毫秒
+    public static final Connection createConnection() {
+        return (Connection) Proxy.newProxyInstance(ConnectionDriver.class.getClassLoader(), new Class[]{Connection.class}, new ConnectionHandler());
+    }
+}
+</code></pre>
+
+<h2 id="toc_1">ConnectionPool (连接池类)</h2>
+
+<ul>
+<li>连接池定义：</li>
+<li>通过构造函数初始化连接的最大上限，通过一个双向链表<code>LinkedList</code>来维护链接</li>
+<li>fetchConnection(long):调用方需要先调用该方法来指定在多少毫秒内超时获取连接</li>
+<li>releaseConnection(Connection):当连接使用完后，需要调用该方法将连接放回线程池</li>
+</ul>
+
+<pre><code class="language-java">package test.connectPoolDemo;
+
+import java.sql.Connection;
+import java.util.LinkedList;
+
+/**
+ * @author xuzhihua
+ * @date 2019/2/23 10:56 AM
+ */
+public class ConnectionPool {
+    private LinkedList&lt;Connection&gt; pool = new LinkedList&lt;&gt;();
+
+    public ConnectionPool(int initialSize) {
+        if (initialSize &gt; 0) {
+            for (int i = 0; i &lt; initialSize; i++) {
+                pool.addLast(ConnectionDriver.createConnection());
+            }
+        }
+    }
+
+    // 释放连接
+    public void releaseConnection(Connection connection) {
+        if (connection != null) {
+            synchronized (pool) {
+                // 连接释放后需要进行通知，这样其他消费者能够感知到连接池中已经归还了一个连接
+                pool.addLast(connection);
+                pool.notifyAll();
+            }
+        }
+    }
+
+    // 获取连接，在mills内无法获取到连接，将会返回null
+    public Connection fetchConnection(long mills) throws InterruptedException {
+        synchronized (pool) {
+            // 完全超时
+            if (mills &lt;= 0) {
+                while (pool.isEmpty()) {
+                    pool.wait();
+                }
+                return pool.removeFirst();
+            } else {
+                long future = System.currentTimeMillis() + mills;
+                long remaining = mills;
+                while (pool.isEmpty() &amp;&amp; remaining &gt; 0) {
+                    pool.wait(remaining);
+                    remaining = future - System.currentTimeMillis();
+                }
+                Connection result = null;
+                if (!pool.isEmpty()) {
+                    result = pool.removeFirst();
+                }
+                return result;
+            }
+        }
+    }
+}
+</code></pre>
+
+<h2 id="toc_2">MainTest (测试类)</h2>
+
+<ul>
+<li>数据库连接池测试类</li>
+</ul>
+
+<pre><code class="language-java">package test.connectPoolDemo;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * @author xuzhihua
+ * @date 2019/2/23 11:13 AM
+ */
+public class MainTest {
+    static ConnectionPool pool = new ConnectionPool(10);
+    // 保证所有ConnectionRunner能够同时开始
+    static CountDownLatch start = new CountDownLatch(1);
+    // main线程将会等待所有ConnectionRunner结束后才能继续执行
+    static CountDownLatch end;
+
+    public static void main(String[] args) throws InterruptedException {
+        // 线程数量，可以修改线程数量进行观察
+        int threadCount = 10;
+        int count = 20;
+        end = new CountDownLatch(threadCount);
+        AtomicInteger got = new AtomicInteger();
+        AtomicInteger notGot = new AtomicInteger();
+
+        for (int i = 0; i &lt; threadCount; i++) {
+            Thread thread = new Thread(new ConnectionRunner(count, got, notGot), &quot;ConnectionRunnerThread&quot;);
+            thread.start();
+        }
+        start.countDown();
+        end.await();
+        System.out.println(&quot;thread num: &quot; + threadCount);
+        System.out.println(&quot;total invoke: &quot; + (threadCount * count));
+        System.out.println(&quot;got connection: &quot; + got);
+        System.out.println(&quot;not got connection: &quot; + notGot);
+    }
+
+    static class ConnectionRunner implements Runnable {
+        int count;
+        AtomicInteger got;
+        AtomicInteger notGot;
+
+        public ConnectionRunner(int count, AtomicInteger got, AtomicInteger notGot) {
+            this.count = count;
+            this.got = got;
+            this.notGot = notGot;
+        }
+        @Override
+        public void run() {
+            try {
+                start.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            while (count &gt; 0) {
+                try {
+                    // 从线程池中获取连接，如果1000ms内无法获取到，将会返回null
+                    // 分别统计连接获取的数量got 和 未获取的数量notGot
+                    Connection connection = pool.fetchConnection(1000);
+                    if (connection != null) {
+                        try {
+                            connection.createStatement();
+                            connection.commit();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } finally {
+                            pool.releaseConnection(connection);
+                            got.incrementAndGet();
+                        }
+                    } else {
+                        notGot.incrementAndGet();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    count --;
+                }
+            }
+            end.countDown();
+        }
+    }
+}
+</code></pre>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>
