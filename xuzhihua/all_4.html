@@ -168,6 +168,41 @@
 	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 		<div class="meta">
 			<div class="date">
+				<time datetime="2019-03-04T22:56:10+08:00" itemprop="datePublished">2019/3/4</time>
+			</div>
+			<div class="tags">posted in 
+			
+			    <a class='category' href='MySQL.html'>MySQL</a>&nbsp;
+			 
+			</div>
+		</div>
+		<h1 class="title" itemprop="name"><a href="15517113703339.html" itemprop="url">
+		组合索引的引导列</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			<blockquote>
+<p>组合索引的列顺序如何排列<br/>
+<code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code><br/>
+这种sql，t2上建立(id)索引，t1上建立组合索引(owner,id)<br/>
+尽量把join列放到组合索引最后面<br/>
+<code>INDEX FAST FULL SCAN</code> <strong>inx_id_owner</strong>  <code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code> <br/>
+<code>INDEX RANGE SCAN</code> <strong>inx_owner_id</strong>  <code>select count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SCOTT&#39;;</code><br/>
+<code>INDEX FULL SCAN</code> <strong>inx_id_owner</strong> <code>select /*+ index(t1 inx_id_owner) */ count(*) from t1,t2 where t1.id=t2.id and t1.owner=&#39;SYS&#39;;</code><br/>
+<code>INDEX SKIP SCAN</code> <strong>inx_id_owner</strong> <code>select /*+ index_ss(t1 inx_id_owner) */ count(*) from t1,t2 where t1.id=t2.id and t1.owner = &#39;SYS&#39;;</code></p>
+
+<p><a href="https://blog.csdn.net/robinson1988/article/details/6663503">组合索引怎么应该怎么选取引导列？</a></p>
+</blockquote>
+
+
+			
+			
+		</div>
+
+	</article>
+ 
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
 				<time datetime="2019-03-01T23:20:06+08:00" itemprop="datePublished">2019/3/1</time>
 			</div>
 			<div class="tags">posted in 
@@ -378,36 +413,6 @@ Memcached</p>
 
 			 
 			<a href="15508972452401.html#more" class="more-link">Read on &rarr;</a>
-    		
-			
-		</div>
-
-	</article>
- 
-	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-		<div class="meta">
-			<div class="date">
-				<time datetime="2019-02-23T11:30:56+08:00" itemprop="datePublished">2019/2/23</time>
-			</div>
-			<div class="tags">posted in 
-			
-			    <a class='category' href='Case.html'>Case</a>&nbsp;
-			 
-			</div>
-		</div>
-		<h1 class="title" itemprop="name"><a href="15508926569716.html" itemprop="url">
-		案例：简单数据库连接池代码实现</a></h1>
-		<div class="entry-content" itemprop="articleBody">
-			
-			<blockquote>
-<p>java 实现 数据库连接池<br/>
-使用到 代理模式、LinkedList、await、notifyAll、CountDownLatch</p>
-</blockquote>
-
-
-
-			 
-			<a href="15508926569716.html#more" class="more-link">Read on &rarr;</a>
     		
 			
 		</div>

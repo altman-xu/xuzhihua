@@ -704,6 +704,192 @@ MOVS: 通过符号扩展来填充，把源操作的最高位进行复制</p>
 </tbody>
 </table>
 
+<h2 id="toc_13">条件跳转指令</h2>
+
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>同义名</th>
+<th>传送条件</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>cmove S,R</td>
+<td>cmovz</td>
+<td>ZF</td>
+<td>相等/零</td>
+</tr>
+<tr>
+<td>cmovne  S,R</td>
+<td>cmovnz</td>
+<td>~ZF</td>
+<td>不相等/非零</td>
+</tr>
+<tr>
+<td>cmovs  S,R</td>
+<td></td>
+<td>SF</td>
+<td>负数</td>
+</tr>
+<tr>
+<td>cmovns S,R</td>
+<td></td>
+<td>~SF</td>
+<td>非负数</td>
+</tr>
+<tr>
+<td>cmovg  S,R</td>
+<td>cmovnle</td>
+<td>~(SF^OF)&amp;~ZF</td>
+<td>大于(有符号&gt;)</td>
+</tr>
+<tr>
+<td>cmovge S,R</td>
+<td>cmovnl</td>
+<td>~(SF^OF)</td>
+<td>大于或等于(有符号&gt;=)</td>
+</tr>
+<tr>
+<td>cmovl  S,R</td>
+<td>cmovnge</td>
+<td>SF^OF</td>
+<td>小于(有符号&lt;)</td>
+</tr>
+<tr>
+<td>cmovle S,R</td>
+<td>cmovng</td>
+<td>(SF^OF)|ZF</td>
+<td>小于或等于(有符号&lt;=)</td>
+</tr>
+<tr>
+<td>cmova  S,R</td>
+<td>cmovnbe</td>
+<td>~CF&amp;~ZF</td>
+<td>超过(无符号&gt;)</td>
+</tr>
+<tr>
+<td>cmovae S,R</td>
+<td>cmovnb</td>
+<td>~CF</td>
+<td>超过或相等(无符号&gt;=)</td>
+</tr>
+<tr>
+<td>cmovb  S,R</td>
+<td>cmovnae</td>
+<td>CF</td>
+<td>低于(无符号&lt;)</td>
+</tr>
+<tr>
+<td>cmovbe S,R</td>
+<td>cmovna</td>
+<td>CF</td>
+<td>ZF</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_14">分支控制</h2>
+
+<ol>
+<li><p>基于<code>条件数据传送</code>代码性能好 </p>
+
+<ol>
+<li>优点:性能好。原因是处理器通过<code>流水线</code>获得高性能，在流水线中，一条指令的处理需经过一些列阶段，每个阶段执行所需操作的一小部分(如从内存读取指令、确认指令类型、从内存读取数据、执行算术运算、向内存写数据，以及更新程序计数器)。这种方法通过重叠连续指令的步骤来获得高性能。 例如，在读取一条指令的同时，执行它前面一条指令的算术运算。</li>
+<li><p>缺点:(但在实际运行中，不一定很适用)</p>
+
+<ol>
+<li>可能导致空指针</li>
+<li>由于要计算两个分支的表达式，若表达式计算复杂时候，耗时更长</li>
+</ol></li>
+</ol></li>
+<li><p>基于<code>条件控制转移</code></p></li>
+</ol>
+
+<blockquote>
+<p>总的来说: 条件数据传送提供了一种用条件控制转移来实现条件操作的替代策略。它们只能用于非常受限制的情况，但这些情况还是相当常见的，而且与现代处理器的允许方式更契合</p>
+</blockquote>
+
+<pre><code class="language-c">// 原始代码
+v = test-expr ? then-expr : else-expr
+
+// 条件控制转移 方法编译结果如下:
+    if (!test-expr)
+        goto false;
+    v = then-expr;
+    goto done;
+false:
+    v = else-expr;
+done:
+
+// 条件数据传送 方法编译结果如下:
+v  = then-expr;
+ve = else-expr;
+t  = test-expr;
+if(!t) v = ve;
+</code></pre>
+
+<p><img src="media/16085556725861/16098064414251.jpg" alt=""/></p>
+
+<h2 id="toc_15">循环</h2>
+
+<pre><code class="language-c">// c语言 do-while 循环
+do
+    body-statement
+    while(test-expr);
+    
+// 翻译成goto
+loop:
+    body-statement
+    t = test-expr;
+    if(t)
+        goto loop;
+        
+
+// c语言 while 循环
+while(test-expr)
+    body-statement
+// 翻译成goto  第一种翻译方法: 跳转到中间(jump to middle)
+    goto test;
+loop:
+    body-statement
+test:
+    t = test-expr;
+    if (t)
+        goto loop;
+// 翻译成goto 第二种翻译方法: guarded-do 变成do-while循环
+/////////////// do-while 写法begin
+t = test-expr;
+if(!t)
+    goto done;
+do
+    body-statement
+    while(test-expr);
+done:
+/////////////// do-while 写法end
+/////////////// goto begin
+t = test-expr;
+if(!t)
+    goto done;
+loop:
+    body-statuement
+    t = test-expr;
+    if(t)
+        goto loop;
+done：
+/////////////// goto end
+
+</code></pre>
+
+<p><img src="media/16085556725861/16098076551649.jpg" alt=""/></p>
+
+<p><img src="media/16085556725861/16098079948858.jpg" alt=""/></p>
+
+<p><img src="media/16085556725861/16098085535580.jpg" alt=""/></p>
+
 		</div>
 	</article>
 	<div class="share-comment">
