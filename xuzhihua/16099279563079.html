@@ -1,0 +1,545 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>  
+	  
+  	goland entry task 设计文档 - xuzhihua blog
+  	
+	</title>
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="xuzhihua blog" type="application/atom+xml">
+
+	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
+	<style type="text/css">
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+	</style>
+	
+	<style type="text/css">
+	.container .left-col{ opacity: 1;}
+	#pagenavi a{ font-size: 1.3em;}
+	#pagenavi .next:before{ top: 3px;}
+	#pagenavi .prev:before{ top: 3px;}
+	.container .mid-col .mid-col-container #content .archives .title{ font-size: 1.5em;}
+	.container .mid-col .mid-col-container #content article{ padding: 15px 0px;}
+	#header .subtitle {
+		line-height: 1.2em;
+		padding-top: 8px;
+	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
+	.share-comment{ padding: 25px 0px; clear: both;}
+	hr{ margin: 20px 0px;border: 0; border-top:solid 1px #ddd;}
+	</style>
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+				<header id="header" class="inner">
+				 
+					
+					<h1><a href="index.html">xuzhihua blog</a></h1>
+					<p class="subtitle"></p>
+					<nav id="main-nav">
+						<ul class="main">
+						
+						  <li id=""><a target="_self" href="index.html">[Home]</a></li>
+						
+						  <li id=""><a target="_self" href="archives.html">[All Archives]</a></li>
+						
+						  <li id=""><a target="_self" href="Case.html">Case</a></li>
+						
+						  <li id=""><a target="_self" href="Mac.html">Mac</a></li>
+						
+						  <li id=""><a target="_self" href="OS.html">OS</a></li>
+						
+						  <li id=""><a target="_self" href="Algorithms.html">Algorithms</a></li>
+						
+						  <li id=""><a target="_self" href="NetWork.html">NetWork</a></li>
+						
+						  <li id=""><a target="_self" href="Apache.html">Apache</a></li>
+						
+						  <li id=""><a target="_self" href="Nginx.html">Nginx</a></li>
+						
+						  <li id=""><a target="_self" href="Oracle.html">Oracle</a></li>
+						
+						  <li id=""><a target="_self" href="MySQL.html">MySQL</a></li>
+						
+						  <li id=""><a target="_self" href="NoSQL.html">NoSQL</a></li>
+						
+						  <li id=""><a target="_self" href="Mybatis.html">Mybatis</a></li>
+						
+						  <li id=""><a target="_self" href="JVM.html">JVM</a></li>
+						
+						  <li id=""><a target="_self" href="Zookeeper.html">Zookeeper</a></li>
+						
+						  <li id=""><a target="_self" href="MQ.html">MQ</a></li>
+						
+						  <li id=""><a target="_self" href="Java.html">Java</a></li>
+						
+						  <li id=""><a target="_self" href="Goland.html">goland</a></li>
+						
+						  <li id=""><a target="_self" href="Idea.html">Idea</a></li>
+						
+						  <li id=""><a target="_self" href="JavaScript.html">JavaScript</a></li>
+						
+						  <li id=""><a target="_self" href="Shell.html">Shell</a></li>
+						
+						  <li id=""><a target="_self" href="Read.html">Read</a></li>
+						
+						  <li id=""><a target="_self" href="Video.html">Video</a></li>
+						
+						  <li id=""><a target="_self" href="jdkSource.html">jdkSource</a></li>
+						
+						  <li id=""><a target="_self" href="Fitness.html">Fitness</a></li>
+						
+						  <li id=""><a target="_self" href="AboutMe.html">AboutMe</a></li>
+						
+						</ul>
+					</nav>
+
+					<nav id="sub-nav">
+						<div class="social">
+
+
+
+
+
+
+
+
+
+
+
+
+
+								
+
+								<a class="rss" href="atom.xml" title="RSS">RSS</a>
+							
+						</div>
+					</nav>
+				</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container"> <div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">goland entry task 设计文档</h1>
+		<div class="entry-content" itemprop="articleBody">
+			<blockquote>
+<p><a href="https://www.cnblogs.com/quanxiaoha/p/10661650.html">性能测试工具wrk使用教程</a><br/><br/>
+<a href="https://www.jianshu.com/p/7679b5c8c4c3">wrk压力测试POST请求</a><br/><br/>
+<a href="https://www.mdeditor.tw/pl/p5gt">ab和wrk接口压测</a><br/><br/>
+<a href="https://corvo.myseu.cn/2018/11/15/2018-11-14-wrk%E5%8A%A8%E6%80%81%E8%AF%B7%E6%B1%82/">使用wrk完成简单的自定义动态请求</a></p>
+</blockquote>
+
+<span id="more"></span><!-- more -->
+
+<ul>
+<li>
+<a href="#toc_0">运行环境</a>
+</li>
+<li>
+<a href="#toc_1">流程图</a>
+</li>
+<li>
+<a href="#toc_2">使用组件</a>
+</li>
+<li>
+<a href="#toc_3">web与httpServer接口定义</a>
+</li>
+<li>
+<a href="#toc_4">httpServer与tcpServer接口定义</a>
+</li>
+<li>
+<a href="#toc_5">mysql数据库</a>
+</li>
+<li>
+<a href="#toc_6">json接口测试工具</a>
+</li>
+<li>
+<a href="#toc_7">压测</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">运行环境</h2>
+
+<p>电脑: Macbook Pro(16-inch, 2019)<br/><br/>
+系统: macOS Catalina Version 10.15.6<br/><br/>
+内存: 16GB<br/><br/>
+处理器: 2.3GHz 8-Core Intel Core i9  </p>
+
+<h2 id="toc_1">流程图</h2>
+
+<p>流程图使用的软件:drawio(<a href="https://app.diagrams.net/">https://app.diagrams.net/</a>)<br/><br/>
+<img src="https://altman-xu.github.io/xuzhihua/media/16098313488364/goland_entry_task_flow.png" alt="goland_entry_task_flow"/>  </p>
+
+<h2 id="toc_2">使用组件</h2>
+
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>功能说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>gin</td>
+<td>处理路由</td>
+</tr>
+<tr>
+<td>jwt</td>
+<td>权限控制 auth token</td>
+</tr>
+<tr>
+<td>grpc</td>
+<td>远程方法调用 httpServer调用tcpServer</td>
+</tr>
+<tr>
+<td>xorm</td>
+<td>orm工具连接db</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_3">web与httpServer接口定义</h2>
+
+<table>
+<thead>
+<tr>
+<th>url</th>
+<th>功能说明</th>
+<th>入参</th>
+<th>出参</th>
+<th>权限控制</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>/api</td>
+<td>跳转到主页</td>
+<td>-</td>
+<td>html</td>
+<td>-</td>
+</tr>
+<tr>
+<td>/api/signup</td>
+<td>跳转到用户注册页面</td>
+<td>-</td>
+<td>html</td>
+<td>-</td>
+</tr>
+<tr>
+<td>/api/signin</td>
+<td>跳转到用户登录页面</td>
+<td>-</td>
+<td>html</td>
+<td>-</td>
+</tr>
+<tr>
+<td>/api/info</td>
+<td>跳转到用户信息页面</td>
+<td>-</td>
+<td>html</td>
+<td>-</td>
+</tr>
+<tr>
+<td>/api/updatePage</td>
+<td>跳转到更新信息页面</td>
+<td>-</td>
+<td>html</td>
+<td>-</td>
+</tr>
+<tr>
+<td>/api/createUser</td>
+<td>Func:新建用户</td>
+<td>username,password,nickname,profilepicture</td>
+<td>json(resFlag,username,token,resMsg)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>/api/login</td>
+<td>Func:登录</td>
+<td>username,password</td>
+<td>json</td>
+<td>-</td>
+</tr>
+<tr>
+<td>/api/getToken</td>
+<td>Func:获取token</td>
+<td>-</td>
+<td>json(token)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>/api/private/update</td>
+<td>Func:更新信息</td>
+<td>username,password,nickname,profilepicture</td>
+<td>json</td>
+<td>有</td>
+</tr>
+<tr>
+<td>/api/private/queryUser</td>
+<td>Func:查询用户信息</td>
+<td>username</td>
+<td>json</td>
+<td>有</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-go">// User 实体
+type User struct {
+    Username string `xorm:&quot;varchar(100)&quot;`
+    Password string `xorm:&quot;varchar(100)&quot;`
+    Nickname string `xorm:&quot;varchar(200)&quot;`
+    Picuri   string `xorm:&quot;varchar(200)&quot;`
+}
+</code></pre>
+
+<h2 id="toc_4">httpServer与tcpServer接口定义</h2>
+
+<table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能说明</th>
+<th>入参</th>
+<th>出参</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>VerifyUser</td>
+<td>校验用户</td>
+<td>UserVo</td>
+<td>UserVo</td>
+</tr>
+<tr>
+<td>CreateUser</td>
+<td>新建用户</td>
+<td>UserVo</td>
+<td>UserVo</td>
+</tr>
+<tr>
+<td>UpdateUser</td>
+<td>更新用户</td>
+<td>UserVo</td>
+<td>UserVo</td>
+</tr>
+<tr>
+<td>QueryUser</td>
+<td>查询用户</td>
+<td>UserVo</td>
+<td>UserVo</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-protobuf">//UserVo 实体内容:
+message UserVo {
+    string username = 1;    // 用户名
+    string password = 2;    // 密码
+    string nickname = 3;    // 昵称
+    string picuri   = 4;    // 图片uri
+    string resFlag  = 5;    // 消息flag
+    string resMsg   = 6;    // 消息内容
+}
+
+</code></pre>
+
+<h2 id="toc_5">mysql数据库</h2>
+
+<pre><code class="language-sh">## 安装mysql
+brew install mysql
+
+## 启动mqsql服务
+brew services start mysql
+
+## 连接mysql(注:刚安装时是没密码,先手动设置一些密码后退出再重连)
+mysql -u root -p root   (用户 root 密码 root)
+
+
+#### 以下操作在 terminal 的 mysql 交互界面中操作
+## 创建 项目db
+CREATE DATABASE IF NOT EXISTS entry_task_db;
+
+## 使用新建的db
+use entry_task_db;
+
+## 创建 项目表
+CREATE TABLE IF NOT EXISTS `user`(
+`username`      VARCHAR(100) NOT NULL,
+`password`      VARCHAR(100) NOT NULL,
+`nickname`      VARCHAR(200),
+`picuri`        VARCHAR(200),
+PRIMARY KEY ( `username` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+</code></pre>
+
+<h2 id="toc_6">json接口测试工具</h2>
+
+<ol>
+<li>chrome 插件: Talend API Tester - Free Edition</li>
+<li>postman 客户端</li>
+</ol>
+
+<p>测试涉及接口:<br/><br/>
+<a href="http://localhost:9999/api/getToken">http://localhost:9999/api/getToken</a><br/><br/>
+<a href="http://localhost:9999/api/login">http://localhost:9999/api/login</a><br/><br/>
+<a href="http://localhost:9999/api/createuser">http://localhost:9999/api/createuser</a><br/><br/>
+<a href="http://localhost:9999/api/private/queryUser">http://localhost:9999/api/private/queryUser</a><br/><br/>
+<a href="http://localhost:9999/api/private/update">http://localhost:9999/api/private/update</a>  </p>
+
+<h2 id="toc_7">压测</h2>
+
+<p>环境和软件准备:</p>
+
+<ol>
+<li>安装 lua <code>brew install lua</code></li>
+<li>安装 wrk <code>brew install wrk</code></li>
+</ol>
+
+<p>压测脚本在项目根目录下的 /lua 中</p>
+
+<ol>
+<li><p>login 压测  :线程8, 连接数200, 压测时间30s, 打印延迟统计信息, 指定lua脚本(不同的用户)</p>
+
+<pre><code class="language-sh">wrk -t8 -c200 -d30s --latency -s entry_task_login.lua http://localhost:9999/api/login
+
+## entry_task_login.lua 内容:
+wrk.method=&quot;POST&quot;
+-- wrk.body=&#39;{&quot;username&quot;: &quot;1&quot;,&quot;password&quot;: &quot;1&quot;}&#39;
+wrk.headers[&quot;Content-Type&quot;]=&quot;application/x-www-form-urlencoded&quot;
+request = function ()
+local tmp = math.random(1, 10000000)
+local body = &quot;&quot;
+    .. string.format(&quot;&amp;username=%d&quot;, tmp)
+    .. string.format(&quot;&amp;password=%d&quot;, tmp)
+return wrk.format(&#39;POST&#39;, nil, nil, body)
+end
+</code></pre>
+
+<pre><code class="language-sh">➜  Desktop wrk -t8 -c200 -d30s --latency -s entry_task_login.lua http://localhost:9999/api/login
+Running 30s test @ http://localhost:9999/api/login
+8 threads and 200 connections
+Thread Stats   Avg      Stdev     Max   +/- Stdev
+Latency   121.01ms  144.51ms   1.31s    80.10%
+Req/Sec   345.75    286.40     2.33k    80.54%
+Latency Distribution
+ 50%   34.76ms
+ 75%  226.61ms
+ 90%  344.86ms
+ 99%  481.51ms
+79125 requests in 30.07s, 22.74MB read
+Socket errors: connect 0, read 54, write 0, timeout 0
+Non-2xx or 3xx responses: 295
+Requests/sec:   2631.01
+Transfer/sec:    774.35KB
+</code></pre></li>
+<li><p>queryUser 压测 (注: 压测时此接口取消了图片base64返回前台，涉及文件慢操作) </p>
+
+<pre><code class="language-sh">wrk -t8 -c200 -d30s --latency -s entry_task_queryUser.lua http://localhost:9999/api/private/queryUser
+
+## entry_task_queryUser.lua 内容:  注: token 调用时要获取最新的
+wrk.method=&quot;POST&quot;
+wrk.body=&#39;{&quot;username&quot;: &quot;1&quot;}&#39;
+wrk.headers[&quot;Content-Type&quot;]=&quot;application/json&quot;
+wrk.headers[&quot;Authorization&quot;]=&quot;Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDk5MjI2OTQsImlkIjoidGVzdCJ9.7tcudiBF6A94ra4zqVTiUGCbIiVBpN-b0pHI7ApJbVI&quot;
+request = function ()
+   return wrk.format(&#39;POST&#39;, nil, nil, body)
+end
+</code></pre>
+
+<pre><code class="language-sh">## 压测结果  qps 3164
+➜  Desktop wrk -t8 -c200 -d30s --latency -s entry_task_queryUser.lua http://localhost:9999/api/private/queryUser
+Running 30s test @ http://localhost:9999/api/private/queryUser
+8 threads and 200 connections
+Thread Stats   Avg      Stdev     Max   +/- Stdev
+Latency    98.49ms  127.79ms   1.06s    80.87%
+Req/Sec   450.51    430.71     3.89k    87.49%
+Latency Distribution
+ 50%   16.99ms
+ 75%  182.88ms
+ 90%  310.18ms
+ 99%  441.28ms
+95206 requests in 30.09s, 57.37MB read
+Socket errors: connect 0, read 57, write 0, timeout 200
+Non-2xx or 3xx responses: 95206
+Requests/sec:   3164.14
+Transfer/sec:      1.91MB
+</code></pre></li>
+</ol>
+
+		</div>
+	</article>
+	<div class="share-comment">
+	 
+
+	  
+
+	  
+
+	</div>
+</div>        </div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+      </footer>
+		</div>
+	</div>
+
+  
+    
+
+
+
+</body>
+</html>
